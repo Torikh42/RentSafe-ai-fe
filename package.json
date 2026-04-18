@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "fl": "oxlint -c .oxlintrc.json --fix && oxfmt --write .",
+    "check": "tsc --noEmit",
+    "lint": "oxlint -c .oxlintrc.json",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check ."
   },
   "dependencies": {
     "next": "^15.1.7",
@@ -20,7 +24,10 @@
     "typescript": "^5.7.3",
     "tailwindcss": "^4.0.0",
     "postcss": "^8.5.1",
-    "eslint": "^9.19.0",
-    "eslint-config-next": "^15.1.7"
+    "oxlint": "latest",
+    "oxfmt": "latest"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
   }
 }

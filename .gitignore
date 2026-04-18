@@ -33,5 +33,9 @@ Thumbs.db
 # Bun
 bun.lock
 
+# TypeScript
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
 # Misc
 .vercel

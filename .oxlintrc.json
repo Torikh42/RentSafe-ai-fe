@@ -1,5 +1,12 @@
 {
-  "plugins": ["unicorn", "typescript", "oxc", "react", "react-hooks", "jsx-a11y"],
+  "plugins": [
+    "unicorn",
+    "typescript",
+    "oxc",
+    "react",
+    "react-hooks",
+    "jsx-a11y"
+  ],
   "categories": {},
   "rules": {
     "constructor-super": "warn",
@@ -113,7 +120,6 @@
     "unicorn/prefer-string-starts-ends-with": "warn",
     "react/no-array-index-key": "warn",
     "react/no-children-prop": "warn",
-    "react/no-children-to-array": "warn",
     "react/no-danger": "warn",
     "react/no-danger-with-children": "error",
     "react/no-direct-mutation-state": "error",
@@ -156,10 +162,8 @@
     },
     "react": {
       "formComponents": [],
-      "linkComponents": [
-        { "name": "Link", "linkAttribute": "href" }
-      ],
-      "version": "detect"
+      "linkComponents": [{ "name": "Link", "linkAttribute": "href" }],
+      "version": "19.0"
     },
     "jsdoc": {
       "ignorePrivate": false,

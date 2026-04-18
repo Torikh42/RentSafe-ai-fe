@@ -8,20 +8,20 @@
 
 ## 📋 Daftar Fitur (Berdasarkan Dokumen)
 
-| # | Fitur | Status | Priority |
-|---|-------|--------|----------|
-| 1 | **Landing Page & Marketing** | ✅ Ada | P0 |
-| 2 | **Authentication UI** (Login, Register, OAuth) | ❌ Belum | P0 |
-| 3 | **Property Discovery** (Search, Filter, Listing) | ❌ Belum | P0 |
-| 4 | **Property Detail View** | ❌ Belum | P0 |
-| 5 | **Booking System UI** | ❌ Belum | P0 |
-| 6 | **Smart Contract Interface** | ❌ Belum | P0 |
-| 7 | **AI Property Inspection Upload** | ❌ Belum | P1 |
-| 8 | **Dashboard (Tenant & Landlord)** | ❌ Belum | P1 |
-| 9 | **Escrow & Payment UI** | ❌ Belum | P1 |
-| 10 | **Dispute Resolution Interface** | ❌ Belum | P2 |
-| 11 | **AI Chat Interface** | ❌ Belum | P2 |
-| 12 | **Reputation & Reviews** | ❌ Belum | P2 |
+| #   | Fitur                                            | Status   | Priority |
+| --- | ------------------------------------------------ | -------- | -------- |
+| 1   | **Landing Page & Marketing**                     | ✅ Ada   | P0       |
+| 2   | **Authentication UI** (Login, Register, OAuth)   | ❌ Belum | P0       |
+| 3   | **Property Discovery** (Search, Filter, Listing) | ❌ Belum | P0       |
+| 4   | **Property Detail View**                         | ❌ Belum | P0       |
+| 5   | **Booking System UI**                            | ❌ Belum | P0       |
+| 6   | **Smart Contract Interface**                     | ❌ Belum | P0       |
+| 7   | **AI Property Inspection Upload**                | ❌ Belum | P1       |
+| 8   | **Dashboard (Tenant & Landlord)**                | ❌ Belum | P1       |
+| 9   | **Escrow & Payment UI**                          | ❌ Belum | P1       |
+| 10  | **Dispute Resolution Interface**                 | ❌ Belum | P2       |
+| 11  | **AI Chat Interface**                            | ❌ Belum | P2       |
+| 12  | **Reputation & Reviews**                         | ❌ Belum | P2       |
 
 ---
 
@@ -538,55 +538,55 @@ components/features/notifications/
 
 ### UI Components (Base)
 
-| Component | Location | Status |
-|-----------|----------|--------|
-| Button | `components/ui/Button.tsx` | ⏳ |
-| Input | `components/ui/Input.tsx` | ⏳ |
-| Card | `components/ui/Card.tsx` | ⏳ |
-| Modal | `components/ui/Modal.tsx` | ⏳ |
-| Select | `components/ui/Select.tsx` | ⏳ |
-| DatePicker | `components/ui/DatePicker.tsx` | ⏳ |
-| Avatar | `components/ui/Avatar.tsx` | ⏳ |
-| Badge | `components/ui/Badge.tsx` | ⏳ |
-| Skeleton | `components/ui/Skeleton.tsx` | ⏳ |
-| Toast | `components/ui/Toast.tsx` | ⏳ |
+| Component  | Location                       | Status |
+| ---------- | ------------------------------ | ------ |
+| Button     | `components/ui/Button.tsx`     | ⏳     |
+| Input      | `components/ui/Input.tsx`      | ⏳     |
+| Card       | `components/ui/Card.tsx`       | ⏳     |
+| Modal      | `components/ui/Modal.tsx`      | ⏳     |
+| Select     | `components/ui/Select.tsx`     | ⏳     |
+| DatePicker | `components/ui/DatePicker.tsx` | ⏳     |
+| Avatar     | `components/ui/Avatar.tsx`     | ⏳     |
+| Badge      | `components/ui/Badge.tsx`      | ⏳     |
+| Skeleton   | `components/ui/Skeleton.tsx`   | ⏳     |
+| Toast      | `components/ui/Toast.tsx`      | ⏳     |
 
 ### Feature Components
 
-| Component | Location | Status |
-|-----------|----------|--------|
-| PropertyCard | `components/features/properties/PropertyCard.tsx` | ⏳ |
-| PropertyFilter | `components/features/properties/PropertyFilter.tsx` | ⏳ |
-| BookingWidget | `components/features/bookings/BookingWidget.tsx` | ⏳ |
-| ContractViewer | `components/features/contracts/ContractViewer.tsx` | ⏳ |
-| PhotoUploader | `components/features/inspections/PhotoUploader.tsx` | ⏳ |
-| DamageReport | `components/features/inspections/DamageReport.tsx` | ⏳ |
-| DashboardLayout | `components/layout/DashboardLayout.tsx` | ⏳ |
-| Sidebar | `components/layout/Sidebar.tsx` | ⏳ |
+| Component       | Location                                            | Status |
+| --------------- | --------------------------------------------------- | ------ |
+| PropertyCard    | `components/features/properties/PropertyCard.tsx`   | ⏳     |
+| PropertyFilter  | `components/features/properties/PropertyFilter.tsx` | ⏳     |
+| BookingWidget   | `components/features/bookings/BookingWidget.tsx`    | ⏳     |
+| ContractViewer  | `components/features/contracts/ContractViewer.tsx`  | ⏳     |
+| PhotoUploader   | `components/features/inspections/PhotoUploader.tsx` | ⏳     |
+| DamageReport    | `components/features/inspections/DamageReport.tsx`  | ⏳     |
+| DashboardLayout | `components/layout/DashboardLayout.tsx`             | ⏳     |
+| Sidebar         | `components/layout/Sidebar.tsx`                     | ⏳     |
 
 ---
 
 ## 📝 Pages Summary
 
-| Route | Group | Access | Status |
-|-------|-------|--------|--------|
-| `/` | marketing | Public | ✅ |
-| `/about` | marketing | Public | ⏳ |
-| `/properties` | marketing | Public | ⏳ |
-| `/properties/[id]` | marketing | Public | ⏳ |
-| `/login` | auth | Public | ⏳ |
-| `/register` | auth | Public | ⏳ |
-| `/forgot-password` | auth | Public | ⏳ |
-| `/dashboard/tenant` | dashboard | Tenant | ⏳ |
-| `/dashboard/landlord` | dashboard | Landlord | ⏳ |
-| `/dashboard/settings` | dashboard | Authenticated | ⏳ |
-| `/bookings` | dashboard | Authenticated | ⏳ |
-| `/bookings/[id]` | dashboard | Authenticated | ⏳ |
-| `/contracts` | dashboard | Authenticated | ⏳ |
-| `/contracts/[id]` | dashboard | Authenticated | ⏳ |
-| `/inspections` | dashboard | Authenticated | ⏳ |
-| `/inspections/[id]` | dashboard | Authenticated | ⏳ |
-| `/payments` | dashboard | Authenticated | ⏳ |
+| Route                 | Group     | Access        | Status |
+| --------------------- | --------- | ------------- | ------ |
+| `/`                   | marketing | Public        | ✅     |
+| `/about`              | marketing | Public        | ⏳     |
+| `/properties`         | marketing | Public        | ⏳     |
+| `/properties/[id]`    | marketing | Public        | ⏳     |
+| `/login`              | auth      | Public        | ⏳     |
+| `/register`           | auth      | Public        | ⏳     |
+| `/forgot-password`    | auth      | Public        | ⏳     |
+| `/dashboard/tenant`   | dashboard | Tenant        | ⏳     |
+| `/dashboard/landlord` | dashboard | Landlord      | ⏳     |
+| `/dashboard/settings` | dashboard | Authenticated | ⏳     |
+| `/bookings`           | dashboard | Authenticated | ⏳     |
+| `/bookings/[id]`      | dashboard | Authenticated | ⏳     |
+| `/contracts`          | dashboard | Authenticated | ⏳     |
+| `/contracts/[id]`     | dashboard | Authenticated | ⏳     |
+| `/inspections`        | dashboard | Authenticated | ⏳     |
+| `/inspections/[id]`   | dashboard | Authenticated | ⏳     |
+| `/payments`           | dashboard | Authenticated | ⏳     |
 
 ---
 
@@ -640,24 +640,24 @@ bun add @tanstack/react-query  # Untuk client-side data fetching (optional)
 
 ## 📅 Timeline Summary
 
-| Phase | Duration | Deliverables |
-|-------|----------|--------------|
-| **Phase 1: Foundation** | Week 1-2 | Auth UI, Layout, Navigation |
-| **Phase 2: Discovery** | Week 3-4 | Property listing, detail, search |
-| **Phase 3: Rental Flow** | Week 5-6 | Booking, Contracts, Signing |
-| **Phase 4: AI Features** | Week 7-8 | Inspection upload, AI chat |
-| **Phase 5: Dashboard** | Week 9-10 | Tenant/Landlord dashboard, analytics |
-| **Phase 6: Payments** | Week 11-12 | Escrow UI, Midtrans, polish |
+| Phase                    | Duration   | Deliverables                         |
+| ------------------------ | ---------- | ------------------------------------ |
+| **Phase 1: Foundation**  | Week 1-2   | Auth UI, Layout, Navigation          |
+| **Phase 2: Discovery**   | Week 3-4   | Property listing, detail, search     |
+| **Phase 3: Rental Flow** | Week 5-6   | Booking, Contracts, Signing          |
+| **Phase 4: AI Features** | Week 7-8   | Inspection upload, AI chat           |
+| **Phase 5: Dashboard**   | Week 9-10  | Tenant/Landlord dashboard, analytics |
+| **Phase 6: Payments**    | Week 11-12 | Escrow UI, Midtrans, polish          |
 
 ---
 
 ## 🎯 Priority Legend
 
-| Priority | Meaning | Action |
-|----------|---------|--------|
-| **P0** | Critical — MVP harus ada | Kerjain dulu |
-| **P1** | Important — Perlu untuk production | Phase berikutnya |
-| **P2** | Nice to have — Bisa ditunda | Nanti saja |
+| Priority | Meaning                            | Action           |
+| -------- | ---------------------------------- | ---------------- |
+| **P0**   | Critical — MVP harus ada           | Kerjain dulu     |
+| **P1**   | Important — Perlu untuk production | Phase berikutnya |
+| **P2**   | Nice to have — Bisa ditunda        | Nanti saja       |
 
 ---
 

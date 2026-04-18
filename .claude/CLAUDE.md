@@ -10,6 +10,7 @@
 **Deskripsi:** Frontend untuk platform AI-powered dispute resolution sewa kos-kosan & apartemen di Indonesia. Mengatasi "justice gap" di mana biaya hukum (IDR 5-15 juta) > nilai deposit (IDR 1-3 juta).
 
 **Solusi Utama:**
+
 1. **AI Smart Contracts** — Generate kontrak sewa KUHPerdata-compliant dalam 5 menit
 2. **AI Property Inspection** — Gemini Vision API untuk dokumentasi kondisi properti (check-in/check-out)
 3. **Smart Escrow** — Deposit dipegang Midtrans, dirilis otomatis berdasarkan AI verdict
@@ -17,11 +18,13 @@
 5. **Two-way Reputation System** — Rating untuk tenant & landlord
 
 **Target Users:**
+
 - **Tenants:** Mahasiswa & young professionals (9.3 juta mahasiswa di Indonesia)
 - **Landlords:** Pemilik kos-kosan & apartemen
 - **Admin:** Platform moderator
 
 **Dokumen Referensi:**
+
 - `Geost_RentSafeAI.md` — Dokumen lengkap (background, solution, architecture, business model)
 - `IMPLEMENTATION_PLAN.md` — Phase-by-phase implementation plan untuk frontend
 
@@ -29,18 +32,18 @@
 
 ## 2. Tech Stack (Strict)
 
-| Layer | Technology | Keterangan |
-|-------|------------|------------|
-| **Framework** | Next.js 15+ | App Router (bukan Pages Router) |
-| **UI Library** | React 19+ | Latest React with Server Components |
-| **Styling** | Tailwind CSS v4 | Import-based configuration |
-| **Language** | TypeScript (strict) | No `any`, strict mode enabled |
-| **Auth** | Better Auth | Client-side auth integration |
-| **State** | React Context / Zustand | State management |
-| **Forms** | React Hook Form + Zod | Form handling & validation |
-| **HTTP** | Fetch / TanStack Query | API communication |
-| **AI** | Vercel AI SDK | AI streaming & chat UI |
-| **Linting** | Oxlint & Oxfmt | Fast lint & format |
+| Layer          | Technology              | Keterangan                          |
+| -------------- | ----------------------- | ----------------------------------- |
+| **Framework**  | Next.js 15+             | App Router (bukan Pages Router)     |
+| **UI Library** | React 19+               | Latest React with Server Components |
+| **Styling**    | Tailwind CSS v4         | Import-based configuration          |
+| **Language**   | TypeScript (strict)     | No `any`, strict mode enabled       |
+| **Auth**       | Better Auth             | Client-side auth integration        |
+| **State**      | React Context / Zustand | State management                    |
+| **Forms**      | React Hook Form + Zod   | Form handling & validation          |
+| **HTTP**       | Fetch / TanStack Query  | API communication                   |
+| **AI**         | Vercel AI SDK           | AI streaming & chat UI              |
+| **Linting**    | Oxlint & Oxfmt          | Fast lint & format                  |
 
 > ⚠️ **Next.js App Router** menggunakan Server Components secara default. Gunakan `'use client'` directive hanya untuk Client Components yang membutuhkan interactivity.
 
@@ -110,12 +113,14 @@ src/
 ### 3.3 Server vs Client Components
 
 **Server Components (default):**
+
 - Data fetching langsung ke backend
 - Akses ke environment variables server-side
 - Tidak bisa menggunakan hooks (`useState`, `useEffect`)
 - Tidak bisa menggunakan event handlers (`onClick`)
 
 **Client Components (`'use client'`):**
+
 - Forms dengan interactivity
 - Buttons dengan event handlers
 - Components yang menggunakan browser APIs
@@ -156,6 +161,7 @@ Phase 5: Verify → bun run fl && bun run check
 ## 4. Current Status & Implementation Plan
 
 ### Phase 1: Foundation & Auth (Week 1-2) — SEDANG DIKERJAKAN
+
 - [x] Project setup (Next.js 15 + Tailwind 4)
 - [x] Landing page
 - [ ] Auth pages (login, register)
@@ -163,6 +169,7 @@ Phase 5: Verify → bun run fl && bun run check
 - [ ] Protected route middleware
 
 ### Phase 2: Property & Discovery (Week 3-4)
+
 - [ ] Property listing page
 - [ ] Property detail page
 - [ ] Search & filter UI
@@ -170,6 +177,7 @@ Phase 5: Verify → bun run fl && bun run check
 - [ ] Image gallery component
 
 ### Phase 3: Rental Flow (Week 5-6)
+
 - [ ] Booking request form
 - [ ] Contract generation UI
 - [ ] Contract signing interface
@@ -177,18 +185,21 @@ Phase 5: Verify → bun run fl && bun run check
 - [ ] Booking management (tenant & landlord)
 
 ### Phase 4: AI Features (Week 7-8)
+
 - [ ] Property inspection upload
 - [ ] AI damage detection results display
 - [ ] Before/after comparison view
 - [ ] AI chat interface (Vercel AI SDK)
 
 ### Phase 5: Dashboard (Week 9-10)
+
 - [ ] Tenant dashboard
 - [ ] Landlord dashboard
 - [ ] Analytics charts
 - [ ] Reputation display
 
 ### Phase 6: Payments & Polish (Week 11-12)
+
 - [ ] Escrow status UI
 - [ ] Midtrans payment integration
 - [ ] Dispute resolution interface
@@ -367,6 +378,7 @@ bun run check  # TypeScript type check (tsc --noEmit)
 ```
 
 **Pre-commit Checklist:**
+
 - ✅ Tidak ada `'use client'` yang tidak perlu (pertimbangkan Server Component)
 - ✅ Data fetching di Server Component jika memungkinkan
 - ✅ Menggunakan `Image` component untuk gambar (bukan `img`)

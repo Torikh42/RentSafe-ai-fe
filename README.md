@@ -31,30 +31,30 @@
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Framework** | [Next.js 15](https://nextjs.org) | React framework dengan App Router |
-| **UI Library** | [React 19](https://react.dev) | UI component library |
-| **Styling** | [Tailwind CSS v4](https://tailwindcss.com) | Utility-first CSS |
-| **Language** | TypeScript (strict) | Type safety |
-| **Auth** | [Better Auth](https://www.better-auth.com) | Authentication client |
-| **State** | React Context / Zustand | State management |
-| **Forms** | React Hook Form + Zod | Form handling & validation |
-| **HTTP** | Fetch / TanStack Query | API communication |
-| **AI** | Vercel AI SDK | AI streaming & chat |
-| **Linting** | Oxlint & Oxfmt | Fast lint & format |
+| Layer          | Technology                                 | Purpose                           |
+| -------------- | ------------------------------------------ | --------------------------------- |
+| **Framework**  | [Next.js 15](https://nextjs.org)           | React framework dengan App Router |
+| **UI Library** | [React 19](https://react.dev)              | UI component library              |
+| **Styling**    | [Tailwind CSS v4](https://tailwindcss.com) | Utility-first CSS                 |
+| **Language**   | TypeScript (strict)                        | Type safety                       |
+| **Auth**       | [Better Auth](https://www.better-auth.com) | Authentication client             |
+| **State**      | React Context / Zustand                    | State management                  |
+| **Forms**      | React Hook Form + Zod                      | Form handling & validation        |
+| **HTTP**       | Fetch / TanStack Query                     | API communication                 |
+| **AI**         | Vercel AI SDK                              | AI streaming & chat               |
+| **Linting**    | Oxlint & Oxfmt                             | Fast lint & format                |
 
 ---
 
 ## 📚 Documentation
 
-| Document | Purpose |
-|----------|---------|
-| **[QWEN.MD](./QWEN.MD)** | 🤖 AI Assistant Guide (lengkap dengan guidelines) |
-| **[CLAUDE.MD](./CLAUDE.MD)** | 🤖 AI Assistant Guide (ringkasan rules & workflow) |
-| **[AGENTS.MD](./AGENTS.MD)** | 📐 Architecture rules & Golden Rules (WAJIB dibaca) |
-| **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** | 🗺️ Phase-by-phase implementation plan (pages & components) |
-| **[Geost_RentSafeAI.md](./Geost_RentSafeAI.md)** | 📄 Product specification (background, solution, business model) |
+| Document                                               | Purpose                                                         |
+| ------------------------------------------------------ | --------------------------------------------------------------- |
+| **[QWEN.MD](./QWEN.MD)**                               | 🤖 AI Assistant Guide (lengkap dengan guidelines)               |
+| **[CLAUDE.MD](./CLAUDE.MD)**                           | 🤖 AI Assistant Guide (ringkasan rules & workflow)              |
+| **[AGENTS.MD](./AGENTS.MD)**                           | 📐 Architecture rules & Golden Rules (WAJIB dibaca)             |
+| **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** | 🗺️ Phase-by-phase implementation plan (pages & components)      |
+| **[Geost_RentSafeAI.md](./Geost_RentSafeAI.md)**       | 📄 Product specification (background, solution, business model) |
 
 ---
 
@@ -164,24 +164,24 @@ bun run check        # TypeScript type check (tsc --noEmit)
 
 ## 🌍 Environment Variables
 
-| Variable | Description | Required | Example |
-|----------|-------------|----------|---------|
-| `NEXT_PUBLIC_API_URL` | Backend API URL | ✅ | `http://localhost:8000` |
-| `NEXT_PUBLIC_APP_URL` | Frontend URL | ✅ | `http://localhost:3000` |
-| `NEXT_PUBLIC_GEMINI_API_KEY` | Gemini API key (client) | ⏳ | `AIzaSy...` |
+| Variable                     | Description             | Required | Example                 |
+| ---------------------------- | ----------------------- | -------- | ----------------------- |
+| `NEXT_PUBLIC_API_URL`        | Backend API URL         | ✅       | `http://localhost:8000` |
+| `NEXT_PUBLIC_APP_URL`        | Frontend URL            | ✅       | `http://localhost:3000` |
+| `NEXT_PUBLIC_GEMINI_API_KEY` | Gemini API key (client) | ⏳       | `AIzaSy...`             |
 
 ---
 
 ## 📊 Implementation Status
 
-| Phase | Status | Features |
-|-------|--------|----------|
-| **Phase 1: Foundation** | 🔄 In Progress | Auth UI, Layout ⏳ |
-| **Phase 2: Property** | ⏳ Pending | Property listing, detail, search |
-| **Phase 3: Rental Flow** | ⏳ Pending | Booking, Contracts, Signing |
-| **Phase 4: AI Features** | ⏳ Pending | Inspection upload, AI chat |
-| **Phase 5: Dashboard** | ⏳ Pending | Tenant/Landlord dashboard |
-| **Phase 6: Payments** | ⏳ Pending | Escrow UI, Midtrans integration |
+| Phase                    | Status         | Features                         |
+| ------------------------ | -------------- | -------------------------------- |
+| **Phase 1: Foundation**  | 🔄 In Progress | Auth UI, Layout ⏳               |
+| **Phase 2: Property**    | ⏳ Pending     | Property listing, detail, search |
+| **Phase 3: Rental Flow** | ⏳ Pending     | Booking, Contracts, Signing      |
+| **Phase 4: AI Features** | ⏳ Pending     | Inspection upload, AI chat       |
+| **Phase 5: Dashboard**   | ⏳ Pending     | Tenant/Landlord dashboard        |
+| **Phase 6: Payments**    | ⏳ Pending     | Escrow UI, Midtrans integration  |
 
 **Detail lengkap:** [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)
 
@@ -189,18 +189,18 @@ bun run check        # TypeScript type check (tsc --noEmit)
 
 ## 📖 Pages & Routes
 
-| Route | Page | Status |
-|-------|------|--------|
-| `/` | Landing page | ✅ |
-| `/login` | Login | ⏳ |
-| `/register` | Register | ⏳ |
-| `/properties` | Property listing | ⏳ |
-| `/properties/[id]` | Property detail | ⏳ |
-| `/dashboard/tenant` | Tenant dashboard | ⏳ |
-| `/dashboard/landlord` | Landlord dashboard | ⏳ |
-| `/contracts/[id]` | Contract detail | ⏳ |
-| `/inspections/[id]` | Inspection view | ⏳ |
-| `/disputes/[id]` | Dispute resolution | ⏳ |
+| Route                 | Page               | Status |
+| --------------------- | ------------------ | ------ |
+| `/`                   | Landing page       | ✅     |
+| `/login`              | Login              | ⏳     |
+| `/register`           | Register           | ⏳     |
+| `/properties`         | Property listing   | ⏳     |
+| `/properties/[id]`    | Property detail    | ⏳     |
+| `/dashboard/tenant`   | Tenant dashboard   | ⏳     |
+| `/dashboard/landlord` | Landlord dashboard | ⏳     |
+| `/contracts/[id]`     | Contract detail    | ⏳     |
+| `/inspections/[id]`   | Inspection view    | ⏳     |
+| `/disputes/[id]`      | Dispute resolution | ⏳     |
 
 **Full list:** [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md#-pages--routes)
 

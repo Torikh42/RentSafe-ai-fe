@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter, Fraunces, Geist } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -8,10 +8,16 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const fraunces = Fraunces({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-plus-jakarta',
+  variable: '--font-fraunces',
+});
+
+const geist = Geist({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist',
 });
 
 export const metadata: Metadata = {
@@ -45,8 +51,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${inter.variable} ${plusJakarta.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html
+      lang="id"
+      className={`${inter.variable} ${fraunces.variable} ${geist.variable}`}
+    >
+      <body className="font-sans antialiased selection:bg-primary-500 selection:text-white">
+        {children}
+      </body>
     </html>
   );
 }

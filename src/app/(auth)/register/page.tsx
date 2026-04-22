@@ -1,11 +1,19 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { ArrowRight, Lock, Mail, User, Loader2, AlertCircle, ShieldCheck } from "lucide-react";
-import { useRegisterForm } from "@/hooks/use-auth-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import Link from 'next/link';
+import {
+  ArrowRight,
+  Lock,
+  Mail,
+  User,
+  Loader2,
+  AlertCircle,
+  ShieldCheck,
+} from 'lucide-react';
+import { useRegisterForm } from '@/hooks/use-auth-form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Card,
   CardContent,
@@ -13,11 +21,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 export default function RegisterPage() {
-  const { name, email, password, isLoading, error, setName, setEmail, setPassword, handleSubmit, handleSocialAuth } =
-    useRegisterForm();
+  const {
+    name,
+    email,
+    password,
+    isLoading,
+    error,
+    setName,
+    setEmail,
+    setPassword,
+    handleSubmit,
+    handleSocialAuth,
+  } = useRegisterForm();
 
   return (
     <Card className="overflow-hidden border-white/20 bg-white/5 shadow-2xl backdrop-blur-xl dark:border-white/10">
@@ -49,7 +67,10 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           {/* Name Field */}
           <div className="grid gap-1.5">
-            <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <Label
+              htmlFor="name"
+              className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Full Name
             </Label>
             <div className="relative">
@@ -69,7 +90,10 @@ export default function RegisterPage() {
 
           {/* Email Field */}
           <div className="grid gap-1.5">
-            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <Label
+              htmlFor="email"
+              className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Email Address
             </Label>
             <div className="relative">
@@ -89,7 +113,10 @@ export default function RegisterPage() {
 
           {/* Password Field */}
           <div className="grid gap-1.5">
-            <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <Label
+              htmlFor="password"
+              className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Password
             </Label>
             <div className="relative">
@@ -111,54 +138,66 @@ export default function RegisterPage() {
             </p>
           </div>
 
-              {/* Submit */}
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="group mt-2 h-11 w-full bg-primary-600 font-semibold text-white transition-all hover:bg-primary-700 active:scale-[0.98] disabled:opacity-70"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating Account…
-                  </>
-                ) : (
-                  <>
-                    Create Free Account
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </>
-                )}
-              </Button>
-            </form>
+          {/* Submit */}
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="group mt-2 h-11 w-full bg-primary-600 font-semibold text-white transition-all hover:bg-primary-700 active:scale-[0.98] disabled:opacity-70"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Account…
+              </>
+            ) : (
+              <>
+                Create Free Account
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </>
+            )}
+          </Button>
+        </form>
 
-            <div className="relative mt-2">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-white/10" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
+        <div className="relative mt-2">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-white/10" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
+        </div>
 
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleSocialAuth("google")}
-              disabled={isLoading}
-              className="h-11 w-full bg-white/5 border-white/10 hover:bg-white/10 transition-all font-medium text-foreground"
-            >
-              <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
-              </svg>
-              Google
-            </Button>
-          </CardContent>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => handleSocialAuth('google')}
+          disabled={isLoading}
+          className="h-11 w-full bg-white/5 border-white/10 hover:bg-white/10 transition-all font-medium text-foreground"
+        >
+          <svg
+            className="mr-2 h-4 w-4"
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fab"
+            data-icon="google"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 488 512"
+          >
+            <path
+              fill="currentColor"
+              d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+            ></path>
+          </svg>
+          Google
+        </Button>
+      </CardContent>
 
       <CardFooter className="flex justify-center pb-8 pt-2 text-sm text-muted-foreground">
         <p>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
             href="/login"
             className="font-semibold text-primary-500 transition-colors hover:text-primary-400"

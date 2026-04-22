@@ -17,7 +17,7 @@ export interface AuthErrorContext {
 }
 
 /** Union type for auth form modes */
-export type AuthFormMode = "login" | "register";
+export type AuthFormMode = 'login' | 'register';
 
 /** Shape of auth form state managed in hooks/pages */
 export interface AuthFormState {

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { signIn, signUp } from "@/lib/auth-client";
-import type { AuthErrorContext, AuthFormState } from "@/types/auth";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signIn, signUp } from '@/lib/auth-client';
+import type { AuthErrorContext, AuthFormState } from '@/types/auth';
 
 // ─── Login Hook ─────────────────────────────────────────────────────────────
 
@@ -13,12 +13,12 @@ interface UseLoginFormReturn extends AuthFormState {
   setEmail: (v: string) => void;
   setPassword: (v: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  handleSocialAuth: (provider: "google" | "github") => Promise<void>;
+  handleSocialAuth: (provider: 'google' | 'github') => Promise<void>;
 }
 
 export function useLoginForm(): UseLoginFormReturn {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,18 +32,20 @@ export function useLoginForm(): UseLoginFormReturn {
         { email, password, callbackURL: `${window.location.origin}/` },
         {
           onError: (ctx: AuthErrorContext) => {
-            setError(ctx.error.message ?? "Invalid email or password");
+            setError(ctx.error.message ?? 'Invalid email or password');
             setIsLoading(false);
           },
         }
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      );
       setIsLoading(false);
     }
   };
 
-  const handleSocialAuth = async (provider: "google" | "github") => {
+  const handleSocialAuth = async (provider: 'google' | 'github') => {
     setIsLoading(true);
     setError(null);
     try {
@@ -52,12 +54,23 @@ export function useLoginForm(): UseLoginFormReturn {
         callbackURL: `${window.location.origin}/`,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      );
       setIsLoading(false);
     }
   };
 
-  return { email, password, isLoading, error, setEmail, setPassword, handleSubmit, handleSocialAuth };
+  return {
+    email,
+    password,
+    isLoading,
+    error,
+    setEmail,
+    setPassword,
+    handleSubmit,
+    handleSocialAuth,
+  };
 }
 
 // ─── Register Hook ───────────────────────────────────────────────────────────
@@ -70,14 +83,14 @@ interface UseRegisterFormReturn extends AuthFormState {
   setEmail: (v: string) => void;
   setPassword: (v: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  handleSocialAuth: (provider: "google" | "github") => Promise<void>;
+  handleSocialAuth: (provider: 'google' | 'github') => Promise<void>;
 }
 
 export function useRegisterForm(): UseRegisterFormReturn {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -91,21 +104,23 @@ export function useRegisterForm(): UseRegisterFormReturn {
         { name, email, password, callbackURL: `${window.location.origin}/` },
         {
           onSuccess: () => {
-            router.push("/");
+            router.push('/');
           },
           onError: (ctx: AuthErrorContext) => {
-            setError(ctx.error.message ?? "Failed to create account");
+            setError(ctx.error.message ?? 'Failed to create account');
             setIsLoading(false);
           },
         }
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      );
       setIsLoading(false);
     }
   };
 
-  const handleSocialAuth = async (provider: "google" | "github") => {
+  const handleSocialAuth = async (provider: 'google' | 'github') => {
     setIsLoading(true);
     setError(null);
     try {
@@ -114,10 +129,23 @@ export function useRegisterForm(): UseRegisterFormReturn {
         callbackURL: `${window.location.origin}/`,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      );
       setIsLoading(false);
     }
   };
 
-  return { name, email, password, isLoading, error, setName, setEmail, setPassword, handleSubmit, handleSocialAuth };
+  return {
+    name,
+    email,
+    password,
+    isLoading,
+    error,
+    setName,
+    setEmail,
+    setPassword,
+    handleSubmit,
+    handleSocialAuth,
+  };
 }

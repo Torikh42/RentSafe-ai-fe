@@ -10,7 +10,8 @@
     "check": "tsc --noEmit",
     "lint": "oxlint -c .oxlintrc.json",
     "format": "oxfmt --write .",
-    "format:check": "oxfmt --check ."
+    "format:check": "oxfmt --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "better-auth": "^1.6.6",
@@ -30,6 +31,7 @@
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "husky": "^9.1.7",
     "oxfmt": "latest",
     "oxlint": "latest",
     "postcss": "^8.5.1",

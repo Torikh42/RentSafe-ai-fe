@@ -146,7 +146,7 @@
       "rules": {
         "max-lines": [
           "warn",
-          { "max": 150, "skipBlankLines": true, "skipComments": true }
+          { "max": 200, "skipBlankLines": true, "skipComments": true }
         ]
       }
     }

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Fraunces, Geist } from 'next/font/google';
 import './globals.css';
+import { QueryProvider } from '@/lib/query-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -56,7 +57,7 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${geist.variable}`}
     >
       <body className="font-sans antialiased selection:bg-primary-500 selection:text-white">
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

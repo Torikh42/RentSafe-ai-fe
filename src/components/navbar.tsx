@@ -3,20 +3,21 @@
 import Link from 'next/link';
 import { useSession, signOut } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
 import { MotionDiv } from '@/types/framer-motion';
+import { useUiStore } from '@/store/ui-store';
 
 export function Navbar() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobileMenuOpen = useUiStore((state) => state.isMobileMenuOpen);
+  const setMobileMenuOpen = useUiStore((state) => state.setMobileMenuOpen);
 
   const handleSignOut = async () => {
     await signOut();
     router.push('/');
-    setIsMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   const firstName = session?.user?.name?.split(' ')[0] || 'Tenant';
@@ -34,7 +35,7 @@ export function Navbar() {
           <Link
             href="/"
             className="font-display text-xl font-bold text-primary-600 transition-colors hover:text-primary-500"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => setMobileMenuOpen(false)}
           >
             RentSafe
           </Link>
@@ -93,7 +94,7 @@ export function Navbar() {
               </Link>
             )}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-surface/50 text-foreground transition-colors hover:bg-surface"
               aria-label="Toggle menu"
             >
@@ -125,7 +126,7 @@ export function Navbar() {
                     key={link.name}
                     href={link.href}
                     className="border-b border-border/50 pb-2 hover:text-primary-500"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}
                   </Link>
@@ -143,7 +144,7 @@ export function Navbar() {
                     <Link
                       href="/dashboard"
                       className="flex w-full items-center justify-center rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-700"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Go to Dashboard
                     </Link>
@@ -159,14 +160,14 @@ export function Navbar() {
                     <Link
                       href="/login"
                       className="flex w-full items-center justify-center rounded-xl bg-secondary-900 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary-800 dark:bg-primary-500 dark:hover:bg-primary-600"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Sign In
                     </Link>
                     <Link
                       href="/register"
                       className="flex w-full items-center justify-center rounded-xl border border-border bg-surface py-3 text-sm font-semibold transition-all hover:bg-surface/80"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Create Account
                     </Link>

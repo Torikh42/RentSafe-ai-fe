@@ -50,7 +50,7 @@
 
 | Document                                               | Purpose                                                         |
 | ------------------------------------------------------ | --------------------------------------------------------------- |
-| **[GEMINI.MD](./GEMINI.MD)**                               | 🤖 AI Assistant Guide (lengkap dengan guidelines)               |
+| **[GEMINI.MD](./GEMINI.MD)**                           | 🤖 AI Assistant Guide (lengkap dengan guidelines)               |
 | **[CLAUDE.MD](./CLAUDE.MD)**                           | 🤖 AI Assistant Guide (ringkasan rules & workflow)              |
 | **[AGENTS.MD](./AGENTS.MD)**                           | 📐 Architecture rules & Golden Rules (WAJIB dibaca)             |
 | **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** | 🗺️ Phase-by-phase implementation plan (pages & components)      |

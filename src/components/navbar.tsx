@@ -21,6 +21,7 @@ export function Navbar() {
   };
 
   const firstName = session?.user?.name?.split(' ')[0] || 'Tenant';
+  const userRole = (session?.user as { role?: string } | undefined)?.role;
 
   const navLinks = [
     { name: 'Properties', href: '/properties' },
@@ -60,6 +61,14 @@ export function Navbar() {
                 <span className="text-sm font-medium text-foreground-muted">
                   Hello, <span className="text-foreground">{firstName}</span>
                 </span>
+                {userRole === 'landlord' && (
+                  <Link
+                    href="/landlord/properties"
+                    className="rounded-full border border-primary-600/40 bg-primary-600/10 px-4 py-1.5 text-xs font-semibold text-primary-400 transition-all hover:bg-primary-600/20"
+                  >
+                    My Properties
+                  </Link>
+                )}
                 <Link
                   href="/dashboard"
                   className="rounded-full bg-primary-600 px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/20"
@@ -141,6 +150,15 @@ export function Navbar() {
                       Logged in as{' '}
                       <span className="text-foreground">{firstName}</span>
                     </div>
+                    {userRole === 'landlord' && (
+                      <Link
+                        href="/landlord/properties"
+                        className="flex w-full items-center justify-center rounded-xl border border-primary-600/40 bg-primary-600/10 py-3 text-sm font-semibold text-primary-400 transition-all hover:bg-primary-600/20"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        My Properties
+                      </Link>
+                    )}
                     <Link
                       href="/dashboard"
                       className="flex w-full items-center justify-center rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-700"

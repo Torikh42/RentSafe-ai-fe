@@ -72,7 +72,9 @@ export default function DashboardGroupLayout({
             <div className="absolute inset-0 rounded-full bg-teal-500/20 animate-ping" />
             <Loader2 className="h-7 w-7 animate-spin text-teal-400" />
           </div>
-          <p className="text-sm text-zinc-500 tracking-widest uppercase">Authenticating</p>
+          <p className="text-sm text-zinc-500 tracking-widest uppercase">
+            Authenticating
+          </p>
         </div>
       </div>
     );
@@ -95,7 +97,9 @@ export default function DashboardGroupLayout({
             <div className="w-7 h-7 rounded-lg bg-teal-500 flex items-center justify-center shadow-lg shadow-teal-500/30 group-hover:shadow-teal-500/50 transition-shadow">
               <ShieldCheck className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-white tracking-tight">RentSafe</span>
+            <span className="font-bold text-white tracking-tight">
+              RentSafe
+            </span>
           </Link>
         </div>
 
@@ -106,7 +110,9 @@ export default function DashboardGroupLayout({
               <User className="w-4 h-4 text-white" />
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-white truncate">{firstName}</p>
+              <p className="text-sm font-semibold text-white truncate">
+                {firstName}
+              </p>
               <span className="inline-flex items-center text-[10px] font-medium uppercase tracking-widest text-teal-400">
                 {roleLabel}
               </span>
@@ -137,7 +143,13 @@ export default function DashboardGroupLayout({
                     className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-teal-400 rounded-full"
                   />
                 )}
-                <span className={isActive ? 'text-teal-400' : 'text-zinc-500 group-hover:text-zinc-300 transition-colors'}>
+                <span
+                  className={
+                    isActive
+                      ? 'text-teal-400'
+                      : 'text-zinc-500 group-hover:text-zinc-300 transition-colors'
+                  }
+                >
                   {item.icon}
                 </span>
                 {item.label}

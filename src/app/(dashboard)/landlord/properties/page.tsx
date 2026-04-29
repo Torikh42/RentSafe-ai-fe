@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Plus,
   Building2,
   LayoutGrid,
   Search,
   SlidersHorizontal,
-} from "lucide-react";
+} from 'lucide-react';
 import {
   useGetMyProperties,
   useCreateProperty,
   useUpdateProperty,
   useDeleteProperty,
-} from "@/hooks/use-properties";
-import { PropertyCard } from "@/components/properties/property-card";
-import { PropertyFormModal } from "@/components/properties/property-form";
-import type { Property, CreatePropertyInput } from "@/types/property";
-import { useSession } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+} from '@/hooks/use-properties';
+import { PropertyCard } from '@/components/properties/property-card';
+import { PropertyFormModal } from '@/components/properties/property-form';
+import type { Property, CreatePropertyInput } from '@/types/property';
+import { useSession } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -41,15 +41,15 @@ export default function LandlordPropertiesPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterAvailable, setFilterAvailable] = useState<boolean | null>(null);
 
   // Role guard — redirect if not landlord
   useEffect(() => {
     if (!isPending && session) {
       const role = (session.user as { role?: string }).role;
-      if (role !== "landlord") {
-        router.replace("/dashboard");
+      if (role !== 'landlord') {
+        router.replace('/dashboard');
       }
     }
   }, [session, isPending, router]);
@@ -58,7 +58,7 @@ export default function LandlordPropertiesPage() {
 
   const filteredProperties = allProperties.filter((p) => {
     const matchSearch =
-      searchQuery === "" ||
+      searchQuery === '' ||
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.address.toLowerCase().includes(searchQuery.toLowerCase());
     const matchFilter =
@@ -77,7 +77,7 @@ export default function LandlordPropertiesPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this property?")) {
+    if (confirm('Are you sure you want to delete this property?')) {
       await deleteMutation.mutateAsync(id);
     }
   };
@@ -91,7 +91,7 @@ export default function LandlordPropertiesPage() {
       }
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Failed to save property:", error);
+      console.error('Failed to save property:', error);
     }
   };
 
@@ -134,16 +134,35 @@ export default function LandlordPropertiesPage() {
           className="grid grid-cols-3 gap-4"
         >
           {[
-            { label: "Total", value: allProperties.length, accent: "text-white", bg: "bg-white/5" },
-            { label: "Available", value: available, accent: "text-teal-400", bg: "bg-teal-500/10" },
-            { label: "Occupied", value: occupied, accent: "text-zinc-400", bg: "bg-white/5" },
+            {
+              label: 'Total',
+              value: allProperties.length,
+              accent: 'text-white',
+              bg: 'bg-white/5',
+            },
+            {
+              label: 'Available',
+              value: available,
+              accent: 'text-teal-400',
+              bg: 'bg-teal-500/10',
+            },
+            {
+              label: 'Occupied',
+              value: occupied,
+              accent: 'text-zinc-400',
+              bg: 'bg-white/5',
+            },
           ].map((stat) => (
             <div
               key={stat.label}
               className={`${stat.bg} rounded-xl p-4 border border-white/5 text-center`}
             >
-              <p className={`text-2xl font-bold ${stat.accent}`}>{stat.value}</p>
-              <p className="text-xs text-zinc-500 mt-0.5 uppercase tracking-wide">{stat.label}</p>
+              <p className={`text-2xl font-bold ${stat.accent}`}>
+                {stat.value}
+              </p>
+              <p className="text-xs text-zinc-500 mt-0.5 uppercase tracking-wide">
+                {stat.label}
+              </p>
             </div>
           ))}
         </motion.div>
@@ -163,18 +182,20 @@ export default function LandlordPropertiesPage() {
         </div>
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-zinc-600 flex-shrink-0" />
-          {([
-            { label: "All", value: null },
-            { label: "Available", value: true },
-            { label: "Occupied", value: false },
-          ] as const).map((opt) => (
+          {(
+            [
+              { label: 'All', value: null },
+              { label: 'Available', value: true },
+              { label: 'Occupied', value: false },
+            ] as const
+          ).map((opt) => (
             <button
               key={opt.label}
               onClick={() => setFilterAvailable(opt.value)}
               className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
                 filterAvailable === opt.value
-                  ? "bg-teal-500/20 text-teal-300 border border-teal-500/40"
-                  : "bg-white/5 text-zinc-400 border border-white/5 hover:bg-white/10"
+                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
+                  : 'bg-white/5 text-zinc-400 border border-white/5 hover:bg-white/10'
               }`}
             >
               {opt.label}
@@ -212,13 +233,13 @@ export default function LandlordPropertiesPage() {
           </div>
           <h3 className="text-lg font-semibold text-white mb-2">
             {searchQuery || filterAvailable !== null
-              ? "No properties match your filter"
-              : "No properties yet"}
+              ? 'No properties match your filter'
+              : 'No properties yet'}
           </h3>
           <p className="text-zinc-500 text-sm max-w-xs mb-7">
             {searchQuery || filterAvailable !== null
-              ? "Try adjusting your search or filter."
-              : "Add your first listing and start managing your rentals."}
+              ? 'Try adjusting your search or filter.'
+              : 'Add your first listing and start managing your rentals.'}
           </p>
           {!searchQuery && filterAvailable === null && (
             <button

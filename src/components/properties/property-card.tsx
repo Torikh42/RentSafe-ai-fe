@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { type Property } from "@/types/property";
-import { Badge } from "@/components/ui/badge";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { type Property } from '@/types/property';
+import { Badge } from '@/components/ui/badge';
 import {
   Building2,
   MapPin,
@@ -13,7 +13,7 @@ import {
   CheckCircle2,
   XCircle,
   Camera,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface PropertyCardProps {
   property: Property;
@@ -47,8 +47,8 @@ export function PropertyCard({
       <div
         className={`h-1 w-full ${
           property.available
-            ? "bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-600"
-            : "bg-gradient-to-r from-zinc-600 via-zinc-500 to-zinc-700"
+            ? 'bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-600'
+            : 'bg-gradient-to-r from-zinc-600 via-zinc-500 to-zinc-700'
         }`}
       />
 
@@ -59,8 +59,8 @@ export function PropertyCard({
             <div
               className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center ${
                 property.available
-                  ? "bg-teal-500/15 text-teal-400"
-                  : "bg-zinc-700/60 text-zinc-400"
+                  ? 'bg-teal-500/15 text-teal-400'
+                  : 'bg-zinc-700/60 text-zinc-400'
               }`}
             >
               <Building2 className="w-4.5 h-4.5" />
@@ -74,8 +74,8 @@ export function PropertyCard({
             variant="outline"
             className={`flex-shrink-0 flex items-center gap-1 text-[11px] font-medium border px-2 py-0.5 rounded-full ${
               property.available
-                ? "border-teal-500/40 bg-teal-500/10 text-teal-300"
-                : "border-zinc-600/60 bg-zinc-800/60 text-zinc-400"
+                ? 'border-teal-500/40 bg-teal-500/10 text-teal-300'
+                : 'border-zinc-600/60 bg-zinc-800/60 text-zinc-400'
             }`}
           >
             {property.available ? (
@@ -83,7 +83,7 @@ export function PropertyCard({
             ) : (
               <XCircle className="w-3 h-3" />
             )}
-            {property.available ? "Available" : "Occupied"}
+            {property.available ? 'Available' : 'Occupied'}
           </Badge>
         </div>
 
@@ -97,7 +97,7 @@ export function PropertyCard({
           <div className="flex items-center gap-2 text-sm">
             <BadgeDollarSign className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0" />
             <span className="font-semibold text-white">
-              Rp {property.price.toLocaleString("id-ID")}
+              Rp {property.price.toLocaleString('id-ID')}
             </span>
             <span className="text-zinc-600 text-xs">/ bulan</span>
           </div>

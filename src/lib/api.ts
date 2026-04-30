@@ -9,10 +9,10 @@ export async function fetchApi<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const url = `${API_URL}${endpoint}`;
-  
+
   // Create a copy of headers
   const headers = new Headers(options.headers);
-  
+
   // Don't set Content-Type automatically if body is FormData
   if (!(options.body instanceof FormData) && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
@@ -41,12 +41,12 @@ export async function fetchApi<T>(
 // API methods
 export const api = {
   inspections: {
-    analyze: (formData: FormData) => 
+    analyze: (formData: FormData) =>
       fetchApi<InspectionResponse>('/api/inspections/analyze', {
         method: 'POST',
         body: formData,
       }),
     getByProperty: (propertyId: string) =>
       fetchApi<InspectionResponse[]>(`/api/inspections/property/${propertyId}`),
-  }
+  },
 };

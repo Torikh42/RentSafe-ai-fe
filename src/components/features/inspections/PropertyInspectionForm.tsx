@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UploadCloud, CheckCircle2, AlertTriangle, Loader2, X, AlertCircle } from 'lucide-react';
+import {
+  UploadCloud,
+  CheckCircle2,
+  AlertTriangle,
+  Loader2,
+  X,
+  AlertCircle,
+} from 'lucide-react';
 import { api } from '@/lib/api';
 import type { InspectionResponse } from '@/types/inspection';
 
@@ -10,10 +17,14 @@ interface PropertyInspectionFormProps {
   propertyId: string;
 }
 
-export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormProps) {
+export function PropertyInspectionForm({
+  propertyId,
+}: PropertyInspectionFormProps) {
   const [files, setFiles] = useState<File[]>([]);
   const [type, setType] = useState<'pre' | 'post'>('pre');
-  const [status, setStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<
+    'idle' | 'uploading' | 'success' | 'error'
+  >('idle');
   const [result, setResult] = useState<InspectionResponse | null>(null);
   const [error, setError] = useState<string>('');
 
@@ -47,7 +58,9 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
       setResult(res);
       setStatus('success');
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to analyze inspection.');
+      setError(
+        err instanceof Error ? err.message : 'Failed to analyze inspection.'
+      );
       setStatus('error');
     }
   };
@@ -59,7 +72,8 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
           AI Inspection
         </h1>
         <p className="mt-4 text-lg text-secondary-800/70 dark:text-gray-400">
-          Capture property conditions precisely. Our Gemini AI automatically detects and logs damages, ensuring fair disputes.
+          Capture property conditions precisely. Our Gemini AI automatically
+          detects and logs damages, ensuring fair disputes.
         </p>
       </div>
 
@@ -75,9 +89,7 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
           >
             {/* Upload Area */}
             <div className="flex flex-col gap-6">
-              <div
-                className="group relative flex min-h-[320px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-primary-500/30 bg-primary-50/50 transition-all hover:border-primary-500 hover:bg-primary-50 dark:border-primary-500/20 dark:bg-secondary-900/50 dark:hover:border-primary-500/50"
-              >
+              <div className="group relative flex min-h-[320px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-primary-500/30 bg-primary-50/50 transition-all hover:border-primary-500 hover:bg-primary-50 dark:border-primary-500/20 dark:bg-secondary-900/50 dark:hover:border-primary-500/50">
                 <input
                   type="file"
                   multiple
@@ -140,8 +152,12 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
               <div className="space-y-4">
                 <label className="flex cursor-pointer items-center justify-between rounded-xl border border-gray-200 p-4 transition-colors has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:border-secondary-700 dark:has-[:checked]:border-primary-500 dark:has-[:checked]:bg-primary-500/10">
                   <div>
-                    <p className="font-semibold text-secondary-900 dark:text-white">Check-in</p>
-                    <p className="text-sm text-gray-500">Before tenant moves in</p>
+                    <p className="font-semibold text-secondary-900 dark:text-white">
+                      Check-in
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Before tenant moves in
+                    </p>
                   </div>
                   <input
                     type="radio"
@@ -154,8 +170,12 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
                 </label>
                 <label className="flex cursor-pointer items-center justify-between rounded-xl border border-gray-200 p-4 transition-colors has-[:checked]:border-accent-500 has-[:checked]:bg-accent-500/10 dark:border-secondary-700">
                   <div>
-                    <p className="font-semibold text-secondary-900 dark:text-white">Check-out</p>
-                    <p className="text-sm text-gray-500">After tenant moves out</p>
+                    <p className="font-semibold text-secondary-900 dark:text-white">
+                      Check-out
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      After tenant moves out
+                    </p>
                   </div>
                   <input
                     type="radio"
@@ -225,7 +245,9 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {result?.images.map((img) => {
                 const analysis = img.aiAnalysis;
-                const hasIssues = analysis?.detectedIssues && analysis.detectedIssues.length > 0;
+                const hasIssues =
+                  analysis?.detectedIssues &&
+                  analysis.detectedIssues.length > 0;
 
                 return (
                   <div
@@ -245,7 +267,8 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
 
                     <div className="p-6">
                       <p className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                        {analysis?.overallCondition || 'No description provided.'}
+                        {analysis?.overallCondition ||
+                          'No description provided.'}
                       </p>
 
                       {hasIssues ? (
@@ -276,7 +299,10 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
                                 </span>
                                 {issue.estimatedRepairCost && (
                                   <span className="font-bold text-gray-500">
-                                    IDR {issue.estimatedRepairCost.toLocaleString('id-ID')}
+                                    IDR{' '}
+                                    {issue.estimatedRepairCost.toLocaleString(
+                                      'id-ID'
+                                    )}
                                   </span>
                                 )}
                               </div>
@@ -286,7 +312,9 @@ export function PropertyInspectionForm({ propertyId }: PropertyInspectionFormPro
                       ) : (
                         <div className="flex items-center gap-2 rounded-xl bg-success-500/5 p-4 text-success-500">
                           <CheckCircle2 className="size-5" />
-                          <span className="text-sm font-medium">No damages detected. Looks great!</span>
+                          <span className="text-sm font-medium">
+                            No damages detected. Looks great!
+                          </span>
                         </div>
                       )}
                     </div>

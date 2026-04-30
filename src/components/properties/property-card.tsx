@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { type Property } from '@/types/property';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -11,6 +12,7 @@ import {
   Trash2,
   CheckCircle2,
   XCircle,
+  Camera,
 } from 'lucide-react';
 
 interface PropertyCardProps {
@@ -110,6 +112,14 @@ export function PropertyCard({
         {/* Footer divider + actions */}
         {(onEdit || onDelete) && (
           <div className="flex items-center justify-end gap-1 pt-4 border-t border-white/5 mt-auto">
+            <Link
+              href={`/landlord/properties/${property.id}/inspect`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-teal-300 hover:bg-teal-500/10 transition-all duration-200"
+              title="Inspect property with AI"
+            >
+              <Camera className="w-3 h-3" />
+              Inspect
+            </Link>
             {onEdit && (
               <button
                 onClick={() => onEdit(property)}

@@ -16,39 +16,39 @@
   --font-sans: var(--font-geist), var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-fraunces), serif;
 
-  /* ----- Primary (Teal/Emerald) — Trust, Safety, Growth ----- */
-  --color-primary-50: #ecfdf5;
-  --color-primary-100: #d1fae5;
-  --color-primary-200: #a7f3d0;
-  --color-primary-300: #6ee7b7;
-  --color-primary-400: #34d399;
-  --color-primary-500: #1a9e75;
-  --color-primary-600: #15835f;
-  --color-primary-700: #10684a;
-  --color-primary-800: #0b4d36;
-  --color-primary-900: #073323;
-  --color-primary-950: #041f15;
+  /* ----- Primary (Corporate Navy) — Derived from logo: Professionalism, Security, Trust ----- */
+  --color-primary-50: #f0f4f9;
+  --color-primary-100: #dce4f1;
+  --color-primary-200: #bdcde5;
+  --color-primary-300: #8fabd3;
+  --color-primary-400: #5c84be;
+  --color-primary-500: #0b2147; /* Core Logo Navy */
+  --color-primary-600: #091a39;
+  --color-primary-700: #07142b;
+  --color-primary-800: #050d1d;
+  --color-primary-900: #030811;
+  --color-primary-950: #010408;
 
-  /* ----- Secondary (Deep Navy) — Professionalism, Authority ----- */
-  --color-secondary-50: #eef0f6;
-  --color-secondary-100: #d5dae8;
-  --color-secondary-200: #abb5d1;
-  --color-secondary-300: #8190ba;
-  --color-secondary-400: #576ba3;
-  --color-secondary-500: #3d5289;
-  --color-secondary-600: #2e3f6b;
-  --color-secondary-700: #1f2d4e;
-  --color-secondary-800: #17213d;
-  --color-secondary-900: #0f162a;
-  --color-secondary-950: #080c17;
+  /* ----- Secondary (Slate Tech) — For UI depth and circuit-like details ----- */
+  --color-secondary-50: #f8fafc;
+  --color-secondary-100: #f1f5f9;
+  --color-secondary-200: #e2e8f0;
+  --color-secondary-300: #cbd5e1;
+  --color-secondary-400: #94a3b8;
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1e293b;
+  --color-secondary-900: #0f172a;
+  --color-secondary-950: #020617;
 
-  /* ----- Accent (Amber/Gold) — Premium, CTA Highlights ----- */
+  /* ----- Accent (Safety Amber) — Derived from logo AI text: Intelligence, Visibility, Action ----- */
   --color-accent-50: #fffbeb;
   --color-accent-100: #fef3c7;
   --color-accent-200: #fde68a;
   --color-accent-300: #fcd34d;
   --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
+  --color-accent-500: #e38b29; /* Core Logo Amber */
   --color-accent-600: #d97706;
   --color-accent-700: #b45309;
   --color-accent-800: #92400e;
@@ -169,79 +169,79 @@
 
 :root {
   --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --foreground-muted: #64748b;
+  --surface-hover: #f0f4f8;
+  --foreground-muted: #627d98;
   --border: oklch(0.922 0 0);
   --border-hover: #cbd5e1;
   --ring: oklch(0.708 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #f8fafc;
+  --foreground: #102a43;
+  --card: #ffffff;
+  --card-foreground: #102a43;
+  --popover: #ffffff;
+  --popover-foreground: #102a43;
+  --primary: #102a43;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f4f8;
+  --secondary-foreground: #102a43;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f57f17;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --input: oklch(0.922 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
+  --chart-1: oklch(0.24 0.05 264);
+  --chart-2: oklch(0.68 0.16 68);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.24 0.05 264);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent-foreground: oklch(0.24 0.05 264);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: oklch(0.68 0.16 68);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --surface: #17213d;
-  --surface-hover: #1f2d4e;
+  --background: oklch(0.1 0.02 264); /* Deep Dark Navy */
+  --surface: #0b2147;
+  --surface-hover: #0d2a5a;
   --foreground: oklch(0.985 0 0);
   --foreground-muted: #94a3b8;
   --border: oklch(1 0 0 / 10%);
-  --border-hover: #2e3f6b;
-  --ring: oklch(0.556 0 0);
-  --card: oklch(0.205 0 0);
+  --border-hover: #1e293b;
+  --ring: oklch(0.68 0.16 68);
+  --card: oklch(0.12 0.02 264);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.12 0.02 264);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --primary-foreground: oklch(0.24 0.05 264);
+  --secondary: oklch(0.18 0.03 264);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.18 0.03 264);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.68 0.16 68 / 0.15);
+  --accent-foreground: oklch(0.68 0.16 68);
   --destructive: oklch(0.704 0.191 22.216);
   --input: oklch(1 0 0 / 15%);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
+  --chart-1: oklch(0.922 0 0);
+  --chart-2: oklch(0.68 0.16 68);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.12 0.02 264);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.68 0.16 68);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.18 0.03 264);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.68 0.16 68);
 }
 
 /* =========================================================================

@@ -101,87 +101,113 @@ export default function LandlordPropertiesPage() {
   const occupied = allProperties.filter((p) => !p.available).length;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-10 max-w-7xl mx-auto pb-20">
       {/* ── Page Header ─────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-2">
-            Landlord Dashboard
-          </p>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
-            My Properties
-          </h1>
-          <p className="text-zinc-400 mt-1.5 text-sm">
-            Manage your listings and track availability in real-time.
-          </p>
-        </div>
+      <div className="relative overflow-hidden rounded-3xl bg-primary-950 p-8 sm:p-12 border border-white/10 shadow-2xl">
+        {/* Abstract Background Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 blur-[100px] -mr-48 -mt-48 rounded-full" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 blur-[80px] -ml-32 -mb-32 rounded-full" />
 
-        <button
-          onClick={handleOpenCreate}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-white text-sm font-semibold shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-200 self-start sm:self-auto flex-shrink-0"
-        >
-          <Plus className="w-4 h-4" />
-          Add Property
-        </button>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-3 py-1 rounded-full bg-accent-500/10 border border-accent-500/20 text-[10px] font-bold uppercase tracking-widest text-accent-400">
+                Landlord Dashboard
+              </span>
+              <span className="w-1 h-1 rounded-full bg-zinc-700" />
+              <span className="text-zinc-500 text-[10px] uppercase tracking-widest font-medium">
+                Live Status
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+              Portfolio <span className="text-accent-500">Overview</span>
+            </h1>
+            <p className="text-zinc-400 max-w-xl text-lg leading-relaxed">
+              Maintain full control over your rental assets. Monitor real-time
+              availability and manage high-performance listings.
+            </p>
+          </div>
+
+          <button
+            onClick={handleOpenCreate}
+            className="group relative flex items-center gap-3 px-8 py-4 rounded-2xl bg-accent-500 hover:bg-accent-400 text-primary-950 text-base font-bold shadow-2xl shadow-accent-500/20 transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+          >
+            <Plus className="w-5 h-5 transition-transform group-hover:rotate-90" />
+            Add Property
+          </button>
+        </div>
       </div>
 
-      {/* ── Stats Row ───────────────────────────────────── */}
+      {/* ── Stats Section ─────────────────────────────────── */}
       {!isLoading && !isError && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="grid grid-cols-3 gap-4"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
           {[
             {
-              label: 'Total',
+              label: 'Total Assets',
               value: allProperties.length,
+              icon: Building2,
               accent: 'text-white',
-              bg: 'bg-white/5',
+              bg: 'bg-primary-900/40',
+              border: 'border-white/5',
             },
             {
-              label: 'Available',
+              label: 'Available Units',
               value: available,
-              accent: 'text-teal-400',
-              bg: 'bg-teal-500/10',
+              icon: LayoutGrid,
+              accent: 'text-accent-400',
+              bg: 'bg-accent-500/5',
+              border: 'border-accent-500/10',
             },
             {
-              label: 'Occupied',
+              label: 'Active Tenancies',
               value: occupied,
-              accent: 'text-zinc-400',
-              bg: 'bg-white/5',
+              icon: SlidersHorizontal,
+              accent: 'text-zinc-300',
+              bg: 'bg-white/2',
+              border: 'border-white/5',
             },
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`${stat.bg} rounded-xl p-4 border border-white/5 text-center`}
+              className={`${stat.bg} ${stat.border} relative group rounded-3xl p-8 border flex items-center justify-between overflow-hidden transition-all hover:bg-opacity-60`}
             >
-              <p className={`text-2xl font-bold ${stat.accent}`}>
-                {stat.value}
-              </p>
-              <p className="text-xs text-zinc-500 mt-0.5 uppercase tracking-wide">
-                {stat.label}
-              </p>
+              <div>
+                <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-1">
+                  {stat.label}
+                </p>
+                <p
+                  className={`text-4xl font-bold ${stat.accent} tracking-tight`}
+                >
+                  {stat.value}
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/5 group-hover:bg-accent-500/10 transition-colors">
+                <stat.icon className={`w-8 h-8 ${stat.accent}`} />
+              </div>
             </div>
           ))}
         </motion.div>
       )}
 
-      {/* ── Filters ─────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+      {/* ── Filters & Search ─────────────────────────────── */}
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between p-2 rounded-[28px] bg-primary-950/50 border border-white/5 backdrop-blur-sm">
+        <div className="relative flex-1 group">
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-600 group-focus-within:text-accent-500 transition-colors" />
           <input
             type="text"
-            placeholder="Search by name or address..."
+            placeholder="Filter by name or address..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/8 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-teal-500/60 focus:border-teal-500/40 transition-all"
+            className="w-full pl-14 pr-6 py-4 rounded-2xl bg-transparent border-none text-base text-white placeholder:text-zinc-600 focus:outline-none focus:ring-0 transition-all"
           />
         </div>
-        <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-zinc-600 flex-shrink-0" />
+
+        <div className="flex items-center gap-2 p-2 bg-white/5 rounded-2xl">
           {(
             [
               { label: 'All', value: null },
@@ -192,10 +218,10 @@ export default function LandlordPropertiesPage() {
             <button
               key={opt.label}
               onClick={() => setFilterAvailable(opt.value)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+              className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 filterAvailable === opt.value
-                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
-                  : 'bg-white/5 text-zinc-400 border border-white/5 hover:bg-white/10'
+                  ? 'bg-accent-500 text-primary-950 shadow-lg shadow-accent-500/20'
+                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               {opt.label}
@@ -204,59 +230,68 @@ export default function LandlordPropertiesPage() {
         </div>
       </div>
 
-      {/* ── Content ─────────────────────────────────────── */}
+      {/* ── Content Grid ─────────────────────────────────── */}
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center py-24 gap-4">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 rounded-full border-2 border-teal-500/20 animate-ping" />
-            <div className="w-12 h-12 rounded-full border-2 border-t-teal-400 border-zinc-800 animate-spin" />
+        <div className="flex flex-col items-center justify-center py-32 gap-6">
+          <div className="relative">
+            <div className="w-16 h-16 rounded-full border-2 border-accent-500/20 animate-pulse" />
+            <div className="absolute inset-0 w-16 h-16 rounded-full border-t-2 border-accent-500 animate-spin" />
           </div>
-          <p className="text-zinc-500 text-sm">Loading properties...</p>
+          <p className="text-zinc-500 font-medium tracking-wide animate-pulse uppercase text-xs">
+            Synchronizing your assets...
+          </p>
         </div>
       ) : isError ? (
-        <div className="flex flex-col items-center justify-center py-20 px-4 text-center rounded-2xl border border-red-900/30 bg-red-500/5">
-          <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
-            <Building2 className="w-6 h-6 text-red-400" />
+        <div className="flex flex-col items-center justify-center py-20 px-8 text-center rounded-3xl border border-red-500/20 bg-red-500/5 backdrop-blur-sm">
+          <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6">
+            <Building2 className="w-8 h-8 text-red-500" />
           </div>
-          <p className="text-red-400 font-medium">Failed to load properties</p>
-          <p className="text-zinc-600 text-sm mt-1">Try refreshing the page.</p>
+          <h3 className="text-xl font-bold text-white mb-2">Sync Error</h3>
+          <p className="text-zinc-500 max-w-sm mb-8">
+            We encountered a problem retrieving your portfolio. Please check
+            your connection and try again.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all"
+          >
+            Retry Connection
+          </button>
         </div>
       ) : filteredProperties.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35 }}
-          className="flex flex-col items-center justify-center py-24 px-4 text-center rounded-2xl border border-dashed border-white/8 bg-white/2"
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center justify-center py-32 px-8 text-center rounded-[40px] border-2 border-dashed border-white/5 bg-primary-950/20"
         >
-          <div className="w-16 h-16 rounded-2xl bg-teal-500/10 flex items-center justify-center mb-5 border border-teal-500/20">
-            <LayoutGrid className="w-8 h-8 text-teal-500" />
+          <div className="w-24 h-24 rounded-[32px] bg-accent-500/10 flex items-center justify-center mb-8 border border-accent-500/20">
+            <LayoutGrid className="w-10 h-10 text-accent-500" />
           </div>
-          <h3 className="text-lg font-semibold text-white mb-2">
+          <h3 className="text-2xl font-bold text-white mb-3">
             {searchQuery || filterAvailable !== null
-              ? 'No properties match your filter'
-              : 'No properties yet'}
+              ? 'No Results Found'
+              : 'Portfolio is Empty'}
           </h3>
-          <p className="text-zinc-500 text-sm max-w-xs mb-7">
+          <p className="text-zinc-500 text-lg max-w-md mb-10">
             {searchQuery || filterAvailable !== null
-              ? 'Try adjusting your search or filter.'
-              : 'Add your first listing and start managing your rentals.'}
+              ? 'Try refining your search parameters or clearing filters to find what you are looking for.'
+              : 'Ready to scale? Add your first high-yield rental property and start managing with RentSafe AI.'}
           </p>
-          {!searchQuery && filterAvailable === null && (
-            <button
-              onClick={handleOpenCreate}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-teal-500/40 text-teal-400 text-sm font-medium hover:bg-teal-500/10 transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              Add First Property
-            </button>
-          )}
+          <button
+            onClick={handleOpenCreate}
+            className="flex items-center gap-3 px-10 py-4 rounded-2xl bg-accent-500 hover:bg-accent-400 text-primary-950 font-bold shadow-xl shadow-accent-500/20 transition-all"
+          >
+            <Plus className="w-5 h-5" />
+            Add First Asset
+          </button>
         </motion.div>
       ) : (
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
         >
           {filteredProperties.map((property, i) => (
             <PropertyCard

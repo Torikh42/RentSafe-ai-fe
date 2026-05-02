@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#1A9E75',
+  themeColor: '#0B2147',
 };
 
 export default function RootLayout({
@@ -56,7 +56,7 @@ export default function RootLayout({
       lang="id"
       className={`${inter.variable} ${fraunces.variable} ${geist.variable}`}
     >
-      <body className="font-sans antialiased selection:bg-primary-500 selection:text-white">
+      <body className="font-sans antialiased selection:bg-accent-500 selection:text-white">
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

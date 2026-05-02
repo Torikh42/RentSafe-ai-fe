@@ -9,186 +9,277 @@ import {
   ArrowRight,
   Home,
   Activity,
+  TrendingUp,
+  Clock,
+  CheckCircle2,
 } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
   const { data: session } = useSession();
-  const userName = session?.user?.name || 'Tenant';
+  const userName = session?.user?.name || 'User';
+  const firstName = userName.split(' ')[0];
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Header Section */}
-      <header className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-        <div>
-          <div className="mb-2 flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-500/20 text-xs text-primary-500">
-              <ShieldCheck className="h-3 w-3" />
+      <header className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <div className="mb-4 flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-accent-500/10 text-accent-500">
+              <ShieldCheck className="h-3.5 w-3.5" />
             </span>
-            <span className="text-sm font-semibold tracking-wider text-primary-600 uppercase">
-              Verified Tenant
+            <span className="text-[11px] font-semibold tracking-widest text-accent-500 uppercase">
+              RentSafe AI System
             </span>
           </div>
-          <h1 className="font-display text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl">
-            Welcome back,
-            <br />
-            <span className="italic text-primary-500">{userName}.</span>
+          <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl text-foreground">
+            Welcome back,{' '}
+            <span className="text-accent-500 italic">{firstName}</span>.
           </h1>
-        </div>
-        <button className="group relative flex h-12 items-center justify-center overflow-hidden rounded-xl bg-foreground px-6 font-medium text-background transition-all hover:scale-105 hover:shadow-2xl hover:shadow-foreground/20">
-          <span className="relative z-10 flex items-center gap-2">
-            New Contract{' '}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </span>
-        </button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <button className="group relative flex h-12 items-center justify-center overflow-hidden rounded-xl bg-accent-500 px-6 font-medium text-white transition-all hover:bg-accent-600 shadow-sm active:scale-95">
+            <span className="relative z-10 flex items-center gap-2">
+              New Inspection{' '}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </button>
+        </motion.div>
       </header>
 
       {/* Stats Bento Grid */}
       <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-12">
         {/* Main Balance Card */}
-        <div className="glass group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl md:col-span-8">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl transition-all group-hover:bg-primary-500/30" />
-          <div className="relative z-10 flex h-full flex-col justify-between">
-            <div className="mb-8 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-500/20 text-primary-500 shadow-inner">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm md:col-span-8 min-h-[280px] flex flex-col justify-between"
+        >
+          {/* Subtle glow */}
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-500/5 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10">
+            <div className="mb-10 flex items-start gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-800 text-primary-600 dark:text-primary-300">
                 <Wallet className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground-muted">
-                  Total Escrow Balance
+                <p className="text-xs font-semibold text-foreground-muted uppercase tracking-wider mb-1">
+                  Escrow Portfolio
                 </p>
-                <p className="font-display text-4xl font-bold tracking-tight">
-                  Rp 12.500.000
-                </p>
+                <div className="flex items-baseline gap-3">
+                  <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
+                    Rp 12.5M
+                  </p>
+                  <span className="flex items-center gap-1 text-xs font-medium text-success-600 dark:text-success-400 bg-success-50 dark:bg-success-900/30 px-2.5 py-1 rounded-full">
+                    <TrendingUp className="h-3 w-3" /> +12%
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
-              <div>
-                <p className="text-xs text-foreground-muted uppercase tracking-wider mb-1">
-                  Secured in Contract
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-border pt-8">
+              <div className="space-y-2">
+                <p className="text-[11px] text-foreground-muted font-medium uppercase tracking-wider">
+                  Secured in Contracts
                 </p>
-                <p className="text-xl font-medium">Rp 10.000.000</p>
+                <p className="text-xl font-semibold text-foreground">
+                  Rp 10.000.000
+                </p>
+                <div className="w-full h-1 bg-secondary rounded-full mt-2 overflow-hidden">
+                  <div className="w-[80%] h-full bg-accent-500 rounded-full" />
+                </div>
               </div>
-              <div>
-                <p className="text-xs text-foreground-muted uppercase tracking-wider mb-1">
-                  Available to Withdraw
+              <div className="space-y-2">
+                <p className="text-[11px] text-foreground-muted font-medium uppercase tracking-wider">
+                  Available Liquidity
                 </p>
-                <p className="text-xl font-medium text-primary-400">
+                <p className="text-xl font-semibold text-accent-500">
                   Rp 2.500.000
                 </p>
+                <div className="w-full h-1 bg-secondary rounded-full mt-2 overflow-hidden">
+                  <div className="w-[20%] h-full bg-primary-300 rounded-full" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Active Properties Card */}
-        <div className="glass relative overflow-hidden rounded-3xl border border-white/10 bg-surface/40 p-8 shadow-xl md:col-span-4">
-          <div className="flex h-full flex-col">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm md:col-span-4 flex flex-col group cursor-pointer hover:border-accent-500/30 transition-colors"
+        >
+          <div className="relative z-10 flex h-full flex-col">
             <div className="mb-auto">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/20 text-blue-500">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-foreground-muted">
                 <Home className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-2xl font-medium">
-                Active Rentals
+              <h3 className="text-xl font-semibold text-foreground">
+                Active Management
               </h3>
             </div>
-            <div className="mt-8">
-              <p className="font-display text-6xl font-bold text-foreground">
-                2
-              </p>
-              <p className="mt-2 text-sm text-foreground-muted">
-                Properties currently under active smart contracts.
-              </p>
+
+            <div className="mt-8 flex items-end justify-between">
+              <div>
+                <p className="font-display text-6xl font-bold text-foreground leading-none tracking-tight">
+                  02
+                </p>
+                <p className="mt-2 text-xs font-medium text-foreground-muted">
+                  Properties Active
+                </p>
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-hover text-foreground-muted group-hover:bg-accent-500 group-hover:text-white group-hover:border-accent-500 transition-all">
+                <ArrowRight className="h-4 w-4" />
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Grid: Activity & Inspections */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Recent Activity */}
-        <div className="rounded-3xl border border-border bg-surface/20 p-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="rounded-2xl border border-border bg-surface p-8 shadow-sm"
+        >
           <div className="mb-6 flex items-center justify-between">
-            <h3 className="font-display flex items-center gap-2 text-xl font-medium">
-              <Activity className="h-5 w-5 text-primary-500" /> Recent Activity
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
+              <Activity className="h-5 w-5 text-foreground-muted" /> Activity
+              Log
             </h3>
             <Link
               href="/dashboard/activity"
-              className="text-sm font-medium text-primary-500 hover:underline"
+              className="group flex items-center gap-1 text-xs font-medium text-foreground-muted hover:text-accent-500 transition-colors"
             >
-              View all
+              View All{' '}
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[
               {
-                title: 'Rent Paid: Apt. Sudirman',
-                date: 'Today, 09:41 AM',
-                amount: '- Rp 5.000.000',
-                positive: false,
+                title: 'Rent Collection: Apt. Sudirman',
+                date: '09:41 AM • Automatic Escrow',
+                amount: 'Rp 5.0M',
+                status: 'Completed',
+                icon: <CheckCircle2 className="w-4 h-4 text-success-600" />,
               },
               {
                 title: 'Deposit Refund: Kos Kebon Jeruk',
-                date: 'Yesterday, 14:20 PM',
-                amount: '+ Rp 2.000.000',
-                positive: true,
+                date: 'Yesterday • Manual Release',
+                amount: 'Rp 2.0M',
+                status: 'Processed',
+                icon: <Clock className="w-4 h-4 text-foreground-muted" />,
               },
               {
-                title: 'Contract Signed: Apt. Sudirman',
-                date: 'Oct 12, 10:00 AM',
-                amount: 'Active',
-                positive: true,
+                title: 'AI Inspection: Apt. Sudirman',
+                date: '12 Oct • System Generated',
+                amount: 'Verified',
+                status: 'Active',
+                icon: <ShieldCheck className="w-4 h-4 text-accent-500" />,
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-4 transition-colors hover:bg-white/10"
+                className="flex items-center justify-between p-4 rounded-xl border border-border bg-surface-hover/50 hover:bg-surface-hover transition-colors"
               >
-                <div>
-                  <p className="font-medium">{item.title}</p>
-                  <p className="text-xs text-foreground-muted">{item.date}</p>
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface border border-border">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm text-foreground">
+                      {item.title}
+                    </p>
+                    <p className="text-[11px] text-foreground-muted mt-0.5">
+                      {item.date}
+                    </p>
+                  </div>
                 </div>
-                <div
-                  className={`font-semibold ${item.positive ? 'text-primary-400' : 'text-foreground'}`}
-                >
-                  {item.amount}
+                <div className="text-right">
+                  <p className="font-semibold text-sm text-foreground">
+                    {item.amount}
+                  </p>
+                  <p className="text-[10px] font-medium text-foreground-muted mt-0.5">
+                    {item.status}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* AI Inspections */}
-        <div className="relative overflow-hidden rounded-3xl border border-error-500/20 bg-error-500/5 p-8">
-          <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-error-500/10 blur-3xl" />
+        {/* AI Inspections / Pending Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm"
+        >
           <div className="mb-6 flex items-center justify-between relative z-10">
-            <h3 className="font-display flex items-center gap-2 text-xl font-medium">
-              <AlertCircle className="h-5 w-5 text-error-500" /> Pending Actions
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
+              <AlertCircle className="h-5 w-5 text-accent-500" /> Critical
+              Actions
             </h3>
           </div>
 
           <div className="space-y-4 relative z-10">
-            <div className="group flex cursor-pointer items-start gap-4 rounded-2xl border border-error-500/30 bg-error-500/10 p-5 transition-all hover:bg-error-500/20">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-error-500/20 text-error-500">
-                <FileText className="h-5 w-5" />
+            <div className="group flex flex-col gap-4 rounded-xl border border-accent-500/20 bg-accent-50/50 dark:bg-accent-500/5 p-6 hover:bg-accent-50 dark:hover:bg-accent-500/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-100 dark:bg-accent-900/50 text-accent-600 dark:text-accent-400">
+                  <FileText className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse" />
+                    <p className="text-[10px] font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
+                      Inspection Alert
+                    </p>
+                  </div>
+                  <p className="text-base font-semibold text-foreground leading-tight">
+                    AI Move-out Verification Required
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-medium text-error-600 dark:text-error-400">
-                  AI Move-out Inspection Required
-                </p>
-                <p className="mt-1 text-sm text-foreground-muted">
-                  Kos Kebon Jeruk contract ends in 3 days. Please upload current
-                  condition photos.
-                </p>
-                <button className="mt-3 flex items-center gap-1 text-sm font-semibold text-error-500 transition-transform group-hover:translate-x-1">
-                  Start Inspection <ArrowRight className="h-4 w-4" />
+
+              <p className="text-sm text-foreground-muted leading-relaxed">
+                Kos Kebon Jeruk contract terminates in{' '}
+                <span className="font-semibold text-foreground">48 hours</span>.
+                Complete the visual condition report to secure deposit release.
+              </p>
+
+              <div className="pt-2">
+                <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-foreground text-background py-2.5 text-sm font-medium transition-opacity hover:opacity-90">
+                  Execute AI Inspection <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
             </div>
+
+            <div className="flex items-center justify-center gap-2 text-[11px] font-medium text-foreground-muted uppercase tracking-wider pt-2">
+              <ShieldCheck className="w-3.5 h-3.5" /> All other systems
+              operational
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

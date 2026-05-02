@@ -9,6 +9,8 @@ import {
   Loader2,
   X,
   AlertCircle,
+  ImageIcon,
+  Camera,
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import type { InspectionResponse } from '@/types/inspection';
@@ -29,8 +31,9 @@ export function PropertyInspectionForm({
   const [error, setError] = useState<string>('');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFiles(Array.from(e.target.files));
+    const selectedFiles = e.target.files;
+    if (selectedFiles) {
+      setFiles((prev) => [...prev, ...Array.from(selectedFiles)]);
     }
   };
 
@@ -66,14 +69,25 @@ export function PropertyInspectionForm({
   };
 
   return (
-    <div className="mx-auto max-w-5xl">
-      <div className="mb-10 text-center sm:text-left">
-        <h1 className="font-[family-name:var(--font-plus-jakarta)] text-4xl font-extrabold tracking-tight text-secondary-900 dark:text-white sm:text-5xl">
-          AI Inspection
-        </h1>
-        <p className="mt-4 text-lg text-secondary-800/70 dark:text-gray-400">
-          Capture property conditions precisely. Our Gemini AI automatically
-          detects and logs damages, ensuring fair disputes.
+    <div className="mx-auto max-w-6xl w-full">
+      <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-border pb-8">
+        <div>
+          <div className="mb-3 flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-accent-500/10 text-accent-500">
+              <Camera className="h-3.5 w-3.5" />
+            </span>
+            <span className="text-[11px] font-semibold tracking-widest text-accent-500 uppercase">
+              AI Vision Analysis
+            </span>
+          </div>
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
+            Property <span className="text-accent-500 italic">Inspection</span>
+          </h1>
+        </div>
+        <p className="max-w-md text-sm text-foreground-muted">
+          Upload clear photos of the property. Our Gemini Vision model will
+          analyze the conditions, detect damages, and calculate estimated repair
+          costs automatically.
         </p>
       </div>
 
@@ -81,15 +95,16 @@ export function PropertyInspectionForm({
         {status === 'idle' || status === 'error' ? (
           <motion.form
             key="form"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_380px]"
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]"
             onSubmit={handleSubmit}
           >
             {/* Upload Area */}
             <div className="flex flex-col gap-6">
-              <div className="group relative flex min-h-[320px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-primary-500/30 bg-primary-50/50 transition-all hover:border-primary-500 hover:bg-primary-50 dark:border-primary-500/20 dark:bg-secondary-900/50 dark:hover:border-primary-500/50">
+              <div className="group relative flex min-h-[360px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border bg-surface hover:border-accent-500/50 hover:bg-surface-hover transition-colors duration-300">
                 <input
                   type="file"
                   multiple
@@ -97,45 +112,42 @@ export function PropertyInspectionForm({
                   onChange={handleFileChange}
                   className="absolute inset-0 z-10 cursor-pointer opacity-0"
                 />
-                <div className="pointer-events-none flex flex-col items-center gap-4 text-center">
-                  <div className="rounded-full bg-white p-4 shadow-sm ring-1 ring-black/5 dark:bg-secondary-800 dark:ring-white/10">
-                    <UploadCloud className="size-8 text-primary-500" />
-                  </div>
-                  <div>
-                    <p className="font-[family-name:var(--font-plus-jakarta)] text-lg font-semibold text-secondary-900 dark:text-white">
-                      Drop photos here
-                    </p>
-                    <p className="mt-1 text-sm text-secondary-800/60 dark:text-gray-400">
-                      Support for JPG, PNG, WEBP (Max 5MB each)
-                    </p>
-                  </div>
-                </div>
 
-                {/* Decorative background element */}
-                <div className="absolute -bottom-24 -right-24 size-64 rounded-full bg-primary-500/10 blur-3xl group-hover:bg-primary-500/20" />
+                <div className="pointer-events-none flex flex-col items-center text-center z-20">
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white transition-all duration-500">
+                    <UploadCloud className="h-8 w-8" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    Click or drag photos to upload
+                  </h3>
+                  <p className="mt-2 text-sm text-foreground-muted max-w-xs mx-auto">
+                    Supported formats: JPG, PNG, WEBP. Maximum file size: 5MB
+                    per image.
+                  </p>
+                </div>
               </div>
 
               {files.length > 0 && (
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                   {files.map((file, i) => (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       key={i}
-                      className="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 dark:bg-secondary-800"
+                      className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-surface"
                     >
-                      {/* Using object URL for preview */}
                       <img
                         src={URL.createObjectURL(file)}
-                        alt="preview"
-                        className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        alt={`preview ${i}`}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100" />
                       <button
                         type="button"
                         onClick={() => removeFile(i)}
-                        className="absolute right-2 top-2 rounded-full bg-black/50 p-1.5 text-white backdrop-blur-md transition-colors hover:bg-red-500"
+                        className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md opacity-0 transition-all hover:bg-error-500 group-hover:opacity-100"
                       >
-                        <X className="size-4" />
+                        <X className="h-4 w-4" />
                       </button>
                     </motion.div>
                   ))}
@@ -143,20 +155,29 @@ export function PropertyInspectionForm({
               )}
             </div>
 
-            {/* Settings & Submit */}
-            <div className="flex h-fit flex-col gap-6 rounded-3xl bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:bg-secondary-800">
-              <h3 className="font-[family-name:var(--font-plus-jakarta)] text-xl font-bold text-secondary-900 dark:text-white">
-                Inspection Details
-              </h3>
+            {/* Sidebar Settings & Submit */}
+            <div className="flex h-fit flex-col gap-6 rounded-2xl border border-border bg-surface p-6 shadow-sm">
+              <div>
+                <h3 className="text-lg font-semibold text-foreground mb-1">
+                  Inspection Context
+                </h3>
+                <p className="text-xs text-foreground-muted">
+                  Define the phase of the rental lifecycle.
+                </p>
+              </div>
 
-              <div className="space-y-4">
-                <label className="flex cursor-pointer items-center justify-between rounded-xl border border-gray-200 p-4 transition-colors has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:border-secondary-700 dark:has-[:checked]:border-primary-500 dark:has-[:checked]:bg-primary-500/10">
-                  <div>
-                    <p className="font-semibold text-secondary-900 dark:text-white">
+              <div className="space-y-3">
+                <label className="group flex cursor-pointer items-start gap-4 rounded-xl border border-border p-4 transition-all hover:border-primary-400 has-[:checked]:border-accent-500 has-[:checked]:bg-accent-50/50 dark:has-[:checked]:bg-accent-500/10">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border group-has-[:checked]:border-accent-500 mt-0.5">
+                    <div className="h-2.5 w-2.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-has-[:checked]:opacity-100" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground text-sm">
                       Check-in
                     </p>
-                    <p className="text-sm text-gray-500">
-                      Before tenant moves in
+                    <p className="text-xs text-foreground-muted mt-1 leading-relaxed">
+                      Document the initial state of the property before the
+                      tenant occupies it.
                     </p>
                   </div>
                   <input
@@ -165,16 +186,21 @@ export function PropertyInspectionForm({
                     value="pre"
                     checked={type === 'pre'}
                     onChange={(e) => setType(e.target.value as 'pre')}
-                    className="size-5 accent-primary-500"
+                    className="hidden"
                   />
                 </label>
-                <label className="flex cursor-pointer items-center justify-between rounded-xl border border-gray-200 p-4 transition-colors has-[:checked]:border-accent-500 has-[:checked]:bg-accent-500/10 dark:border-secondary-700">
-                  <div>
-                    <p className="font-semibold text-secondary-900 dark:text-white">
+
+                <label className="group flex cursor-pointer items-start gap-4 rounded-xl border border-border p-4 transition-all hover:border-primary-400 has-[:checked]:border-accent-500 has-[:checked]:bg-accent-50/50 dark:has-[:checked]:bg-accent-500/10">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border group-has-[:checked]:border-accent-500 mt-0.5">
+                    <div className="h-2.5 w-2.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-has-[:checked]:opacity-100" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground text-sm">
                       Check-out
                     </p>
-                    <p className="text-sm text-gray-500">
-                      After tenant moves out
+                    <p className="text-xs text-foreground-muted mt-1 leading-relaxed">
+                      Final assessment to verify condition and determine escrow
+                      release.
                     </p>
                   </div>
                   <input
@@ -183,25 +209,35 @@ export function PropertyInspectionForm({
                     value="post"
                     checked={type === 'post'}
                     onChange={(e) => setType(e.target.value as 'post')}
-                    className="size-5 accent-accent-500"
+                    className="hidden"
                   />
                 </label>
               </div>
 
               {error && (
-                <div className="flex items-start gap-3 rounded-xl bg-error-500/10 p-4 text-error-500">
-                  <AlertCircle className="mt-0.5 size-5 shrink-0" />
-                  <p className="text-sm">{error}</p>
+                <div className="flex items-start gap-3 rounded-lg bg-error-500/10 p-3 text-error-600 dark:text-error-400 border border-error-500/20">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <p className="text-xs font-medium leading-relaxed">{error}</p>
                 </div>
               )}
 
-              <button
-                type="submit"
-                disabled={files.length === 0}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-primary-500 py-4 font-semibold text-white transition-all hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Start AI Analysis
-              </button>
+              <div className="mt-4 pt-6 border-t border-border">
+                <div className="flex items-center justify-between text-xs font-medium text-foreground-muted mb-4">
+                  <span>Images ready: {files.length}</span>
+                  {files.length > 0 && (
+                    <span className="text-accent-500">Ready to scan</span>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={files.length === 0}
+                  className="relative w-full flex items-center justify-center overflow-hidden rounded-xl bg-accent-500 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-accent-500 active:scale-[0.98]"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Execute AI Scan
+                  </span>
+                </button>
+              </div>
             </div>
           </motion.form>
         ) : status === 'uploading' ? (
@@ -209,18 +245,20 @@ export function PropertyInspectionForm({
             key="uploading"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex min-h-[400px] flex-col items-center justify-center rounded-3xl bg-secondary-900 py-12 text-white shadow-xl"
+            className="flex min-h-[500px] flex-col items-center justify-center rounded-2xl border border-border bg-surface p-12 text-center shadow-sm"
           >
-            <div className="relative mb-8 flex size-24 items-center justify-center">
-              <div className="absolute inset-0 animate-ping rounded-full border-2 border-primary-500/50" />
-              <div className="absolute inset-2 animate-pulse rounded-full bg-primary-500/30" />
-              <Loader2 className="relative size-10 animate-spin text-primary-500" />
+            <div className="relative mb-10 flex h-24 w-24 items-center justify-center">
+              <div className="absolute inset-0 animate-ping rounded-full border-2 border-accent-500/30" />
+              <div className="absolute inset-2 animate-pulse rounded-full bg-accent-500/20" />
+              <Loader2 className="relative h-10 w-10 animate-spin text-accent-500" />
             </div>
-            <h2 className="font-[family-name:var(--font-plus-jakarta)] text-2xl font-bold">
-              Gemini is analyzing...
+            <h2 className="font-display text-3xl font-semibold text-foreground">
+              Processing Vision Data
             </h2>
-            <p className="mt-2 text-secondary-800/60 text-gray-400">
-              Scanning for damages, assessing severity, and calculating costs.
+            <p className="mt-3 max-w-sm text-sm text-foreground-muted leading-relaxed">
+              Gemini AI is analyzing {files.length} image
+              {files.length !== 1 && 's'} to detect material damages, assess
+              severity, and calculate standardized repair costs.
             </p>
           </motion.div>
         ) : (
@@ -230,19 +268,34 @@ export function PropertyInspectionForm({
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            <div className="flex items-center justify-between rounded-3xl bg-success-500/10 p-8">
-              <div>
-                <h2 className="font-[family-name:var(--font-plus-jakarta)] text-2xl font-bold text-success-500">
-                  Inspection Complete
-                </h2>
-                <p className="mt-1 text-secondary-900 dark:text-gray-300">
-                  {result?.summary}
-                </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 rounded-2xl border border-border bg-surface p-8 shadow-sm">
+              <div className="flex items-start sm:items-center gap-5">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-success-500/10 text-success-600 border border-success-500/20">
+                  <CheckCircle2 className="h-7 w-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground">
+                    Analysis Completed
+                  </h2>
+                  <p className="mt-1 text-sm text-foreground-muted max-w-xl">
+                    {result?.summary ||
+                      'The visual inspection has been processed successfully and appended to the property record.'}
+                  </p>
+                </div>
               </div>
-              <CheckCircle2 className="size-12 text-success-500" />
+              <button
+                onClick={() => {
+                  setFiles([]);
+                  setStatus('idle');
+                  setResult(null);
+                }}
+                className="shrink-0 rounded-xl border border-border bg-surface-hover px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-primary-100 dark:hover:bg-primary-900"
+              >
+                Scan New Area
+              </button>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {result?.images.map((img) => {
                 const analysis = img.aiAnalysis;
                 const hasIssues =
@@ -252,88 +305,88 @@ export function PropertyInspectionForm({
                 return (
                   <div
                     key={img.id}
-                    className="group overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-xl dark:border-secondary-800 dark:bg-secondary-900"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-all hover:border-accent-500/30"
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-border bg-primary-50 dark:bg-primary-950">
                       <img
                         src={img.url}
                         alt="Scanned area"
-                        className="size-full object-cover"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold tracking-wide text-secondary-900 backdrop-blur-md">
-                        {analysis?.roomType || 'Unknown Room'}
+                      <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-lg bg-background/90 px-3 py-1.5 text-[10px] font-bold tracking-widest text-foreground uppercase backdrop-blur-md shadow-sm border border-border">
+                        <ImageIcon className="h-3 w-3" />
+                        {analysis?.roomType || 'Room View'}
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <p className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="text-sm font-medium text-foreground leading-relaxed mb-6">
+                        "
                         {analysis?.overallCondition ||
-                          'No description provided.'}
+                          'No condition description generated.'}
+                        "
                       </p>
 
-                      {hasIssues ? (
-                        <div className="space-y-3">
-                          <h4 className="flex items-center gap-2 text-sm font-bold text-secondary-900 dark:text-white">
-                            <AlertTriangle className="size-4 text-warning-500" />
-                            Detected Issues
-                          </h4>
-                          {analysis.detectedIssues.map((issue, i) => (
-                            <div
-                              key={i}
-                              className="rounded-xl bg-gray-50 p-3 dark:bg-secondary-800/50"
-                            >
-                              <p className="text-sm font-medium text-secondary-900 dark:text-gray-200">
-                                {issue.description}
-                              </p>
-                              <div className="mt-2 flex items-center justify-between text-xs">
-                                <span
-                                  className={`rounded-md px-2 py-0.5 font-semibold ${
-                                    issue.severity === 'high'
-                                      ? 'bg-error-500/10 text-error-500'
-                                      : issue.severity === 'medium'
-                                        ? 'bg-warning-500/10 text-warning-500'
-                                        : 'bg-primary-500/10 text-primary-500'
-                                  }`}
-                                >
-                                  {issue.severity.toUpperCase()}
-                                </span>
-                                {issue.estimatedRepairCost && (
-                                  <span className="font-bold text-gray-500">
-                                    IDR{' '}
-                                    {issue.estimatedRepairCost.toLocaleString(
-                                      'id-ID'
-                                    )}
-                                  </span>
-                                )}
-                              </div>
+                      <div className="mt-auto">
+                        {hasIssues ? (
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-2 mb-4">
+                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-warning-500/10 text-warning-600">
+                                <AlertTriangle className="h-3 w-3" />
+                              </span>
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground-muted">
+                                Findings
+                              </h4>
                             </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 rounded-xl bg-success-500/5 p-4 text-success-500">
-                          <CheckCircle2 className="size-5" />
-                          <span className="text-sm font-medium">
-                            No damages detected. Looks great!
-                          </span>
-                        </div>
-                      )}
+
+                            <div className="space-y-2">
+                              {analysis.detectedIssues.map((issue, i) => (
+                                <div
+                                  key={i}
+                                  className="rounded-xl border border-border bg-surface-hover p-4"
+                                >
+                                  <p className="text-sm font-medium text-foreground">
+                                    {issue.description}
+                                  </p>
+                                  <div className="mt-3 flex items-center justify-between">
+                                    <span
+                                      className={`inline-flex rounded text-[10px] font-bold uppercase tracking-wider px-2 py-1 ${
+                                        issue.severity === 'high'
+                                          ? 'bg-error-500/10 text-error-600 dark:text-error-400'
+                                          : issue.severity === 'medium'
+                                            ? 'bg-warning-500/10 text-warning-600 dark:text-warning-400'
+                                            : 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                                      }`}
+                                    >
+                                      {issue.severity} Risk
+                                    </span>
+                                    {issue.estimatedRepairCost && (
+                                      <span className="text-xs font-semibold text-foreground">
+                                        Rp{' '}
+                                        {issue.estimatedRepairCost.toLocaleString(
+                                          'id-ID'
+                                        )}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-start gap-3 rounded-xl border border-success-500/20 bg-success-500/5 p-4">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success-600" />
+                            <p className="text-sm font-medium text-success-700 dark:text-success-400">
+                              System verified: Clean state. No material damages
+                              identified.
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
               })}
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                onClick={() => {
-                  setFiles([]);
-                  setStatus('idle');
-                  setResult(null);
-                }}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-semibold text-secondary-900 transition-colors hover:bg-gray-50 dark:border-secondary-700 dark:bg-secondary-900 dark:text-white dark:hover:bg-secondary-800"
-              >
-                Inspect Another Property
-              </button>
             </div>
           </motion.div>
         )}

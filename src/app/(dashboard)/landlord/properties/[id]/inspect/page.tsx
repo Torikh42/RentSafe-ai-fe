@@ -12,7 +12,7 @@ export default async function PropertyInspectPage({
   const { id } = await params;
 
   return (
-    <div className="min-h-screen bg-gray-50/50 p-6 dark:bg-[#0A0F1C] md:p-12">
+    <div className="min-h-screen p-6 md:p-12">
       <PropertyInspectionForm propertyId={id} />
     </div>
   );

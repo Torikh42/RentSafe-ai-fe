@@ -16,11 +16,19 @@ export interface InspectionImage {
   aiAnalysis: AiAnalysisResult | null;
 }
 
+export interface ComparisonReport {
+  summary: string;
+  newDamages: AiAnalysisIssue[];
+  totalEstimatedCost: number;
+}
+
 export interface InspectionResponse {
   id: string;
   propertyId: string;
   landlordId: string;
   type: 'pre' | 'post';
+  referenceInspectionId?: string | null;
+  comparisonReport?: ComparisonReport | null;
   summary: string | null;
   status: 'pending' | 'completed' | 'failed';
   createdAt: string;

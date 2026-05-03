@@ -48,5 +48,9 @@ export const api = {
       }),
     getByProperty: (propertyId: string) =>
       fetchApi<InspectionResponse[]>(`/api/inspections/property/${propertyId}`),
+    compare: (inspectionId: string) =>
+      fetchApi<InspectionResponse>(`/api/inspections/${inspectionId}/compare`, {
+        method: 'POST',
+      }),
   },
 };

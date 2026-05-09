@@ -1,7 +1,7 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/api';
 
 export function usePropertiesList(page: number = 1, limit: number = 12) {
   return useQuery({

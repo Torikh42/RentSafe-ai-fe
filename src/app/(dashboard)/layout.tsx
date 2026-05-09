@@ -58,13 +58,13 @@ export default function DashboardGroupLayout({
 
   if (!mounted || isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-primary-950">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="flex flex-col items-center gap-4">
           <div className="relative h-14 w-14 flex items-center justify-center">
             <div className="absolute inset-0 rounded-full bg-accent-500/20 animate-ping" />
             <Loader2 className="h-7 w-7 animate-spin text-accent-500" />
           </div>
-          <p className="text-sm text-primary-300 tracking-widest uppercase font-medium animate-pulse">
+          <p className="text-sm text-primary-500 tracking-widest uppercase font-medium animate-pulse">
             Authenticating
           </p>
         </div>

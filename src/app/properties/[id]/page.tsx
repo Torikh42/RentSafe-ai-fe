@@ -84,19 +84,29 @@ export default function PropertyDetailPage({
           className="space-y-8"
         >
           {/* Hero Section */}
-          <div className="rounded-2xl overflow-hidden border border-border bg-surface shadow-lg">
-            {/* Placeholder image */}
-            <div className="w-full h-80 md:h-96 bg-linear-to-br from-primary-900 to-primary-950 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent-500/10 flex items-center justify-center text-accent-500">
-                  <MapPin className="w-10 h-10" />
-                </div>
-                <p className="text-foreground-muted">No image available</p>
+          <div className="rounded-2xl overflow-hidden border border-primary-100 bg-white shadow-premium">
+            {property.image ? (
+              <div className="relative w-full h-80 md:h-[500px]">
+                <img
+                  src={property.image}
+                  alt={property.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
               </div>
-            </div>
+            ) : (
+              <div className="w-full h-80 md:h-96 bg-primary-50 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent-500/10 flex items-center justify-center text-accent-500 border border-accent-500/20">
+                    <MapPin className="w-10 h-10" />
+                  </div>
+                  <p className="text-secondary-400 font-medium">No property image available</p>
+                </div>
+              </div>
+            )}
 
             {/* Status Bar */}
-            <div className="h-1.5 w-full bg-linear-to-r from-accent-500 via-amber-400 to-accent-600" />
+            <div className="h-1.5 w-full bg-gradient-to-r from-accent-500 via-amber-400 to-accent-600" />
           </div>
 
           {/* Title & Basic Info */}
@@ -124,10 +134,10 @@ export default function PropertyDetailPage({
                   <div className="p-2 rounded-lg bg-accent-500/10">
                     <BadgeDollarSign className="w-6 h-6 text-accent-500" />
                   </div>
-                  <span className="text-white">
+                  <span className="text-primary-900">
                     Rp {property.price.toLocaleString('id-ID')}
                   </span>
-                  <span className="text-sm text-foreground-muted font-normal">
+                  <span className="text-sm text-secondary-500 font-normal">
                     / month
                   </span>
                 </div>
@@ -136,11 +146,11 @@ export default function PropertyDetailPage({
 
             {/* Description */}
             {property.description && (
-              <div className="rounded-xl border border-border bg-surface p-6">
-                <h2 className="font-semibold text-white mb-3">
+              <div className="rounded-xl border border-primary-100 bg-white p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-primary-900 mb-4 font-display">
                   About This Property
                 </h2>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-secondary-600 leading-relaxed text-lg">
                   {property.description}
                 </p>
               </div>
@@ -157,19 +167,19 @@ export default function PropertyDetailPage({
           )}
 
           {/* CTA Section */}
-          <div className="rounded-2xl border border-border bg-surface p-8 md:p-12">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="rounded-3xl border border-primary-100 bg-primary-50/50 p-8 md:p-12 backdrop-blur-sm">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-2">
+                <h2 className="text-3xl font-bold text-primary-900 mb-3 font-display">
                   Interested in this property?
                 </h2>
-                <p className="text-foreground-muted">
+                <p className="text-secondary-600 text-lg">
                   Send a booking request to the landlord. They will respond
                   shortly with more details.
                 </p>
               </div>
               <Link href={`/properties/${property.id}/book`}>
-                <Button className="bg-accent-500 hover:bg-accent-600 text-white px-8 py-3">
+                <Button className="bg-primary-900 hover:bg-primary-800 text-white px-10 py-4 rounded-2xl text-lg font-bold shadow-xl shadow-primary-900/10 transition-all">
                   Request Booking
                 </Button>
               </Link>

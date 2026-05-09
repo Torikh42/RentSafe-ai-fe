@@ -25,17 +25,17 @@ export function PropertyFilterPanel({
   ];
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm space-y-6">
+    <div className="rounded-2xl border border-primary-100 bg-white p-6 shadow-premium space-y-6">
       <div>
-        <h3 className="font-semibold text-white mb-4">Filters</h3>
+        <h3 className="font-bold text-primary-900 mb-4 font-display text-lg">Filters</h3>
 
         {/* Availability Filter */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-3">
+          <h4 className="text-[10px] font-bold uppercase tracking-widest text-primary-400 mb-3">
             Availability
           </h4>
 
-          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-primary-50 transition-colors group">
             <div className="relative w-4 h-4">
               <input
                 type="checkbox"
@@ -47,7 +47,7 @@ export function PropertyFilterPanel({
                 className={`w-4 h-4 rounded border-2 transition-all ${
                   available === undefined
                     ? 'bg-accent-500 border-accent-500'
-                    : 'border-zinc-700'
+                    : 'border-primary-100 group-hover:border-primary-300'
                 }`}
               >
                 {available === undefined && (
@@ -67,10 +67,10 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm text-zinc-300">All Properties</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">All Properties</span>
           </label>
 
-          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-primary-50 transition-colors group">
             <div className="relative w-4 h-4">
               <input
                 type="checkbox"
@@ -82,7 +82,7 @@ export function PropertyFilterPanel({
                 className={`w-4 h-4 rounded border-2 transition-all ${
                   available === true
                     ? 'bg-accent-500 border-accent-500'
-                    : 'border-zinc-700'
+                    : 'border-primary-100 group-hover:border-primary-300'
                 }`}
               >
                 {available === true && (
@@ -102,10 +102,10 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm text-zinc-300">Available Only</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">Available Only</span>
           </label>
 
-          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors">
+          <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-primary-50 transition-colors group">
             <div className="relative w-4 h-4">
               <input
                 type="checkbox"
@@ -117,7 +117,7 @@ export function PropertyFilterPanel({
                 className={`w-4 h-4 rounded border-2 transition-all ${
                   available === false
                     ? 'bg-accent-500 border-accent-500'
-                    : 'border-zinc-700'
+                    : 'border-primary-100 group-hover:border-primary-300'
                 }`}
               >
                 {available === false && (
@@ -137,13 +137,13 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm text-zinc-300">Occupied Only</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">Occupied Only</span>
           </label>
         </div>
 
         {/* Price Ranges */}
-        <div className="mt-6 pt-6 border-t border-white/5">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-3">
+        <div className="mt-6 pt-6 border-t border-primary-50">
+          <h4 className="text-[10px] font-bold uppercase tracking-widest text-primary-400 mb-3">
             Price Range
           </h4>
 
@@ -155,10 +155,10 @@ export function PropertyFilterPanel({
                   onMinPriceChange(range.min);
                   onMaxPriceChange(range.max);
                 }}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
                   minPrice === range.min && maxPrice === range.max
-                    ? 'bg-accent-500/15 text-accent-400 border border-accent-500/30'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    ? 'bg-accent-500/10 text-accent-600 border border-accent-500/20'
+                    : 'text-secondary-500 hover:text-primary-900 hover:bg-primary-50 border border-transparent'
                 }`}
               >
                 {range.label}

@@ -11,8 +11,8 @@ interface LandlordCardProps {
 
 export function LandlordCard({ name, image, verified }: LandlordCardProps) {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-8 shadow-sm">
-      <h3 className="font-bold text-white mb-6 text-lg">
+    <div className="rounded-2xl border border-primary-100 bg-white p-8 shadow-premium">
+      <h3 className="font-bold text-primary-900 mb-6 text-lg font-display">
         Landlord Information
       </h3>
 
@@ -25,7 +25,7 @@ export function LandlordCard({ name, image, verified }: LandlordCardProps) {
               alt={name}
               width={80}
               height={80}
-              className="w-20 h-20 rounded-2xl object-cover border border-border"
+              className="w-20 h-20 rounded-2xl object-cover border border-primary-100 shadow-sm"
             />
           ) : (
             <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-lg">
@@ -37,19 +37,19 @@ export function LandlordCard({ name, image, verified }: LandlordCardProps) {
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-semibold text-white text-lg truncate">
+            <h4 className="font-bold text-primary-900 text-lg truncate font-display">
               {name}
             </h4>
             {verified && (
               <Shield className="w-5 h-5 text-accent-500 shrink-0" />
             )}
           </div>
-          <p className="text-sm text-zinc-400 mb-6">
+          <p className="text-sm text-secondary-500 mb-6">
             Active landlord with proven track record
           </p>
 
-          <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border bg-surface-hover hover:bg-white/5 text-white font-medium transition-all">
-            <MessageSquare className="w-4 h-4" />
+          <button className="flex items-center gap-2 px-6 py-3 rounded-xl border border-primary-100 bg-primary-50 text-primary-900 font-bold hover:bg-primary-100 transition-all shadow-sm">
+            <MessageSquare className="w-4 h-4 text-accent-500" />
             Contact Landlord
           </button>
         </div>

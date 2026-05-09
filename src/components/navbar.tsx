@@ -31,8 +31,8 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-6 left-1/2 z-50 w-full max-w-4xl -translate-x-1/2 px-4">
-        <div className="glass flex items-center justify-between rounded-full px-4 py-2 sm:px-6 sm:py-3">
+      <nav className="fixed top-8 left-1/2 z-50 w-full max-w-5xl -translate-x-1/2 px-4">
+        <div className="bg-white/80 backdrop-blur-xl border border-primary-100/50 flex items-center justify-between rounded-full px-6 py-2.5 shadow-premium">
           <Link
             href="/"
             className="font-display text-xl font-bold text-primary-600 transition-colors hover:text-primary-500"
@@ -47,7 +47,7 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="hover:text-primary-500 transition-colors"
+                className="text-secondary-600 hover:text-primary-900 font-bold transition-all hover:-translate-y-0.5"
               >
                 {link.name}
               </Link>
@@ -58,13 +58,13 @@ export function Navbar() {
           <div className="hidden items-center gap-3 md:flex">
             {session ? (
               <>
-                <span className="text-sm font-medium text-foreground-muted">
-                  Hello, <span className="text-foreground">{firstName}</span>
+                <span className="text-sm font-bold text-secondary-500">
+                  Hello, <span className="text-primary-900">{firstName}</span>
                 </span>
                 {userRole === 'landlord' && (
                   <Link
                     href="/landlord/properties"
-                    className="rounded-full border border-primary-600/40 bg-primary-600/10 px-4 py-1.5 text-xs font-semibold text-primary-400 transition-all hover:bg-primary-600/20"
+                    className="rounded-full border border-primary-100 bg-primary-50 px-4 py-1.5 text-xs font-bold text-primary-900 transition-all hover:bg-primary-100 shadow-sm"
                   >
                     My Properties
                   </Link>
@@ -77,7 +77,7 @@ export function Navbar() {
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="rounded-full border border-border bg-surface/50 px-4 py-1.5 text-xs font-semibold transition-all hover:bg-surface hover:text-error-500"
+                  className="rounded-full border border-primary-100 bg-white px-4 py-1.5 text-xs font-bold text-secondary-600 transition-all hover:bg-error-50 hover:text-error-600 hover:border-error-200 shadow-sm"
                 >
                   Sign Out
                 </button>

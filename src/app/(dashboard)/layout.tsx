@@ -80,7 +80,7 @@ export default function DashboardGroupLayout({
   const roleLabel = userRole.charAt(0).toUpperCase() + userRole.slice(1);
 
   return (
-    <div className="flex min-h-screen bg-primary-950 text-white selection:bg-accent-500/30">
+    <div className="flex min-h-screen bg-background text-foreground selection:bg-primary-500 selection:text-white">
       <Sidebar
         visibleNav={visibleNav}
         pathname={pathname}

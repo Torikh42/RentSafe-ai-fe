@@ -13,8 +13,8 @@ export function UploadZone({
   onRemoveFile,
 }: UploadZoneProps) {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="group relative flex min-h-90 w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border bg-surface hover:border-accent-500/50 hover:bg-surface-hover transition-colors duration-300">
+    <div className="flex flex-col gap-4">
+      <div className="group relative flex min-h-[140px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-primary-100 bg-primary-50/20 hover:border-accent-500/50 hover:bg-primary-50/50 transition-all duration-300">
         <input
           type="file"
           multiple
@@ -23,15 +23,15 @@ export function UploadZone({
           className="absolute inset-0 z-10 cursor-pointer opacity-0"
         />
 
-        <div className="pointer-events-none flex flex-col items-center text-center z-20">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white transition-all duration-500">
-            <UploadCloud className="h-8 w-8" />
+        <div className="pointer-events-none flex flex-col items-center text-center z-20 p-4">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-primary-600 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white transition-all duration-500 shadow-sm border border-primary-100">
+            <UploadCloud className="h-6 w-6" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground">
-            Click or drag photos to upload
+          <h3 className="text-sm font-bold text-primary-900">
+            Upload Property Photos
           </h3>
-          <p className="mt-2 text-sm text-foreground-muted max-w-xs mx-auto">
-            Supported formats: JPG, PNG, WEBP. Maximum file size: 5MB per image.
+          <p className="mt-1 text-[10px] text-secondary-500 font-medium">
+            JPG, PNG or WEBP (Max 5MB)
           </p>
         </div>
       </div>

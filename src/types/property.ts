@@ -6,6 +6,7 @@ export interface Property {
   description?: string | null;
   available: boolean;
   landlordId: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,6 +17,7 @@ export interface CreatePropertyInput {
   price: number;
   description?: string;
   available?: boolean;
+  image?: File | string | null;
 }
 
 export interface UpdatePropertyInput extends Partial<CreatePropertyInput> {}

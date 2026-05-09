@@ -38,7 +38,7 @@ export function PropertyGrid({
         <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500">
           <Search className="h-10 w-10" />
         </div>
-        <h3 className="text-xl font-bold text-white mb-2">
+        <h3 className="text-xl font-bold text-primary-900 mb-2">
           No Properties Found
         </h3>
         <p className="text-zinc-400 max-w-md">

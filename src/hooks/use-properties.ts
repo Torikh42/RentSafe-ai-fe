@@ -26,11 +26,23 @@ export function useCreateProperty() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreatePropertyInput) =>
-      fetchApi<PropertyResponse>('/api/properties', {
+    mutationFn: (data: CreatePropertyInput) => {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          if (key === 'image' && value instanceof File) {
+            formData.append('image', value);
+          } else {
+            formData.append(key, String(value));
+          }
+        }
+      });
+
+      return fetchApi<PropertyResponse>('/api/properties', {
         method: 'POST',
-        body: JSON.stringify(data),
-      }),
+        body: formData,
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: propertyKeys.lists() });
     },
@@ -41,11 +53,23 @@ export function useUpdateProperty() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdatePropertyInput }) =>
-      fetchApi<PropertyResponse>(`/api/properties/${id}`, {
+    mutationFn: ({ id, data }: { id: string; data: UpdatePropertyInput }) => {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          if (key === 'image' && value instanceof File) {
+            formData.append('image', value);
+          } else {
+            formData.append(key, String(value));
+          }
+        }
+      });
+
+      return fetchApi<PropertyResponse>(`/api/properties/${id}`, {
         method: 'PATCH',
-        body: JSON.stringify(data),
-      }),
+        body: formData,
+      });
+    },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: propertyKeys.lists() });
       queryClient.invalidateQueries({

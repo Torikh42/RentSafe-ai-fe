@@ -24,40 +24,40 @@ export function PropertiesStats({
           label: 'Total Assets',
           value: total,
           icon: Building2,
-          accent: 'text-white',
-          bg: 'bg-primary-900/40',
-          border: 'border-white/5',
+          accent: 'text-primary-900',
+          bg: 'bg-white',
+          border: 'border-primary-100',
         },
         {
           label: 'Available Units',
           value: available,
           icon: LayoutGrid,
-          accent: 'text-accent-400',
-          bg: 'bg-accent-500/5',
-          border: 'border-accent-500/10',
+          accent: 'text-accent-600',
+          bg: 'bg-white',
+          border: 'border-primary-100',
         },
         {
           label: 'Active Tenancies',
           value: occupied,
           icon: SlidersHorizontal,
-          accent: 'text-zinc-300',
-          bg: 'bg-white/5',
-          border: 'border-white/5',
+          accent: 'text-secondary-600',
+          bg: 'bg-white',
+          border: 'border-primary-100',
         },
       ].map((stat) => (
         <div
           key={stat.label}
-          className={`${stat.bg} ${stat.border} relative group rounded-3xl p-8 border flex items-center justify-between overflow-hidden transition-all hover:bg-opacity-60`}
+          className={`${stat.bg} ${stat.border} relative group rounded-[24px] p-8 border flex items-center justify-between overflow-hidden transition-all duration-300 hover:shadow-premium hover:-translate-y-1`}
         >
           <div>
-            <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-1">
+            <p className="text-[10px] font-bold text-secondary-400 uppercase tracking-[0.2em] mb-1">
               {stat.label}
             </p>
             <p className={`text-4xl font-bold ${stat.accent} tracking-tight`}>
               {stat.value}
             </p>
           </div>
-          <div className="p-4 rounded-2xl bg-white/5 group-hover:bg-accent-500/10 transition-colors">
+          <div className="p-4 rounded-2xl bg-primary-50/50 group-hover:bg-accent-500/10 transition-colors">
             <stat.icon className={`w-8 h-8 ${stat.accent}`} />
           </div>
         </div>

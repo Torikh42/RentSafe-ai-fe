@@ -14,7 +14,7 @@ export function UploadZone({
 }: UploadZoneProps) {
   return (
     <div className="flex flex-col gap-6">
-      <div className="group relative flex min-h-[360px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border bg-surface hover:border-accent-500/50 hover:bg-surface-hover transition-colors duration-300">
+      <div className="group relative flex min-h-90 w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border bg-surface hover:border-accent-500/50 hover:bg-surface-hover transition-colors duration-300">
         <input
           type="file"
           multiple
@@ -42,7 +42,7 @@ export function UploadZone({
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              key={i}
+              key={`${file.name}-${file.size}-${file.lastModified}`}
               className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-surface"
             >
               <img

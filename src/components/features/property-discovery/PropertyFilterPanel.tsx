@@ -27,7 +27,9 @@ export function PropertyFilterPanel({
   return (
     <div className="rounded-2xl border border-primary-100 bg-white p-6 shadow-premium space-y-6">
       <div>
-        <h3 className="font-bold text-primary-900 mb-4 font-display text-lg">Filters</h3>
+        <h3 className="font-bold text-primary-900 mb-4 font-display text-lg">
+          Filters
+        </h3>
 
         {/* Availability Filter */}
         <div className="space-y-3">
@@ -67,7 +69,9 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">All Properties</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">
+              All Properties
+            </span>
           </label>
 
           <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-primary-50 transition-colors group">
@@ -102,7 +106,9 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">Available Only</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">
+              Available Only
+            </span>
           </label>
 
           <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-primary-50 transition-colors group">
@@ -137,7 +143,9 @@ export function PropertyFilterPanel({
                 )}
               </div>
             </div>
-            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">Occupied Only</span>
+            <span className="text-sm font-semibold text-secondary-600 group-hover:text-primary-900 transition-colors">
+              Occupied Only
+            </span>
           </label>
         </div>
 

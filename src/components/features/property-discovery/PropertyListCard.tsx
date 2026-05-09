@@ -56,7 +56,9 @@ export function PropertyListCard({
             <span className="text-lg font-black text-primary-900 tracking-tight">
               Rp {property.price.toLocaleString('id-ID')}
             </span>
-            <span className="text-secondary-400 text-xs font-medium">/ month</span>
+            <span className="text-secondary-400 text-xs font-medium">
+              / month
+            </span>
           </div>
         </div>
 

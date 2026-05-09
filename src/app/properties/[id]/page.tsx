@@ -100,7 +100,9 @@ export default function PropertyDetailPage({
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent-500/10 flex items-center justify-center text-accent-500 border border-accent-500/20">
                     <MapPin className="w-10 h-10" />
                   </div>
-                  <p className="text-secondary-400 font-medium">No property image available</p>
+                  <p className="text-secondary-400 font-medium">
+                    No property image available
+                  </p>
                 </div>
               </div>
             )}

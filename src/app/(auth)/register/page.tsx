@@ -1,20 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Loader2, AlertCircle, ShieldCheck } from 'lucide-react';
+import { Loader2, AlertCircle } from 'lucide-react';
 import { useRegisterForm } from '@/hooks/use-auth-form';
 import { useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 
 export default function RegisterPage() {
   const { isLoading, error, handleSocialAuth } = useRegisterForm();
@@ -45,21 +37,17 @@ export default function RegisterPage() {
   }
 
   return (
-    <Card className="overflow-hidden border-white/20 bg-white/5 shadow-2xl backdrop-blur-xl dark:border-white/10">
-      <CardHeader className="space-y-1 pb-6 pt-8 text-center">
-        {/* Icon */}
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-500/10 text-primary-500 ring-1 ring-primary-500/20">
-          <ShieldCheck className="h-7 w-7" />
-        </div>
-        <CardTitle className="font-display text-2xl font-medium tracking-tight">
+    <div className="w-full">
+      <div className="text-center mb-10">
+        <h1 className="font-display text-3xl font-bold tracking-tight text-charcoal-ink mb-2">
           Create Account
-        </CardTitle>
-        <CardDescription className="text-sm text-muted-foreground">
+        </h1>
+        <p className="text-slate-tech text-base">
           Join the future of secure property rental
-        </CardDescription>
-      </CardHeader>
+        </p>
+      </div>
 
-      <CardContent className="grid gap-5 px-8 pb-6">
+      <div className="grid gap-6">
         {/* Error Banner */}
         {error && (
           <div
@@ -73,16 +61,15 @@ export default function RegisterPage() {
 
         <Button
           type="button"
-          variant="outline"
           onClick={() => handleSocialAuth('google')}
           disabled={isLoading}
-          className="h-12 w-full cursor-pointer border-white/10 bg-white/5 font-medium text-foreground transition-all hover:bg-white/10"
+          className="h-14 w-full cursor-pointer bg-pure-surface border border-outline-variant hover:bg-surface-container-low text-charcoal-ink font-medium text-lg rounded-xl shadow-sm transition-all hover:-translate-y-[1px]"
         >
           {isLoading ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
           ) : (
             <svg
-              className="mr-2 h-5 w-5 filter drop-shadow-[0_0_1px_rgba(255,255,255,0.5)]"
+              className="mr-3 h-6 w-6"
               aria-hidden="true"
               focusable="false"
               xmlns="http://www.w3.org/2000/svg"
@@ -108,19 +95,19 @@ export default function RegisterPage() {
           )}
           Continue with Google
         </Button>
-      </CardContent>
+      </div>
 
-      <CardFooter className="flex justify-center pb-8 pt-2 text-sm text-muted-foreground">
+      <div className="mt-12 text-center text-sm text-slate-tech">
         <p>
           Already have an account?{' '}
           <Link
             href="/login"
-            className="font-semibold text-primary-500 transition-colors hover:text-primary-400"
+            className="font-medium text-accent-500 hover:text-info-500 transition-colors"
           >
             Sign in instead
           </Link>
         </p>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

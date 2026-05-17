@@ -7,18 +7,10 @@ import { useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 
 /**
  * Login page — /login
- * Layout (background, centering) is handled by src/app/(auth)/layout.tsx
+ * Layout (split screen) is handled by src/app/(auth)/layout.tsx
  */
 export default function LoginPage() {
   const { isLoading, error, handleSocialAuth } = useLoginForm();
@@ -49,26 +41,17 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className="overflow-hidden border-white/20 bg-white/5 shadow-2xl backdrop-blur-xl dark:border-white/10">
-      <CardHeader className="space-y-1 pb-6 pt-8 text-center">
-        {/* Logo */}
-        <div className="mb-4 flex justify-center">
-          <Link
-            href="/"
-            className="font-display text-4xl font-bold tracking-tight text-primary-500 drop-shadow-sm transition-opacity hover:opacity-80"
-          >
-            RentSafe
-          </Link>
-        </div>
-        <CardTitle className="font-display text-2xl font-medium tracking-tight">
+    <div className="w-full">
+      <div className="text-center mb-10">
+        <h1 className="font-display text-3xl font-bold tracking-tight text-charcoal-ink mb-2">
           Welcome Back
-        </CardTitle>
-        <CardDescription className="text-sm text-muted-foreground">
+        </h1>
+        <p className="text-slate-tech text-base">
           Securely access your rental dashboard
-        </CardDescription>
-      </CardHeader>
+        </p>
+      </div>
 
-      <CardContent className="grid gap-5 px-8 pb-6">
+      <div className="grid gap-6">
         {/* Error Banner */}
         {error && (
           <div
@@ -82,16 +65,15 @@ export default function LoginPage() {
 
         <Button
           type="button"
-          variant="outline"
           onClick={() => handleSocialAuth('google')}
           disabled={isLoading}
-          className="h-12 w-full cursor-pointer border-white/10 bg-white/5 font-medium text-foreground transition-all hover:bg-white/10"
+          className="h-14 w-full cursor-pointer bg-pure-surface border border-outline-variant hover:bg-surface-container-low text-charcoal-ink font-medium text-lg rounded-xl shadow-sm transition-all hover:-translate-y-[1px]"
         >
           {isLoading ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
           ) : (
             <svg
-              className="mr-2 h-5 w-5 filter drop-shadow-[0_0_1px_rgba(255,255,255,0.5)]"
+              className="mr-3 h-6 w-6"
               aria-hidden="true"
               focusable="false"
               xmlns="http://www.w3.org/2000/svg"
@@ -117,19 +99,19 @@ export default function LoginPage() {
           )}
           Continue with Google
         </Button>
-      </CardContent>
+      </div>
 
-      <CardFooter className="flex justify-center pb-8 pt-2 text-sm text-muted-foreground">
+      <div className="mt-12 text-center text-sm text-slate-tech">
         <p>
           Don&apos;t have an account?{' '}
           <Link
             href="/register"
-            className="font-semibold text-primary-500 transition-colors hover:text-primary-400"
+            className="font-medium text-accent-500 hover:text-info-500 transition-colors"
           >
             Create one now
           </Link>
         </p>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

@@ -2,13 +2,11 @@
 
 import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
   usePropertiesList,
   usePropertySearch,
 } from '@/hooks/use-property-discovery';
-import { PropertySearchBar } from '@/components/features/property-discovery/PropertySearchBar';
-import { PropertyFilterPanel } from '@/components/features/property-discovery/PropertyFilterPanel';
-import { PropertyGrid } from '@/components/features/property-discovery/PropertyGrid';
 import { Navbar } from '@/components/navbar';
 import type { PropertyListResponse } from '@/lib/api';
 
@@ -27,10 +25,9 @@ export function PropertyDiscoveryClient({
   initialMaxPrice,
   initialAvailable,
 }: PropertyDiscoveryClientProps) {
-  const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [minPrice, setMinPrice] = useState<number | undefined>(initialMinPrice);
-  const [maxPrice, setMaxPrice] = useState<number | undefined>(initialMaxPrice);
+  const [minPrice] = useState<number | undefined>(initialMinPrice);
+  const [maxPrice] = useState<number | undefined>(initialMaxPrice);
   const [available, setAvailable] = useState<boolean | undefined>(
     initialAvailable
   );
@@ -52,7 +49,6 @@ export function PropertyDiscoveryClient({
 
   const listQuery = usePropertiesList(page, limit);
 
-  // Use current data if loaded, otherwise fallback to initialData (for the very first render)
   const currentQuery = hasActiveFilters ? searchQuery_use : listQuery;
   const currentData =
     currentQuery.data ||
@@ -68,105 +64,187 @@ export function PropertyDiscoveryClient({
   }, []);
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      {/* Background decor */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-20">
-        <div className="bg-mesh absolute inset-0" />
-      </div>
-
-      {/* Navigation Bar (Floating) */}
+    <main className="flex min-h-screen flex-col bg-secondary-50 font-sans text-primary-900 selection:bg-primary-500 selection:text-white antialiased">
       <Navbar />
 
-      <div className="relative z-10 container mx-auto px-4 py-12 max-w-7xl pb-20 mt-16">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <div className="mb-4 flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded bg-accent-500/10 text-accent-500">
-              <svg
-                className="h-3.5 w-3.5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
-              </svg>
-            </span>
-            <span className="text-[11px] font-semibold tracking-widest text-accent-500 uppercase">
-              Property Discovery
-            </span>
+      <div className="mx-auto w-full max-w-7xl flex-grow px-4 py-16 md:px-12 xl:px-16">
+        <div className="mb-12 grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <h1 className="font-display text-5xl font-semibold tracking-tight text-primary-900">
+              Properti Tersedia
+            </h1>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-3">
-            Find Your Perfect <span className="text-accent-500">Property</span>
-          </h1>
-          <p className="text-foreground-muted max-w-2xl">
-            Browse through our curated collection of rental properties. Search,
-            filter, and compare to find the ideal home for you.
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
-        >
-          <PropertySearchBar
-            query={searchQuery}
-            onQueryChange={(q) => {
-              setSearchQuery(q);
-              setPage(1); // Reset page on search change
-            }}
-            onFilterToggle={() => setShowFilters(!showFilters)}
-          />
-        </motion.div>
+        <div className="mb-16 grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <div className="flex flex-wrap gap-6 border-b border-secondary-300 pb-6">
+              <div className="flex min-w-[200px] flex-col gap-2">
+                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                  Pencarian
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Nama properti..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setPage(1);
+                    }}
+                    className="w-full appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0"
+                  />
+                </div>
+              </div>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          {showFilters && (
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-1"
-            >
-              <PropertyFilterPanel
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                available={available}
-                onMinPriceChange={(val) => {
-                  setMinPrice(val);
-                  setPage(1);
-                }}
-                onMaxPriceChange={(val) => {
-                  setMaxPrice(val);
-                  setPage(1);
-                }}
-                onAvailableChange={(val) => {
-                  setAvailable(val);
-                  setPage(1);
-                }}
-              />
-            </motion.div>
-          )}
+              <div className="flex min-w-[200px] flex-col gap-2">
+                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                  Lokasi
+                </label>
+                <div className="relative">
+                  <select className="w-full cursor-pointer appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0">
+                    <option>Semua Lokasi</option>
+                    <option>Jakarta Selatan</option>
+                    <option>Jakarta Pusat</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-secondary-500">
+                    ▼
+                  </span>
+                </div>
+              </div>
 
-          {/* Properties Grid */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className={showFilters ? 'lg:col-span-3' : 'lg:col-span-4'}
-          >
-            <PropertyGrid
-              isLoading={isLoading}
-              properties={properties}
-              hasMore={hasMore}
-              onLoadMore={handleLoadMore}
-            />
-          </motion.div>
+              <div className="flex min-w-[200px] flex-col gap-2">
+                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                  Ketersediaan
+                </label>
+                <div className="relative">
+                  <select
+                    value={available === undefined ? '' : available.toString()}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setAvailable(val === '' ? undefined : val === 'true');
+                      setPage(1);
+                    }}
+                    className="w-full cursor-pointer appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0"
+                  >
+                    <option value="">Semua Status</option>
+                    <option value="true">Tersedia</option>
+                    <option value="false">Disewa</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-secondary-500">
+                    ▼
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <div className="flex w-full flex-col">
+              {isLoading ? (
+                <div className="py-8 text-center font-mono text-sm text-secondary-500">
+                  MEMUAT DATA...
+                </div>
+              ) : properties.length === 0 ? (
+                <div className="py-8 text-center font-mono text-sm text-secondary-500">
+                  TIDAK ADA PROPERTI DITEMUKAN
+                </div>
+              ) : (
+                properties.map((property) => (
+                  <motion.div
+                    key={property.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="group flex flex-col items-start gap-6 border-t border-secondary-300 py-8 transition-colors duration-200 hover:bg-white md:flex-row md:items-center"
+                  >
+                    <div className="h-32 w-full shrink-0 overflow-hidden rounded bg-secondary-200 md:w-48">
+                      {property.image ? (
+                        <img
+                          src={property.image}
+                          alt={property.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center font-mono text-[10px] text-secondary-400">
+                          NO_IMAGE
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex w-full flex-grow grid-cols-1 flex-col items-center gap-6 md:grid md:grid-cols-12">
+                      <div className="flex flex-col gap-2 md:col-span-5">
+                        <h3 className="font-display text-xl font-semibold text-primary-900 transition-colors group-hover:text-primary-700">
+                          {property.name}
+                        </h3>
+                        <p className="flex items-center gap-1 font-sans text-base text-secondary-600">
+                          <span className="text-[16px]">📍</span>
+                          {property.address}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-3 md:col-span-4">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-[13px] font-semibold text-secondary-500 uppercase">
+                            ID:
+                          </span>
+                          <span
+                            className="font-mono text-[13px] text-primary-900 truncate max-w-[150px]"
+                            title={property.id}
+                          >
+                            {property.id.split('-')[0]}...
+                          </span>
+                        </div>
+                        <div>
+                          <span
+                            className={`inline-flex items-center rounded border px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider ${
+                              property.available
+                                ? 'border-primary-200 bg-primary-50 text-primary-700'
+                                : 'border-secondary-300 bg-secondary-100 text-secondary-500'
+                            }`}
+                          >
+                            {property.available ? 'Tersedia' : 'Disewa'}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex w-full flex-col gap-4 md:col-span-3 md:w-auto md:items-end">
+                        <div className="font-mono text-[13px] font-bold text-primary-900">
+                          Rp {property.price.toLocaleString('id-ID')}{' '}
+                          <span className="font-normal text-secondary-500">
+                            / bln
+                          </span>
+                        </div>
+                        <Link
+                          href={`/properties/${property.id}`}
+                          className="w-full rounded border border-transparent bg-accent-500 px-6 py-2 text-center font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-accent-600 md:w-auto"
+                        >
+                          Detail
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+
+              <div className="mt-8 border-t border-secondary-300"></div>
+
+              {hasMore && (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    onClick={handleLoadMore}
+                    disabled={currentQuery.isFetching}
+                    className="rounded border border-primary-500 bg-transparent px-6 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-primary-500 transition-colors hover:bg-primary-50 disabled:opacity-50"
+                  >
+                    {currentQuery.isFetching
+                      ? 'MEMUAT...'
+                      : 'MUAT LEBIH BANYAK'}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </main>

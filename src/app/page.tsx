@@ -4,171 +4,183 @@ import { Navbar } from '@/components/navbar';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-primary-500 selection:text-white">
-      {/* Background Decor */}
-      <div className="bg-mesh absolute inset-0 z-0" />
-      <div className="noise absolute inset-0 z-10" />
-
-      {/* Navigation Bar (Floating) */}
+    <div className="flex min-h-screen flex-col bg-secondary-50 font-sans text-primary-900 selection:bg-primary-500 selection:text-white antialiased">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative z-20 flex min-h-screen flex-col items-center justify-center px-4 pt-20 text-center">
-        <div className="animate-fade-in mb-6 flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50/50 px-4 py-1 text-sm font-medium text-primary-700 backdrop-blur-sm dark:border-primary-800 dark:bg-primary-950/30 dark:text-primary-300">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-500"></span>
-          </span>
-          AI-Powered Security for Property Rental
+      <main className="flex-grow">
+        {/* Section 1: Hero */}
+        <section className="grid grid-cols-1 items-start gap-8 border-b border-secondary-200 px-4 py-16 md:px-12 lg:grid-cols-12 lg:pt-24 lg:pb-16 xl:px-16">
+          <div className="lg:col-span-5 lg:pr-12">
+            <div className="mb-6 inline-flex items-center gap-2 border border-secondary-200 bg-white px-2 py-0.5 font-mono text-[10px] font-semibold text-primary-700 uppercase tracking-widest">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+              </span>
+              Standard Keamanan Institusional
+            </div>
+
+            <h1 className="mb-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-primary-900 lg:text-[42px] xl:text-6xl">
+              Sewa Properti
+              <br />
+              Tanpa Sengketa.
+            </h1>
+
+            <p className="mb-8 max-w-sm text-base leading-relaxed text-secondary-600">
+              Solusi cerdas berbasis AI untuk deposit dan kontrak sewa. Lindungi
+              aset Anda dengan Smart Escrow dan Gemini Vision Inspection.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <Link
+                href="/properties"
+                className="rounded border border-transparent bg-accent-500 px-6 py-3 font-mono text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-accent-600"
+              >
+                Cari Properti
+              </Link>
+              <Link
+                href="/register"
+                className="rounded border border-primary-500 bg-transparent px-6 py-3 font-mono text-xs font-bold uppercase tracking-widest text-primary-500 transition-colors hover:bg-primary-50"
+              >
+                Daftar Tenant
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mt-8 lg:col-span-7 lg:mt-0 hidden lg:block">
+            {/* Placeholder for Hero Illustration/Graphic */}
+          </div>
+        </section>
+
+        {/* Dense Horizontal Ticker */}
+        <div className="relative w-full overflow-hidden border-b border-secondary-200 bg-secondary-100 py-2">
+          <div className="flex animate-ticker items-center gap-12 whitespace-nowrap hover:[animation-play-state:paused]">
+            <div className="flex items-center gap-12">
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                MIDTRANS_ESCROW_ACTIVE
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                KUHPERDATA_COMPLIANT
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                GEMINI_VISION_v1.5
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                AUTO_DISPUTE_RES: 98%
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                ZERO_TRUST_SECURITY
+              </span>
+            </div>
+            {/* Duplicated for seamless loop */}
+            <div className="flex items-center gap-12 pl-12">
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                MIDTRANS_ESCROW_ACTIVE
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                KUHPERDATA_COMPLIANT
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                GEMINI_VISION_v1.5
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                AUTO_DISPUTE_RES: 98%
+              </span>
+              <span className="font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                ZERO_TRUST_SECURITY
+              </span>
+            </div>
+          </div>
         </div>
 
-        <h1 className="font-display animate-slide-up mb-6 max-w-4xl text-5xl font-medium leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
-          Sewa Properti <br />
-          <span className="italic text-primary-600">Tanpa Sengketa.</span>
-        </h1>
-
-        <p className="animate-slide-up mx-auto mb-10 max-w-2xl text-lg text-foreground-muted [animation-delay:200ms] md:text-xl">
-          Solusi cerdas berbasis AI untuk deposit dan kontrak sewa. Lindungi
-          aset Anda dengan Smart Escrow dan Gemini Vision Inspection.
-        </p>
-
-        <div className="animate-slide-up flex flex-col items-center gap-4 [animation-delay:400ms] sm:flex-row sm:gap-6">
-          <Link
-            href="/properties"
-            className="group relative flex h-14 items-center justify-center overflow-hidden rounded-2xl bg-primary-600 px-8 text-lg font-semibold text-white transition-all hover:bg-primary-700 hover:shadow-2xl hover:shadow-primary-500/30"
-          >
-            Cari Properti
-            <svg
-              className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
-          <Link
-            href="/register"
-            className="flex h-14 items-center justify-center rounded-2xl border border-border bg-surface/50 px-8 text-lg font-medium transition-all hover:bg-surface hover:shadow-lg"
-          >
-            Daftar Tenant
-          </Link>
-        </div>
-      </section>
-
-      {/* Trust & Stats (Bento Style) */}
-      <section className="container relative z-20 mx-auto px-4 py-24">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-          {/* Main Stat Card */}
-          <div className="glass animate-slide-up group relative flex flex-col justify-between overflow-hidden rounded-3xl p-8 [animation-delay:100ms] md:col-span-8">
-            <div className="relative z-10">
-              <span className="mb-4 inline-block text-4xl">🛡️</span>
-              <h2 className="font-display mb-4 text-3xl font-medium">
-                Standard Keamanan Baru
+        {/* Section 2: Features (Zig-Zag, Tightened) */}
+        <section>
+          {/* Feature 1: Smart Contracts */}
+          <div className="grid grid-cols-1 items-start gap-8 border-b border-secondary-200 px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
+            <div className="lg:col-span-8 lg:col-start-1 max-w-2xl">
+              <div className="mb-2 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                Infrastruktur Legal
+              </div>
+              <h2 className="mb-4 font-display text-2xl font-semibold text-primary-900 lg:text-3xl">
+                AI Smart Contracts
               </h2>
-              <p className="max-w-md text-foreground-muted">
-                Kami menggabungkan Smart Contracts dengan AI Vision untuk
-                memastikan kondisi properti tercatat sempurna sebelum dan
-                sesudah masa sewa.
+              <p className="mb-6 text-base leading-relaxed text-secondary-600">
+                Setiap sewa diamankan secara matematis. Kami menerjemahkan
+                bahasa hukum (KUHPerdata) menjadi kode yang dapat dieksekusi,
+                menghilangkan ambiguitas dan memastikan kepatuhan.
               </p>
             </div>
-            <div className="mt-12 grid grid-cols-3 gap-8">
-              <div>
-                <div className="text-3xl font-bold text-primary-600">95%</div>
-                <p className="text-sm text-foreground-muted">Cost Efficiency</p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary-600">10k+</div>
-                <p className="text-sm text-foreground-muted">
-                  Verified Property
-                </p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary-600">24/7</div>
-                <p className="text-sm text-foreground-muted">
-                  AI Dispute Resolution
-                </p>
-              </div>
-            </div>
-            {/* Visual Decoration */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-primary-500/10 blur-3xl transition-all group-hover:bg-primary-500/20" />
           </div>
 
-          {/* Side Card 1 */}
-          <div className="glass animate-slide-up flex flex-col items-center justify-center rounded-3xl p-8 text-center [animation-delay:200ms] md:col-span-4">
-            <div className="mb-4 text-5xl font-bold text-secondary-900 dark:text-primary-400">
-              98%
-            </div>
-            <p className="font-medium text-foreground">
-              Sengketa Selesai Cepat
-            </p>
-            <p className="mt-2 text-sm text-foreground-muted">
-              Dispute deposit diselesaikan dalam hitungan jam, bukan minggu.
-            </p>
-          </div>
-
-          {/* Side Card 2 */}
-          <div className="glass animate-slide-up bg-secondary-900 p-8 text-white [animation-delay:300ms] md:col-span-4 dark:bg-primary-600">
-            <div className="flex h-full flex-col justify-between">
-              <div>
-                <h3 className="font-display text-2xl">
-                  Gemini AI <br /> Inspection
-                </h3>
-                <p className="mt-4 text-sm opacity-80">
-                  Gunakan kamera HP untuk dokumentasi. AI kami mendeteksi
-                  kerusakan secara real-time.
-                </p>
+          {/* Feature 2: AI Inspection */}
+          <div className="grid grid-cols-1 items-start gap-8 border-b border-secondary-200 bg-white px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
+            <div className="lg:col-span-8 lg:col-start-1 max-w-2xl">
+              <div className="mb-2 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
+                Inspeksi_Otomatis
               </div>
-              <div className="mt-8 flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="h-8 w-8 rounded-full border-2 border-secondary-900 bg-secondary-700 dark:border-primary-600"
-                  />
-                ))}
-                <div className="flex h-8 items-center pl-4 text-xs font-medium">
-                  +1.2k checked today
-                </div>
-              </div>
+              <h2 className="mb-4 font-display text-2xl font-semibold text-primary-900 lg:text-3xl">
+                Gemini Vision AI
+              </h2>
+              <p className="mb-6 text-base leading-relaxed text-secondary-600">
+                Gunakan kamera HP untuk dokumentasi Check-in dan Check-out.
+                Jaringan neural kami mendeteksi kerusakan dan keausan secara
+                real-time untuk mencegah klaim sepihak.
+              </p>
             </div>
           </div>
+        </section>
 
-          {/* Side Card 3 */}
-          <div className="glass animate-slide-up rounded-3xl p-8 [animation-delay:400ms] md:col-span-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center">
-              <div className="flex-1">
-                <h3 className="font-display text-2xl font-medium">
-                  Smart Escrow System
-                </h3>
-                <p className="mt-2 text-foreground-muted text-sm">
-                  Uang deposit Anda tidak langsung ke pemilik properti. Disimpan
-                  di Smart Escrow dan dilepaskan hanya setelah verifikasi AI
-                  selesai.
-                </p>
+        {/* Section 3: Stats (Dense Editorial) */}
+        <section className="border-b border-secondary-200 px-4 py-16 md:px-12 xl:px-16 bg-white">
+          <div className="grid grid-cols-1 border border-secondary-200 md:grid-cols-4">
+            <div className="border-b border-secondary-200 p-8 md:border-r md:border-b-0">
+              <div className="mb-4 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-wider">
+                EFISIENSI_BIAYA
               </div>
-              <div className="flex h-24 items-center justify-center rounded-2xl bg-surface p-4 shadow-inner dark:bg-secondary-900 md:w-48">
-                <div className="flex items-end gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <div
-                      key={i}
-                      className="h-10 w-2 animate-float rounded-full bg-primary-500"
-                      style={{ animationDelay: `${i * 200}ms` }}
-                    />
-                  ))}
-                </div>
+              <div className="mb-2 font-mono text-[32px] font-bold text-primary-900">
+                95%
+              </div>
+              <div className="font-mono text-[11px] leading-snug text-secondary-500">
+                Lebih murah dibandingkan menggunakan jasa hukum tradisional.
+              </div>
+            </div>
+            <div className="border-b border-secondary-200 p-8 md:border-r md:border-b-0">
+              <div className="mb-4 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-wider">
+                SENGKETA_SELESAI
+              </div>
+              <div className="mb-2 font-mono text-[32px] font-bold text-primary-900">
+                98%
+              </div>
+              <div className="font-mono text-[11px] leading-snug text-secondary-500">
+                Selesai dalam hitungan jam berkat mediasi AI netral.
+              </div>
+            </div>
+            <div className="border-b border-secondary-200 p-8 md:border-r md:border-b-0">
+              <div className="mb-4 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-wider">
+                RELIABILITAS_SISTEM
+              </div>
+              <div className="mb-2 font-mono text-[32px] font-bold text-primary-900">
+                24/7
+              </div>
+              <div className="font-mono text-[11px] leading-snug text-secondary-500">
+                Arbiter AI tersedia kapan saja untuk menyelesaikan masalah.
+              </div>
+            </div>
+            <div className="p-8">
+              <div className="mb-4 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-wider">
+                PROPERTI_TERVERIFIKASI
+              </div>
+              <div className="mb-2 font-mono text-[32px] font-bold text-primary-900">
+                10k+
+              </div>
+              <div className="font-mono text-[11px] leading-snug text-secondary-500">
+                Aset disewakan dengan keamanan protokol tingkat tinggi.
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Footer */}
       <Footer />
-    </main>
+    </div>
   );
 }

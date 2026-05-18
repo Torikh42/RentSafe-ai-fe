@@ -31,23 +31,23 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-8 left-1/2 z-50 w-full max-w-5xl -translate-x-1/2 px-4">
-        <div className="bg-white/80 backdrop-blur-xl border border-primary-100/50 flex items-center justify-between rounded-full px-6 py-2.5 shadow-premium">
+      <nav className="sticky top-0 z-50 w-full border-b border-secondary-300 bg-white">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-12 xl:px-16">
           <Link
             href="/"
-            className="font-display text-xl font-bold text-primary-600 transition-colors hover:text-primary-500"
+            className="font-display text-xl font-bold tracking-tight text-primary-900 transition-colors hover:text-primary-700"
             onClick={() => setMobileMenuOpen(false)}
           >
-            RentSafe
+            RentSafe AI
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden gap-6 text-sm font-medium md:flex items-center">
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-secondary-600 hover:text-primary-900 font-bold transition-all hover:-translate-y-0.5"
+                className="font-mono text-[11px] font-semibold uppercase tracking-widest text-secondary-500 transition-colors hover:text-primary-900"
               >
                 {link.name}
               </Link>
@@ -55,56 +55,70 @@ export function Navbar() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             {session ? (
               <>
-                <span className="text-sm font-bold text-secondary-500">
-                  Hello, <span className="text-primary-900">{firstName}</span>
-                </span>
+                <div className="flex items-center gap-2 border-r border-secondary-200 pr-6">
+                  <span className="font-mono text-[11px] uppercase text-secondary-500">
+                    USER:
+                  </span>
+                  <span className="font-mono text-[11px] font-bold text-primary-900">
+                    {firstName}
+                  </span>
+                </div>
+
                 {userRole === 'landlord' && (
                   <Link
                     href="/landlord/properties"
-                    className="rounded-full border border-primary-100 bg-primary-50 px-4 py-1.5 text-xs font-bold text-primary-900 transition-all hover:bg-primary-100 shadow-sm"
+                    className="font-mono text-[11px] font-semibold uppercase tracking-widest text-secondary-600 hover:text-primary-900"
                   >
                     My Properties
                   </Link>
                 )}
                 <Link
                   href="/dashboard"
-                  className="rounded-full bg-primary-600 px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/20"
+                  className="rounded bg-primary-900 px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-800"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="rounded-full border border-primary-100 bg-white px-4 py-1.5 text-xs font-bold text-secondary-600 transition-all hover:bg-error-50 hover:text-error-600 hover:border-error-200 shadow-sm"
+                  className="rounded border border-secondary-300 bg-transparent px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-secondary-600 transition-colors hover:bg-secondary-50"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
-              <Link
-                href="/login"
-                className="rounded-full bg-secondary-900 px-5 py-2 text-xs font-semibold text-white transition-transform hover:scale-105 dark:bg-primary-500"
-              >
-                Get Started
-              </Link>
+              <>
+                <Link
+                  href="/login"
+                  className="font-mono text-[11px] font-semibold uppercase tracking-widest text-secondary-600 transition-colors hover:text-primary-900"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="rounded bg-primary-900 px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-800"
+                >
+                  Daftar
+                </Link>
+              </>
             )}
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="flex md:hidden items-center gap-3">
+          <div className="flex items-center gap-4 md:hidden">
             {session && !isMobileMenuOpen && (
               <Link
                 href="/dashboard"
-                className="rounded-full bg-primary-600 px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-primary-700"
+                className="rounded bg-primary-900 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-800"
               >
                 Dashboard
               </Link>
             )}
             <button
               onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-surface/50 text-foreground transition-colors hover:bg-surface"
+              className="flex h-10 w-10 items-center justify-center rounded border border-secondary-200 bg-secondary-50 text-primary-900 transition-colors hover:bg-secondary-100"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -121,20 +135,20 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <MotionDiv
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-x-4 top-24 z-40 rounded-3xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-black/60"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="fixed inset-x-4 top-20 z-40 border border-secondary-300 bg-white p-6 shadow-none md:hidden"
           >
             <div className="flex flex-col gap-6">
               {/* Mobile Links */}
-              <div className="flex flex-col gap-4 text-lg font-medium">
+              <div className="flex flex-col gap-4 border-b border-secondary-200 pb-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="border-b border-border/50 pb-2 hover:text-primary-500"
+                    className="font-mono text-[13px] font-semibold uppercase tracking-widest text-secondary-600 hover:text-primary-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -143,17 +157,19 @@ export function Navbar() {
               </div>
 
               {/* Mobile Actions */}
-              <div className="flex flex-col gap-3 pt-2">
+              <div className="flex flex-col gap-3">
                 {session ? (
                   <>
-                    <div className="mb-2 text-sm font-medium text-foreground-muted">
+                    <div className="mb-2 font-mono text-[11px] text-secondary-500 uppercase">
                       Logged in as{' '}
-                      <span className="text-foreground">{firstName}</span>
+                      <span className="font-bold text-primary-900">
+                        {firstName}
+                      </span>
                     </div>
                     {userRole === 'landlord' && (
                       <Link
                         href="/landlord/properties"
-                        className="flex w-full items-center justify-center rounded-xl border border-primary-600/40 bg-primary-600/10 py-3 text-sm font-semibold text-primary-400 transition-all hover:bg-primary-600/20"
+                        className="flex w-full items-center justify-center rounded border border-secondary-300 bg-secondary-50 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-primary-900 transition-colors hover:bg-secondary-100"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         My Properties
@@ -161,14 +177,14 @@ export function Navbar() {
                     )}
                     <Link
                       href="/dashboard"
-                      className="flex w-full items-center justify-center rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-700"
+                      className="flex w-full items-center justify-center rounded bg-primary-900 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-800"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Go to Dashboard
                     </Link>
                     <button
                       onClick={handleSignOut}
-                      className="flex w-full items-center justify-center rounded-xl border border-error-200 bg-error-50 py-3 text-sm font-semibold text-error-600 transition-all hover:bg-error-100 dark:border-error-900/50 dark:bg-error-900/20 dark:hover:bg-error-900/40"
+                      className="flex w-full items-center justify-center rounded border border-secondary-300 bg-transparent py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-secondary-600 transition-colors hover:bg-secondary-50"
                     >
                       Sign Out
                     </button>
@@ -177,17 +193,17 @@ export function Navbar() {
                   <>
                     <Link
                       href="/login"
-                      className="flex w-full items-center justify-center rounded-xl bg-secondary-900 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary-800 dark:bg-primary-500 dark:hover:bg-primary-600"
+                      className="flex w-full items-center justify-center rounded border border-secondary-300 bg-transparent py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-secondary-600 transition-colors hover:bg-secondary-50"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      Sign In
+                      Login
                     </Link>
                     <Link
                       href="/register"
-                      className="flex w-full items-center justify-center rounded-xl border border-border bg-surface py-3 text-sm font-semibold transition-all hover:bg-surface/80"
+                      className="flex w-full items-center justify-center rounded bg-primary-900 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-800"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      Create Account
+                      Daftar
                     </Link>
                   </>
                 )}

@@ -39,3 +39,6 @@ tsconfig.tsbuildinfo
 
 # Misc
 .vercel
+
+docs
+.stitch

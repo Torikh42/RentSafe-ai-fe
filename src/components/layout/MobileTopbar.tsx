@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { LogOut } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 interface NavItem {
   label: string;
@@ -20,6 +21,20 @@ export function MobileTopbar({
   pathname,
   onSignOut,
 }: MobileTopbarProps) {
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get('tab');
+
+  const checkActive = (href: string) => {
+    if (href.includes('?tab=')) {
+      const tabName = href.split('?tab=')[1];
+      return currentTab === tabName;
+    }
+    if (href === '/dashboard') {
+      return pathname === '/dashboard' && !currentTab;
+    }
+    return pathname === href;
+  };
+
   return (
     <div className="lg:hidden h-16 flex items-center justify-between px-6 border-b border-primary-100 bg-white/80 backdrop-blur-xl sticky top-0 z-20">
       <Link href="/" className="flex items-center gap-2.5">
@@ -41,7 +56,7 @@ export function MobileTopbar({
             key={item.href}
             href={item.href}
             className={`p-2 rounded-xl text-sm transition-all duration-200 ${
-              pathname === item.href
+              checkActive(item.href)
                 ? 'bg-accent-500/10 text-accent-600 border border-accent-500/20'
                 : 'text-secondary-500 hover:text-primary-900 hover:bg-primary-50/50'
             }`}

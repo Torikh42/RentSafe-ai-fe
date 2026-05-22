@@ -1,4 +1,6 @@
 import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 interface PropertiesHeaderProps {
   onAddProperty: () => void;
@@ -6,37 +8,44 @@ interface PropertiesHeaderProps {
 
 export function PropertiesHeader({ onAddProperty }: PropertiesHeaderProps) {
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-white p-8 sm:p-12 border border-primary-100 shadow-premium">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/5 blur-[120px] -mr-48 -mt-48 rounded-full" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/5 blur-[100px] -ml-32 -mb-32 rounded-full" />
+    <div className="relative overflow-hidden rounded-md bg-white p-8 border-b border-border/40 shadow-none sm:p-12">
+      <div className="pointer-events-none absolute right-0 top-0 -mr-48 -mt-48 h-96 w-96 rounded-full bg-[#e38b29]/5 blur-[120px]" />
 
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="px-3 py-1 rounded-full bg-accent-500/10 border border-accent-500/20 text-[10px] font-bold uppercase tracking-widest text-accent-600">
+      <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <Badge
+              variant="outline"
+              className="rounded-sm border-[#e38b29]/20 bg-[#e38b29]/5 font-mono text-[10px] font-bold uppercase tracking-widest text-[#e38b29]"
+            >
               Landlord Dashboard
-            </span>
-            <span className="w-1 h-1 rounded-full bg-zinc-700" />
-            <span className="text-secondary-400 text-[10px] uppercase tracking-widest font-medium">
+            </Badge>
+            <span className="h-1 w-1 rounded-full bg-border" />
+            <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
               Live Status
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-medium text-primary-900 tracking-tight mb-4 font-display">
-            Portfolio <span className="italic text-accent-500">Overview</span>
+          <h1 className="font-sans text-4xl font-semibold tracking-tight text-primary md:text-5xl">
+            Portfolio{' '}
+            <span className="font-serif italic text-[#e38b29]">Overview</span>
           </h1>
-          <p className="text-secondary-500 max-w-xl text-lg leading-relaxed">
+          <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
             Maintain full control over your rental assets. Monitor real-time
             availability and manage high-performance listings.
           </p>
         </div>
 
-        <button
+        <Button
           onClick={onAddProperty}
-          className="group relative flex items-center gap-3 px-8 py-4 rounded-2xl bg-primary-900 hover:bg-primary-800 text-white text-base font-bold shadow-xl shadow-primary-900/10 transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+          size="lg"
+          className="group rounded-sm bg-primary font-mono text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-sm transition-all hover:bg-primary/90"
         >
-          <Plus className="w-5 h-5 transition-transform group-hover:rotate-90 text-accent-500" />
+          <Plus
+            data-icon="inline-start"
+            className="text-[#e38b29] transition-transform group-hover:rotate-90"
+          />
           Add Property
-        </button>
+        </Button>
       </div>
     </div>
   );

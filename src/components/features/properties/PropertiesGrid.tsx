@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { LayoutGrid, Building2, Plus } from 'lucide-react';
 import { PropertyCard } from '@/components/properties/property-card';
 import type { Property } from '@/types/property';
+import { Button } from '@/components/ui/button';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,12 +35,12 @@ export function PropertiesGrid({
 }: PropertiesGridProps) {
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 gap-6">
+      <div className="flex flex-col items-center justify-center gap-6 py-32">
         <div className="relative">
-          <div className="w-16 h-16 rounded-full border-2 border-accent-500/20 animate-pulse" />
-          <div className="absolute inset-0 w-16 h-16 rounded-full border-t-2 border-accent-500 animate-spin" />
+          <div className="size-16 animate-pulse rounded-full border-2 border-[#e38b29]/20" />
+          <div className="absolute inset-0 size-16 animate-spin rounded-full border-t-2 border-[#e38b29]" />
         </div>
-        <p className="text-secondary-400 font-medium tracking-wide animate-pulse uppercase text-[10px]">
+        <p className="animate-pulse font-mono text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           Synchronizing your assets...
         </p>
       </div>
@@ -49,20 +50,23 @@ export function PropertiesGrid({
   if (isError) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-error-50 flex items-center justify-center mb-6">
-          <Building2 className="w-8 h-8 text-error-500" />
+        <div className="mb-6 flex size-16 items-center justify-center rounded-sm bg-destructive/10">
+          <Building2 className="size-8 text-destructive" />
         </div>
-        <h3 className="text-xl font-bold text-primary-900 mb-2">Sync Error</h3>
-        <p className="text-secondary-500 max-w-sm mb-8 text-sm">
+        <h3 className="mb-2 font-sans text-xl font-semibold text-primary">
+          Sync Error
+        </h3>
+        <p className="mb-8 max-w-sm text-sm text-muted-foreground">
           We encountered a problem retrieving your portfolio. Please check your
           connection and try again.
         </p>
-        <button
+        <Button
           onClick={() => window.location.reload()}
-          className="px-8 py-3 rounded-xl bg-white border border-primary-100 text-primary-900 font-semibold hover:bg-primary-50 transition-all shadow-sm"
+          variant="outline"
+          className="rounded-sm font-mono text-xs font-semibold uppercase tracking-widest"
         >
           Retry Connection
-        </button>
+        </Button>
       </div>
     );
   }
@@ -73,28 +77,29 @@ export function PropertiesGrid({
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col items-center justify-center py-32 px-8 text-center rounded-[40px] border-2 border-dashed border-primary-100 bg-white shadow-sm"
+        className="flex flex-col items-center justify-center rounded-md border border-dashed border-border/60 bg-muted/10 px-8 py-32 text-center"
       >
-        <div className="w-24 h-24 rounded-[32px] bg-accent-500/10 flex items-center justify-center mb-8 border border-accent-500/20">
-          <LayoutGrid className="w-10 h-10 text-accent-500" />
+        <div className="mb-8 flex size-24 items-center justify-center rounded-sm border border-[#e38b29]/20 bg-[#e38b29]/10">
+          <LayoutGrid className="size-10 text-[#e38b29]" />
         </div>
-        <h3 className="text-2xl font-bold text-primary-900 mb-3 font-display">
+        <h3 className="mb-3 font-sans text-2xl font-semibold text-primary">
           {searchQuery || filterAvailable !== null
             ? 'No Results Found'
             : 'Portfolio is Empty'}
         </h3>
-        <p className="text-secondary-500 text-lg max-w-md mb-10 leading-relaxed">
+        <p className="mb-10 max-w-md text-lg leading-relaxed text-muted-foreground">
           {searchQuery || filterAvailable !== null
             ? 'Try refining your search parameters or clearing filters to find what you are looking for.'
             : 'Ready to scale? Add your first high-yield rental property and start managing with RentSafe AI.'}
         </p>
-        <button
+        <Button
           onClick={onAddProperty}
-          className="flex items-center gap-3 px-10 py-4 rounded-2xl bg-primary-900 hover:bg-primary-800 text-white font-bold shadow-xl shadow-primary-900/10 transition-all"
+          size="lg"
+          className="rounded-sm bg-primary font-mono text-xs font-semibold uppercase tracking-widest text-primary-foreground shadow-sm"
         >
-          <Plus className="w-5 h-5 text-accent-500" />
+          <Plus data-icon="inline-start" className="text-[#e38b29]" />
           Add First Asset
-        </button>
+        </Button>
       </motion.div>
     );
   }
@@ -104,7 +109,7 @@ export function PropertiesGrid({
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+      className="mt-8 flex flex-col border-t border-border/40"
     >
       {properties.map((property, i) => (
         <PropertyCard

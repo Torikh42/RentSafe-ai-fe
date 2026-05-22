@@ -2,8 +2,16 @@
 
 import { useSession } from '@/lib/auth-client';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Loader2, Building2, LayoutDashboard } from 'lucide-react';
+import { useEffect, useState, Suspense } from 'react';
+import {
+  Loader2,
+  Building2,
+  LayoutDashboard,
+  Users,
+  Wrench,
+  DollarSign,
+  Settings,
+} from 'lucide-react';
 import { signOut } from '@/lib/auth-client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -18,16 +26,40 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: 'Overview',
+    label: 'Dashboard',
     href: '/dashboard',
     icon: <LayoutDashboard className="w-4 h-4" />,
     roles: ['landlord', 'tenant', 'admin'],
   },
   {
-    label: 'My Properties',
-    href: '/landlord/properties',
+    label: 'Properties',
+    href: '/dashboard?tab=properties',
     icon: <Building2 className="w-4 h-4" />,
     roles: ['landlord'],
+  },
+  {
+    label: 'Tenants',
+    href: '/dashboard?tab=tenants',
+    icon: <Users className="w-4 h-4" />,
+    roles: ['landlord'],
+  },
+  {
+    label: 'Maintenance',
+    href: '/dashboard?tab=maintenance',
+    icon: <Wrench className="w-4 h-4" />,
+    roles: ['landlord', 'tenant', 'admin'],
+  },
+  {
+    label: 'Financials',
+    href: '/dashboard?tab=financials',
+    icon: <DollarSign className="w-4 h-4" />,
+    roles: ['landlord'],
+  },
+  {
+    label: 'Settings',
+    href: '/dashboard?tab=settings',
+    icon: <Settings className="w-4 h-4" />,
+    roles: ['landlord', 'tenant', 'admin'],
   },
 ];
 
@@ -81,20 +113,32 @@ export default function DashboardGroupLayout({
 
   return (
     <div className="flex min-h-screen bg-background text-foreground selection:bg-primary-500 selection:text-white">
-      <Sidebar
-        visibleNav={visibleNav}
-        pathname={pathname}
-        firstName={firstName}
-        roleLabel={roleLabel}
-        onSignOut={handleSignOut}
-      />
-
-      <div className="flex-1 lg:ml-72 flex flex-col min-h-screen">
-        <MobileTopbar
+      <Suspense
+        fallback={
+          <div className="hidden lg:flex w-72 bg-[#030c24] text-white fixed inset-y-0 left-0 z-30" />
+        }
+      >
+        <Sidebar
           visibleNav={visibleNav}
           pathname={pathname}
+          firstName={firstName}
+          roleLabel={roleLabel}
           onSignOut={handleSignOut}
         />
+      </Suspense>
+
+      <div className="flex-1 lg:ml-72 flex flex-col min-h-screen">
+        <Suspense
+          fallback={
+            <div className="lg:hidden h-16 bg-white/80 border-b border-primary-100 sticky top-0 z-20" />
+          }
+        >
+          <MobileTopbar
+            visibleNav={visibleNav}
+            pathname={pathname}
+            onSignOut={handleSignOut}
+          />
+        </Suspense>
 
         {/* Page content */}
         <AnimatePresence mode="wait">

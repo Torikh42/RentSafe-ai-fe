@@ -1,4 +1,5 @@
 import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface PropertiesFilterProps {
   searchQuery: string;
@@ -14,22 +15,11 @@ export function PropertiesFilter({
   setFilterAvailable,
 }: PropertiesFilterProps) {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between p-2 rounded-[28px] bg-primary-50/50 border border-primary-100 backdrop-blur-sm">
-      <div className="relative flex-1 group">
-        <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary-400 group-focus-within:text-accent-500 transition-colors" />
-        <input
-          type="text"
-          placeholder="Filter by name or address..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-14 pr-6 py-4 rounded-2xl bg-transparent border-none text-base text-primary-900 placeholder:text-secondary-400 focus:outline-none focus:ring-0 transition-all"
-        />
-      </div>
-
-      <div className="flex items-center gap-2 p-2 bg-white/50 rounded-2xl border border-primary-100/50">
+    <div className="flex flex-col gap-4 border-b border-border/40 pb-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex gap-6">
         {(
           [
-            { label: 'All', value: null },
+            { label: 'All Assets', value: null },
             { label: 'Available', value: true },
             { label: 'Occupied', value: false },
           ] as const
@@ -37,15 +27,26 @@ export function PropertiesFilter({
           <button
             key={opt.label}
             onClick={() => setFilterAvailable(opt.value)}
-            className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+            className={`pb-2 font-mono text-xs font-semibold uppercase tracking-widest transition-all ${
               filterAvailable === opt.value
-                ? 'bg-primary-900 text-white shadow-md'
-                : 'text-secondary-500 hover:text-primary-900 hover:bg-primary-100/30'
+                ? 'border-b-2 border-primary text-primary'
+                : 'border-b-2 border-transparent text-muted-foreground hover:text-primary'
             }`}
           >
             {opt.label}
           </button>
         ))}
+      </div>
+
+      <div className="relative w-full max-w-sm">
+        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="Filter by name or address..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="rounded-sm border-border/40 pl-9 font-mono text-xs shadow-none focus-visible:ring-primary/20"
+        />
       </div>
     </div>
   );

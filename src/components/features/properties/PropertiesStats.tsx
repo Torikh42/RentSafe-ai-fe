@@ -52,7 +52,9 @@ export function PropertiesStats({
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 {stat.label}
               </p>
-              <p className={`font-mono text-4xl font-bold tracking-tight ${stat.accent}`}>
+              <p
+                className={`font-mono text-4xl font-bold tracking-tight ${stat.accent}`}
+              >
                 {stat.value}
               </p>
             </div>

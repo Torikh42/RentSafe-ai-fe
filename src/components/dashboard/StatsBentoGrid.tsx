@@ -30,7 +30,10 @@ export function StatsBentoGrid() {
                   <p className="font-mono text-4xl font-bold tracking-tight text-primary sm:text-5xl">
                     Rp 12.500.000
                   </p>
-                  <Badge variant="outline" className="border-emerald-200 bg-emerald-50 font-mono text-[10px] font-medium text-emerald-700">
+                  <Badge
+                    variant="outline"
+                    className="border-emerald-200 bg-emerald-50 font-mono text-[10px] font-medium text-emerald-700"
+                  >
                     <TrendingUp className="mr-1 size-3" /> +12%
                   </Badge>
                 </div>
@@ -43,7 +46,9 @@ export function StatsBentoGrid() {
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                     Secured in Contracts
                   </p>
-                  <span className="font-mono text-[10px] font-bold text-primary">80%</span>
+                  <span className="font-mono text-[10px] font-bold text-primary">
+                    80%
+                  </span>
                 </div>
                 <p className="font-mono text-xl font-bold text-primary">
                   Rp 10.000.000
@@ -57,7 +62,9 @@ export function StatsBentoGrid() {
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                     Available Liquidity
                   </p>
-                  <span className="font-mono text-[10px] font-bold text-[#e38b29]">20%</span>
+                  <span className="font-mono text-[10px] font-bold text-[#e38b29]">
+                    20%
+                  </span>
                 </div>
                 <p className="font-mono text-xl font-bold text-[#e38b29]">
                   Rp 2.500.000
@@ -78,7 +85,10 @@ export function StatsBentoGrid() {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="flex h-full flex-col md:col-span-4"
       >
-        <Link href="/landlord/properties" className="flex h-full flex-col justify-between focus:outline-none">
+        <Link
+          href="/landlord/properties"
+          className="flex h-full flex-col justify-between focus:outline-none"
+        >
           <Card className="group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-border/40 bg-white p-8 shadow-none transition-colors hover:border-primary/20">
             <CardContent className="flex h-full flex-col justify-between p-0">
               <div className="w-full">

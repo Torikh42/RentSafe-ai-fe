@@ -14,7 +14,10 @@ export function PropertiesHeader({ onAddProperty }: PropertiesHeaderProps) {
       <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="rounded-sm border-[#e38b29]/20 bg-[#e38b29]/5 font-mono text-[10px] font-bold uppercase tracking-widest text-[#e38b29]">
+            <Badge
+              variant="outline"
+              className="rounded-sm border-[#e38b29]/20 bg-[#e38b29]/5 font-mono text-[10px] font-bold uppercase tracking-widest text-[#e38b29]"
+            >
               Landlord Dashboard
             </Badge>
             <span className="h-1 w-1 rounded-full bg-border" />
@@ -23,7 +26,8 @@ export function PropertiesHeader({ onAddProperty }: PropertiesHeaderProps) {
             </span>
           </div>
           <h1 className="font-sans text-4xl font-semibold tracking-tight text-primary md:text-5xl">
-            Portfolio <span className="font-serif italic text-[#e38b29]">Overview</span>
+            Portfolio{' '}
+            <span className="font-serif italic text-[#e38b29]">Overview</span>
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
             Maintain full control over your rental assets. Monitor real-time
@@ -36,7 +40,10 @@ export function PropertiesHeader({ onAddProperty }: PropertiesHeaderProps) {
           size="lg"
           className="group rounded-sm bg-primary font-mono text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-sm transition-all hover:bg-primary/90"
         >
-          <Plus data-icon="inline-start" className="text-[#e38b29] transition-transform group-hover:rotate-90" />
+          <Plus
+            data-icon="inline-start"
+            className="text-[#e38b29] transition-transform group-hover:rotate-90"
+          />
           Add Property
         </Button>
       </div>

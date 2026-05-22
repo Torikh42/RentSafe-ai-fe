@@ -53,12 +53,18 @@ export function PropertiesGrid({
         <div className="mb-6 flex size-16 items-center justify-center rounded-sm bg-destructive/10">
           <Building2 className="size-8 text-destructive" />
         </div>
-        <h3 className="mb-2 font-sans text-xl font-semibold text-primary">Sync Error</h3>
+        <h3 className="mb-2 font-sans text-xl font-semibold text-primary">
+          Sync Error
+        </h3>
         <p className="mb-8 max-w-sm text-sm text-muted-foreground">
           We encountered a problem retrieving your portfolio. Please check your
           connection and try again.
         </p>
-        <Button onClick={() => window.location.reload()} variant="outline" className="rounded-sm font-mono text-xs font-semibold uppercase tracking-widest">
+        <Button
+          onClick={() => window.location.reload()}
+          variant="outline"
+          className="rounded-sm font-mono text-xs font-semibold uppercase tracking-widest"
+        >
           Retry Connection
         </Button>
       </div>
@@ -86,7 +92,11 @@ export function PropertiesGrid({
             ? 'Try refining your search parameters or clearing filters to find what you are looking for.'
             : 'Ready to scale? Add your first high-yield rental property and start managing with RentSafe AI.'}
         </p>
-        <Button onClick={onAddProperty} size="lg" className="rounded-sm bg-primary font-mono text-xs font-semibold uppercase tracking-widest text-primary-foreground shadow-sm">
+        <Button
+          onClick={onAddProperty}
+          size="lg"
+          className="rounded-sm bg-primary font-mono text-xs font-semibold uppercase tracking-widest text-primary-foreground shadow-sm"
+        >
           <Plus data-icon="inline-start" className="text-[#e38b29]" />
           Add First Asset
         </Button>

@@ -87,7 +87,10 @@ export function ActivityAndActions() {
                     <p className="font-mono text-sm font-bold text-primary">
                       {item.amount}
                     </p>
-                    <Badge variant="outline" className={`rounded-sm px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider ${item.badgeBg}`}>
+                    <Badge
+                      variant="outline"
+                      className={`rounded-sm px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider ${item.badgeBg}`}
+                    >
                       {item.status}
                     </Badge>
                   </div>
@@ -110,7 +113,8 @@ export function ActivityAndActions() {
 
           <CardHeader className="relative z-10 px-8 pb-4 pt-6">
             <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-tight text-primary">
-              <AlertCircle className="size-5 animate-pulse text-[#e38b29]" /> Critical Actions
+              <AlertCircle className="size-5 animate-pulse text-[#e38b29]" />{' '}
+              Critical Actions
             </CardTitle>
           </CardHeader>
 
@@ -135,8 +139,11 @@ export function ActivityAndActions() {
 
               <p className="text-sm leading-relaxed text-muted-foreground">
                 Kos Kebon Jeruk contract terminates in{' '}
-                <span className="font-mono font-bold text-primary">48 hours</span>.
-                Complete the visual condition report to secure deposit release.
+                <span className="font-mono font-bold text-primary">
+                  48 hours
+                </span>
+                . Complete the visual condition report to secure deposit
+                release.
               </p>
 
               <div className="pt-2">
@@ -147,7 +154,8 @@ export function ActivityAndActions() {
             </div>
 
             <div className="flex items-center justify-center gap-2 pt-2 font-mono text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
-              <ShieldCheck className="size-3.5 text-emerald-600" /> All other systems operational
+              <ShieldCheck className="size-3.5 text-emerald-600" /> All other
+              systems operational
             </div>
           </CardContent>
         </Card>

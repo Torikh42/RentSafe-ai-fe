@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 import { Wallet, TrendingUp, Home, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export function StatsBentoGrid() {
   return (
@@ -9,56 +12,63 @@ export function StatsBentoGrid() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm md:col-span-8 min-h-[280px] flex flex-col justify-between"
+        className="flex h-full flex-col md:col-span-8"
       >
-        {/* Subtle glow */}
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-500/5 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10">
-          <div className="mb-10 flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-800 text-primary-600 dark:text-primary-300">
-              <Wallet className="h-6 w-6" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-foreground-muted uppercase tracking-wider mb-1">
-                Escrow Portfolio
-              </p>
-              <div className="flex items-baseline gap-3">
-                <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                  Rp 12.5M
+        <Card className="relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-md border-border/40 bg-white shadow-none">
+          {/* Subtle background mesh glow */}
+          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-[#e38b29]/5 blur-3xl" />
+          <CardContent className="relative z-10 flex h-full w-full flex-col justify-between p-8">
+            <div className="mb-10 flex items-start gap-4">
+              <div className="flex size-11 items-center justify-center rounded-sm border border-primary/10 bg-primary/5 text-primary">
+                <Wallet className="size-5" />
+              </div>
+              <div className="flex-grow">
+                <p className="mb-1.5 font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Escrow Portfolio
                 </p>
-                <span className="flex items-center gap-1 text-xs font-medium text-success-600 dark:text-success-400 bg-success-50 dark:bg-success-900/30 px-2.5 py-1 rounded-full">
-                  <TrendingUp className="h-3 w-3" /> +12%
-                </span>
+                <div className="flex flex-wrap items-baseline gap-3">
+                  <p className="font-mono text-4xl font-bold tracking-tight text-primary sm:text-5xl">
+                    Rp 12.500.000
+                  </p>
+                  <Badge variant="outline" className="border-emerald-200 bg-emerald-50 font-mono text-[10px] font-medium text-emerald-700">
+                    <TrendingUp className="mr-1 size-3" /> +12%
+                  </Badge>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-border pt-8">
-            <div className="space-y-2">
-              <p className="text-[11px] text-foreground-muted font-medium uppercase tracking-wider">
-                Secured in Contracts
-              </p>
-              <p className="text-xl font-semibold text-foreground">
-                Rp 10.000.000
-              </p>
-              <div className="w-full h-1 bg-secondary rounded-full mt-2 overflow-hidden">
-                <div className="w-[80%] h-full bg-accent-500 rounded-full" />
+            <div className="mt-auto grid grid-cols-1 gap-8 border-t border-border/40 pt-8 sm:grid-cols-2">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-baseline justify-between">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    Secured in Contracts
+                  </p>
+                  <span className="font-mono text-[10px] font-bold text-primary">80%</span>
+                </div>
+                <p className="font-mono text-xl font-bold text-primary">
+                  Rp 10.000.000
+                </p>
+                <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-muted">
+                  <div className="h-full w-[80%] rounded-full bg-primary" />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-baseline justify-between">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    Available Liquidity
+                  </p>
+                  <span className="font-mono text-[10px] font-bold text-[#e38b29]">20%</span>
+                </div>
+                <p className="font-mono text-xl font-bold text-[#e38b29]">
+                  Rp 2.500.000
+                </p>
+                <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-muted">
+                  <div className="h-full w-[20%] rounded-full bg-[#e38b29]" />
+                </div>
               </div>
             </div>
-            <div className="space-y-2">
-              <p className="text-[11px] text-foreground-muted font-medium uppercase tracking-wider">
-                Available Liquidity
-              </p>
-              <p className="text-xl font-semibold text-accent-500">
-                Rp 2.500.000
-              </p>
-              <div className="w-full h-1 bg-secondary rounded-full mt-2 overflow-hidden">
-                <div className="w-[20%] h-full bg-primary-300 rounded-full" />
-              </div>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* Active Properties Card */}
@@ -66,32 +76,39 @@ export function StatsBentoGrid() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm md:col-span-4 flex flex-col group cursor-pointer hover:border-accent-500/30 transition-colors"
+        className="flex h-full flex-col md:col-span-4"
       >
-        <div className="relative z-10 flex h-full flex-col">
-          <div className="mb-auto">
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-foreground-muted">
-              <Home className="h-5 w-5" />
-            </div>
-            <h3 className="text-xl font-semibold text-foreground">
-              Active Management
-            </h3>
-          </div>
+        <Link href="/landlord/properties" className="flex h-full flex-col justify-between focus:outline-none">
+          <Card className="group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-border/40 bg-white p-8 shadow-none transition-colors hover:border-primary/20">
+            <CardContent className="flex h-full flex-col justify-between p-0">
+              <div className="w-full">
+                <div className="mb-6 flex size-11 items-center justify-center rounded-sm border border-[#e38b29]/20 bg-[#e38b29]/10 text-[#e38b29]">
+                  <Home className="size-5" />
+                </div>
+                <h3 className="text-lg font-semibold tracking-tight text-primary">
+                  Active Management
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Add and inspect properties under escrow compliance.
+                </p>
+              </div>
 
-          <div className="mt-8 flex items-end justify-between">
-            <div>
-              <p className="font-display text-6xl font-bold text-foreground leading-none tracking-tight">
-                02
-              </p>
-              <p className="mt-2 text-xs font-medium text-foreground-muted">
-                Properties Active
-              </p>
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-hover text-foreground-muted group-hover:bg-accent-500 group-hover:text-white group-hover:border-accent-500 transition-all">
-              <ArrowRight className="h-4 w-4" />
-            </div>
-          </div>
-        </div>
+              <div className="mt-8 flex w-full items-end justify-between">
+                <div>
+                  <p className="font-mono text-6xl font-bold leading-none tracking-tighter text-primary">
+                    02
+                  </p>
+                  <p className="mt-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    Properties Active
+                  </p>
+                </div>
+                <div className="flex size-9 items-center justify-center rounded-sm border border-border bg-muted/50 text-muted-foreground transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground group-active:scale-95">
+                  <ArrowRight className="size-4" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </motion.div>
     </div>
   );

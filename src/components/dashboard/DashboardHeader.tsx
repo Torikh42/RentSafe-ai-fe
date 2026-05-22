@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 interface DashboardHeaderProps {
   firstName: string;
@@ -8,24 +10,25 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ firstName }: DashboardHeaderProps) {
   return (
-    <header className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+    <header className="mb-12 flex flex-col items-start justify-between gap-6 border-b border-border/40 pb-8 md:flex-row md:items-end">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="flex flex-col gap-1.5"
       >
-        <div className="mb-4 flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded bg-accent-500/10 text-accent-500">
-            <ShieldCheck className="h-3.5 w-3.5" />
-          </span>
-          <span className="text-[11px] font-semibold tracking-widest text-accent-500 uppercase">
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="rounded-sm border-primary/20 bg-primary/5 font-mono text-[10px] font-semibold uppercase tracking-widest text-primary">
+            <ShieldCheck data-icon="inline-start" className="mr-1 text-primary" />
             RentSafe AI System
-          </span>
+          </Badge>
         </div>
-        <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl text-foreground">
-          Welcome back,{' '}
-          <span className="text-accent-500 italic">{firstName}</span>.
+        <h1 className="font-sans text-3xl font-semibold tracking-tight text-primary md:text-4xl">
+          Welcome back, <span className="font-medium text-[#e38b29]">{firstName}</span>.
         </h1>
+        <p className="text-sm text-muted-foreground">
+          Monitor your property compliance, escrow transactions, and rental activities.
+        </p>
       </motion.div>
 
       <motion.div
@@ -33,14 +36,12 @@ export function DashboardHeader({ firstName }: DashboardHeaderProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <Link href="/landlord/properties">
-          <button className="group relative flex h-12 items-center justify-center overflow-hidden rounded-xl bg-accent-500 px-6 font-medium text-white transition-all hover:bg-accent-600 shadow-sm active:scale-95">
-            <span className="relative z-10 flex items-center gap-2">
-              Manage Properties
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
-          </button>
-        </Link>
+        <Button asChild size="lg" className="rounded-sm bg-primary font-mono text-xs font-semibold uppercase tracking-widest text-primary-foreground shadow-sm hover:bg-primary/90">
+          <Link href="/landlord/properties">
+            Manage Properties
+            <ArrowRight data-icon="inline-end" />
+          </Link>
+        </Button>
       </motion.div>
     </header>
   );

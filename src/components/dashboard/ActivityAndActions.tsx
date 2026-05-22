@@ -9,6 +9,9 @@ import {
   FileText,
 } from 'lucide-react';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export function ActivityAndActions() {
   return (
@@ -18,73 +21,81 @@ export function ActivityAndActions() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="rounded-2xl border border-border bg-surface p-8 shadow-sm"
       >
-        <div className="mb-6 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
-            <Activity className="h-5 w-5 text-foreground-muted" /> Activity Log
-          </h3>
-          <Link
-            href="/dashboard/activity"
-            className="group flex items-center gap-1 text-xs font-medium text-foreground-muted hover:text-accent-500 transition-colors"
-          >
-            View All{' '}
-            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-
-        <div className="space-y-3">
-          {[
-            {
-              title: 'Rent Collection: Apt. Sudirman',
-              date: '09:41 AM • Automatic Escrow',
-              amount: 'Rp 5.0M',
-              status: 'Completed',
-              icon: <CheckCircle2 className="w-4 h-4 text-success-600" />,
-            },
-            {
-              title: 'Deposit Refund: Kos Kebon Jeruk',
-              date: 'Yesterday • Manual Release',
-              amount: 'Rp 2.0M',
-              status: 'Processed',
-              icon: <Clock className="w-4 h-4 text-foreground-muted" />,
-            },
-            {
-              title: 'AI Inspection: Apt. Sudirman',
-              date: '12 Oct • System Generated',
-              amount: 'Verified',
-              status: 'Active',
-              icon: <ShieldCheck className="w-4 h-4 text-accent-500" />,
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="flex items-center justify-between p-4 rounded-xl border border-border bg-surface-hover/50 hover:bg-surface-hover transition-colors"
+        <Card className="h-full rounded-md border-border/40 bg-white shadow-none">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 px-8 pb-4 pt-6">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-tight text-primary">
+              <Activity className="size-5 text-muted-foreground" /> Activity Log
+            </CardTitle>
+            <Link
+              href="/dashboard/activity"
+              className="group flex items-center gap-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-[#e38b29]"
             >
-              <div className="flex items-center gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface border border-border">
-                  {item.icon}
+              View All{' '}
+              <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </CardHeader>
+
+          <CardContent className="px-8 pb-8 pt-0">
+            <div className="flex flex-col">
+              {[
+                {
+                  title: 'Rent Collection: Apt. Sudirman',
+                  date: '09:41 AM • Automatic Escrow',
+                  amount: 'Rp 5.000.000',
+                  status: 'Completed',
+                  icon: <CheckCircle2 className="size-4 text-emerald-600" />,
+                  badgeBg: 'border-emerald-100 bg-emerald-50 text-emerald-700',
+                },
+                {
+                  title: 'Deposit Refund: Kos Kebon Jeruk',
+                  date: 'Yesterday • Manual Release',
+                  amount: 'Rp 2.000.000',
+                  status: 'Processed',
+                  icon: <Clock className="size-4 text-muted-foreground" />,
+                  badgeBg: 'border-border bg-muted/50 text-muted-foreground',
+                },
+                {
+                  title: 'AI Inspection: Apt. Sudirman',
+                  date: '12 Oct • System Generated',
+                  amount: 'Verified',
+                  status: 'Active',
+                  icon: <ShieldCheck className="size-4 text-[#e38b29]" />,
+                  badgeBg: 'border-[#e38b29]/20 bg-[#e38b29]/10 text-[#e38b29]',
+                },
+              ].map((item, index) => (
+                <div
+                  key={item.title}
+                  className={`flex items-center justify-between border-t border-border/40 py-4 transition-colors duration-150 hover:bg-muted/30 ${
+                    index === 2 ? 'mb-2 border-b' : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border bg-muted/20">
+                      {item.icon}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-semibold leading-none text-primary">
+                        {item.title}
+                      </p>
+                      <p className="font-mono text-[10px] text-muted-foreground">
+                        {item.date}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <p className="font-mono text-sm font-bold text-primary">
+                      {item.amount}
+                    </p>
+                    <Badge variant="outline" className={`rounded-sm px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider ${item.badgeBg}`}>
+                      {item.status}
+                    </Badge>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-sm text-foreground">
-                    {item.title}
-                  </p>
-                  <p className="text-[11px] text-foreground-muted mt-0.5">
-                    {item.date}
-                  </p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="font-semibold text-sm text-foreground">
-                  {item.amount}
-                </p>
-                <p className="text-[10px] font-medium text-foreground-muted mt-0.5">
-                  {item.status}
-                </p>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* AI Inspections / Pending Actions */}
@@ -92,51 +103,54 @@ export function ActivityAndActions() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
-        className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-sm"
       >
-        <div className="mb-6 flex items-center justify-between relative z-10">
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
-            <AlertCircle className="h-5 w-5 text-accent-500" /> Critical Actions
-          </h3>
-        </div>
+        <Card className="relative h-full overflow-hidden rounded-md border-border/40 bg-white shadow-none">
+          {/* Subtle decorative glow */}
+          <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-[#e38b29]/5 blur-3xl" />
 
-        <div className="space-y-4 relative z-10">
-          <div className="group flex flex-col gap-4 rounded-xl border border-accent-500/20 bg-accent-50/50 dark:bg-accent-500/5 p-6 hover:bg-accent-50 dark:hover:bg-accent-500/10 transition-colors">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-100 dark:bg-accent-900/50 text-accent-600 dark:text-accent-400">
-                <FileText className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse" />
-                  <p className="text-[10px] font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
-                    Inspection Alert
+          <CardHeader className="relative z-10 px-8 pb-4 pt-6">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-tight text-primary">
+              <AlertCircle className="size-5 animate-pulse text-[#e38b29]" /> Critical Actions
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className="relative z-10 flex flex-col gap-4 px-8 pb-8 pt-0">
+            <div className="group flex flex-col gap-4 rounded-sm border border-[#e38b29]/20 bg-[#e38b29]/5 p-6 transition-colors hover:bg-[#e38b29]/10">
+              <div className="flex items-start gap-4">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-sm border border-[#e38b29]/20 bg-[#e38b29]/10 text-[#e38b29]">
+                  <FileText className="size-5" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="size-1.5 animate-ping rounded-full bg-[#e38b29]" />
+                    <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#e38b29]">
+                      Inspection Alert
+                    </p>
+                  </div>
+                  <p className="text-base font-bold leading-tight text-primary">
+                    AI Move-out Verification Required
                   </p>
                 </div>
-                <p className="text-base font-semibold text-foreground leading-tight">
-                  AI Move-out Verification Required
-                </p>
+              </div>
+
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Kos Kebon Jeruk contract terminates in{' '}
+                <span className="font-mono font-bold text-primary">48 hours</span>.
+                Complete the visual condition report to secure deposit release.
+              </p>
+
+              <div className="pt-2">
+                <Button className="w-full rounded-sm bg-primary font-mono text-[11px] font-semibold uppercase tracking-widest shadow-sm hover:bg-primary/90">
+                  Execute AI Inspection <ArrowRight data-icon="inline-end" />
+                </Button>
               </div>
             </div>
 
-            <p className="text-sm text-foreground-muted leading-relaxed">
-              Kos Kebon Jeruk contract terminates in{' '}
-              <span className="font-semibold text-foreground">48 hours</span>.
-              Complete the visual condition report to secure deposit release.
-            </p>
-
-            <div className="pt-2">
-              <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-foreground text-background py-2.5 text-sm font-medium transition-opacity hover:opacity-90">
-                Execute AI Inspection <ArrowRight className="h-4 w-4" />
-              </button>
+            <div className="flex items-center justify-center gap-2 pt-2 font-mono text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+              <ShieldCheck className="size-3.5 text-emerald-600" /> All other systems operational
             </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-2 text-[11px] font-medium text-foreground-muted uppercase tracking-wider pt-2">
-            <ShieldCheck className="w-3.5 h-3.5" /> All other systems
-            operational
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </motion.div>
     </div>
   );

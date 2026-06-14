@@ -7,6 +7,10 @@ export interface Property {
   available: boolean;
   landlordId: string;
   image?: string | null;
+  type?: 'kos' | 'apartemen' | null;
+  rooms?: number | null;
+  facilities?: string[] | null;
+  images?: string[] | null;
   createdAt: string;
   updatedAt: string;
 }

@@ -80,11 +80,15 @@ export function PropertyDiscoveryClient({
           <div className="col-span-12 md:col-span-10 md:col-start-2">
             <div className="flex flex-wrap gap-6 border-b border-secondary-300 pb-6">
               <div className="flex min-w-[200px] flex-col gap-2">
-                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                <label
+                  htmlFor="search-property"
+                  className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500"
+                >
                   Pencarian
                 </label>
                 <div className="relative">
                   <input
+                    id="search-property"
                     type="text"
                     placeholder="Nama properti..."
                     value={searchQuery}
@@ -98,11 +102,17 @@ export function PropertyDiscoveryClient({
               </div>
 
               <div className="flex min-w-[200px] flex-col gap-2">
-                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                <label
+                  htmlFor="location-filter"
+                  className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500"
+                >
                   Lokasi
                 </label>
                 <div className="relative">
-                  <select className="w-full cursor-pointer appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0">
+                  <select
+                    id="location-filter"
+                    className="w-full cursor-pointer appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0"
+                  >
                     <option>Semua Lokasi</option>
                     <option>Jakarta Selatan</option>
                     <option>Jakarta Pusat</option>
@@ -114,11 +124,15 @@ export function PropertyDiscoveryClient({
               </div>
 
               <div className="flex min-w-[200px] flex-col gap-2">
-                <label className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500">
+                <label
+                  htmlFor="availability-filter"
+                  className="font-mono text-[11px] font-semibold uppercase tracking-wider text-secondary-500"
+                >
                   Ketersediaan
                 </label>
                 <div className="relative">
                   <select
+                    id="availability-filter"
                     value={available === undefined ? '' : available.toString()}
                     onChange={(e) => {
                       const val = e.target.value;

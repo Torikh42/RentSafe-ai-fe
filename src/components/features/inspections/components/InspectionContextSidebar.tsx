@@ -1,10 +1,12 @@
-import { AlertTriangle, ArrowRight, AlertCircle } from 'lucide-react';
+'use client';
+
+import { FileText, AlertTriangle, AlertCircle, ArrowRight } from 'lucide-react';
 
 interface InspectionContextSidebarProps {
   type: 'pre' | 'post';
   setType: (type: 'pre' | 'post') => void;
   hasBaseline: boolean;
-  checkingBaseline: boolean;
+  checkingBaseline?: boolean;
   filesLength: number;
   error: string;
 }
@@ -13,7 +15,7 @@ export function InspectionContextSidebar({
   type,
   setType,
   hasBaseline,
-  checkingBaseline,
+  checkingBaseline = false,
   filesLength,
   error,
 }: InspectionContextSidebarProps) {
@@ -29,7 +31,11 @@ export function InspectionContextSidebar({
       </div>
 
       <div className="space-y-3">
-        <label className="group flex cursor-pointer items-start gap-4 rounded-xl border border-border p-4 transition-all hover:border-primary-400 has-[:checked]:border-accent-500 has-[:checked]:bg-accent-50/50 dark:has-[:checked]:bg-accent-500/10">
+        <label
+          htmlFor="check-in-radio"
+          aria-label="Check-in"
+          className="group flex cursor-pointer items-start gap-4 rounded-xl border border-border p-4 transition-all hover:border-primary-400 has-[:checked]:border-accent-500 has-[:checked]:bg-accent-50/50 dark:has-[:checked]:bg-accent-500/10"
+        >
           <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border group-has-[:checked]:border-accent-500 mt-0.5">
             <div className="h-2.5 w-2.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-has-[:checked]:opacity-100" />
           </div>
@@ -41,6 +47,7 @@ export function InspectionContextSidebar({
             </p>
           </div>
           <input
+            id="check-in-radio"
             type="radio"
             name="type"
             value="pre"
@@ -51,6 +58,8 @@ export function InspectionContextSidebar({
         </label>
 
         <label
+          htmlFor="check-out-radio"
+          aria-label="Check-out"
           className={`group flex items-start gap-4 rounded-xl border border-border p-4 transition-all ${
             hasBaseline
               ? 'cursor-pointer hover:border-primary-400 has-[:checked]:border-accent-500 has-[:checked]:bg-accent-50/50 dark:has-[:checked]:bg-accent-500/10'
@@ -72,17 +81,11 @@ export function InspectionContextSidebar({
               )}
             </p>
             <p className="text-xs text-foreground-muted mt-1 leading-relaxed">
-              Final assessment to verify condition and determine escrow release.
+              Analyze damages and condition changes when the tenant moves out.
             </p>
-            {!checkingBaseline && !hasBaseline && (
-              <p className="mt-2 text-[10px] font-medium text-error-600 dark:text-error-400 flex items-start gap-1">
-                <AlertTriangle className="h-3 w-3 shrink-0" />
-                Baseline check-in required. You must complete a Check-in
-                inspection first before performing a Check-out.
-              </p>
-            )}
           </div>
           <input
+            id="check-out-radio"
             type="radio"
             name="type"
             value="post"
@@ -94,6 +97,34 @@ export function InspectionContextSidebar({
         </label>
       </div>
 
+      {!checkingBaseline && !hasBaseline && (
+        <div className="rounded-xl bg-error-500/5 border border-error-500/10 p-4">
+          <div className="flex gap-3">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-error-600 mt-0.5" />
+            <p className="text-[11px] leading-relaxed text-error-700 dark:text-error-400">
+              Check-out requires a baseline Check-in report. Please perform a
+              Check-in first for this property.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {hasBaseline && (
+        <div className="rounded-xl bg-success-500/5 border border-success-500/10 p-4">
+          <div className="flex gap-3">
+            <FileText className="h-4 w-4 shrink-0 text-success-600 mt-0.5" />
+            <div className="space-y-1">
+              <p className="text-[11px] font-bold text-success-700 dark:text-success-400 uppercase tracking-wider">
+                Baseline Found
+              </p>
+              <p className="text-[11px] leading-relaxed text-success-600 dark:text-success-500">
+                System will perform delta analysis against the latest check-in
+                to identify new damages.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       {error && (
         <div className="flex items-start gap-3 rounded-lg bg-error-500/10 p-3 text-error-600 dark:text-error-400 border border-error-500/20">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />

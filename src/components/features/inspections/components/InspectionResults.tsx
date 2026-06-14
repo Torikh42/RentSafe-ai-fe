@@ -125,10 +125,10 @@ export function InspectionResults({ result, onReset }: InspectionResultsProps) {
 
               <div className="flex flex-1 flex-col p-6">
                 <p className="text-sm font-medium text-foreground leading-relaxed mb-6">
-                  "
+                  &quot;
                   {analysis?.overallCondition ||
                     'No condition description generated.'}
-                  "
+                  &quot;
                 </p>
 
                 <div className="mt-auto">
@@ -146,7 +146,7 @@ export function InspectionResults({ result, onReset }: InspectionResultsProps) {
                       <div className="space-y-2">
                         {analysis.detectedIssues.map((issue, i) => (
                           <div
-                            key={i}
+                            key={`${issue.description}-${i}`}
                             className="rounded-xl border border-border bg-surface-hover p-4"
                           >
                             <p className="text-sm font-medium text-foreground">

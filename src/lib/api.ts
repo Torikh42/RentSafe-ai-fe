@@ -1,5 +1,15 @@
 import type { InspectionResponse } from '@/types/inspection';
 import type { Property } from '@/types/property';
+import type {
+  BookingResponse,
+  BookingsListResponse,
+  CreateBookingInput,
+} from '@/types/booking';
+import type {
+  ContractResponse,
+  ContractsListResponse,
+  FairnessResponse,
+} from '@/types/contract';
 
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -105,5 +115,41 @@ export const api = {
       fetchApi<InspectionResponse>(`/api/inspections/${inspectionId}/compare`, {
         method: 'POST',
       }),
+  },
+  bookings: {
+    create: (data: CreateBookingInput) =>
+      fetchApi<BookingResponse>('/api/bookings', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
+    listMy: () => fetchApi<BookingsListResponse>('/api/bookings/my'),
+    accept: (id: string) =>
+      fetchApi<BookingResponse>(`/api/bookings/${id}/accept`, {
+        method: 'POST',
+      }),
+    reject: (id: string) =>
+      fetchApi<BookingResponse>(`/api/bookings/${id}/reject`, {
+        method: 'POST',
+      }),
+    cancel: (id: string) =>
+      fetchApi<BookingResponse>(`/api/bookings/${id}/cancel`, {
+        method: 'POST',
+      }),
+  },
+  contracts: {
+    listMy: () => fetchApi<ContractsListResponse>('/api/contracts/my'),
+    generate: (bookingId: string) =>
+      fetchApi<ContractResponse>('/api/contracts/generate', {
+        method: 'POST',
+        body: JSON.stringify({ bookingId }),
+      }),
+    getDetail: (id: string) =>
+      fetchApi<ContractResponse>(`/api/contracts/${id}`),
+    sign: (id: string) =>
+      fetchApi<ContractResponse>(`/api/contracts/${id}/sign`, {
+        method: 'POST',
+      }),
+    getFairness: (id: string) =>
+      fetchApi<FairnessResponse>(`/api/contracts/${id}/fairness`),
   },
 };

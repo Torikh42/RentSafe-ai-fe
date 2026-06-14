@@ -11,6 +11,8 @@ import {
   Wrench,
   DollarSign,
   Settings,
+  Calendar,
+  FileText,
 } from 'lucide-react';
 import { signOut } from '@/lib/auth-client';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -32,9 +34,21 @@ const NAV_ITEMS: NavItem[] = [
     roles: ['landlord', 'tenant', 'admin'],
   },
   {
+    label: 'Bookings',
+    href: '/landlord/bookings',
+    icon: <Calendar className="w-4 h-4" />,
+    roles: ['landlord'],
+  },
+  {
     label: 'Properties',
     href: '/dashboard?tab=properties',
     icon: <Building2 className="w-4 h-4" />,
+    roles: ['landlord'],
+  },
+  {
+    label: 'Contracts',
+    href: '/landlord/contracts',
+    icon: <FileText className="w-4 h-4" />,
     roles: ['landlord'],
   },
   {

@@ -152,4 +152,7 @@ export const api = {
     getFairness: (id: string) =>
       fetchApi<FairnessResponse>(`/api/contracts/${id}/fairness`),
   },
+  statistics: {
+    get: () => fetchApi<{ message: string; data: unknown }>('/api/statistics'),
+  },
 };

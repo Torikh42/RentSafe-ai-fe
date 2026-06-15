@@ -7,10 +7,6 @@ import {
   Loader2,
   Building2,
   LayoutDashboard,
-  Users,
-  Wrench,
-  DollarSign,
-  Settings,
   Calendar,
   FileText,
 } from 'lucide-react';
@@ -41,7 +37,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Properties',
-    href: '/dashboard?tab=properties',
+    href: '/landlord/properties',
     icon: <Building2 className="w-4 h-4" />,
     roles: ['landlord'],
   },
@@ -49,30 +45,6 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Contracts',
     href: '/contracts',
     icon: <FileText className="w-4 h-4" />,
-    roles: ['landlord', 'tenant', 'admin'],
-  },
-  {
-    label: 'Tenants',
-    href: '/dashboard?tab=tenants',
-    icon: <Users className="w-4 h-4" />,
-    roles: ['landlord'],
-  },
-  {
-    label: 'Maintenance',
-    href: '/dashboard?tab=maintenance',
-    icon: <Wrench className="w-4 h-4" />,
-    roles: ['landlord', 'tenant', 'admin'],
-  },
-  {
-    label: 'Financials',
-    href: '/dashboard?tab=financials',
-    icon: <DollarSign className="w-4 h-4" />,
-    roles: ['landlord'],
-  },
-  {
-    label: 'Settings',
-    href: '/dashboard?tab=settings',
-    icon: <Settings className="w-4 h-4" />,
     roles: ['landlord', 'tenant', 'admin'],
   },
 ];

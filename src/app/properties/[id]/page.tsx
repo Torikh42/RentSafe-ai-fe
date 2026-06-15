@@ -7,9 +7,12 @@ import {
   usePropertyDetail,
   usePropertyInspections,
 } from '@/hooks/use-property-discovery';
-import type { InspectionResponse } from '@/types/inspection';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
+import { PropertyDetailLoading } from '@/components/properties/PropertyDetailLoading';
+import { PropertyNotFound } from '@/components/properties/PropertyNotFound';
+import { PropertySidebar } from '@/components/properties/PropertySidebar';
+import { InspectionHistoryTable } from '@/components/properties/InspectionHistoryTable';
 
 interface PropertyDetailPageProps {
   params: Promise<{ id: string }>;
@@ -26,39 +29,11 @@ export default function PropertyDetailPage({
   const inspections = inspectionsData || [];
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen flex-col bg-secondary-50 font-sans text-primary-900 selection:bg-primary-500 selection:text-white antialiased">
-        <Navbar />
-        <div className="flex flex-grow items-center justify-center">
-          <div className="font-mono text-sm text-secondary-500">
-            MEMUAT DATA...
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+    return <PropertyDetailLoading />;
   }
 
   if (error || !property) {
-    return (
-      <div className="flex min-h-screen flex-col bg-secondary-50 font-sans text-primary-900 selection:bg-primary-500 selection:text-white antialiased">
-        <Navbar />
-        <div className="flex flex-grow items-center justify-center">
-          <div className="text-center">
-            <h2 className="mb-2 font-display text-2xl font-bold text-primary-900">
-              Properti Tidak Ditemukan
-            </h2>
-            <Link
-              href="/properties"
-              className="mt-4 inline-block font-mono text-xs font-bold uppercase tracking-widest text-accent-500 hover:text-accent-600"
-            >
-              ← Kembali ke Daftar Properti
-            </Link>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+    return <PropertyNotFound />;
   }
 
   return (
@@ -108,8 +83,8 @@ export default function PropertyDetailPage({
 
               {property.description ? (
                 <div className="space-y-6 font-sans text-lg text-secondary-700 leading-relaxed">
-                  {property.description.split('\n').map((paragraph, index) => (
-                    <p key={`desc-${index}`}>{paragraph}</p>
+                  {property.description.split('\n').map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
                   ))}
                 </div>
               ) : (
@@ -121,171 +96,11 @@ export default function PropertyDetailPage({
           </div>
 
           <div className="md:col-span-5">
-            <div className="sticky top-24 flex h-full flex-col border border-secondary-300 bg-white p-8">
-              <div className="mb-12 border-b border-secondary-200 pb-8">
-                <div className="mb-2 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                  HARGA SEWA / BULAN
-                </div>
-                <div className="mb-6 font-mono text-3xl font-bold leading-tight text-primary-900">
-                  Rp {property.price.toLocaleString('id-ID')}
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="mb-1 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      STATUS
-                    </div>
-                    <div
-                      className={`font-mono text-[13px] font-bold ${property.available ? 'text-accent-600' : 'text-secondary-500'}`}
-                    >
-                      {property.available ? 'Tersedia' : 'Disewa'}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mb-1 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      LANDLORD ID
-                    </div>
-                    <div
-                      className="font-mono text-[13px] text-primary-900 truncate"
-                      title={property.landlordId}
-                    >
-                      {property.landlordId.split('-')[0]}...
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12 flex-grow">
-                <h3 className="mb-6 flex items-center font-display text-xl font-medium text-primary-900">
-                  <span className="mr-2 text-[20px]">👁️</span>
-                  Riwayat Gemini Vision
-                </h3>
-                {inspections.length > 0 ? (
-                  <div className="mb-8 space-y-4">
-                    {inspections.slice(0, 3).map((insp: InspectionResponse) => (
-                      <div
-                        key={insp.id}
-                        className="flex items-center justify-between border-b border-secondary-200 pb-2"
-                      >
-                        <span className="font-mono text-[13px] text-secondary-700">
-                          {insp.type === 'pre' ? 'Pre-Lease' : 'Post-Lease'}
-                        </span>
-                        <span className="font-mono text-[13px] text-secondary-400">
-                          {new Date(insp.createdAt).toLocaleDateString('id-ID')}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="mb-8 text-sm text-secondary-500">
-                    Belum ada riwayat inspeksi.
-                  </div>
-                )}
-
-                <h4 className="mb-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                  STATUS SMART ESCROW
-                </h4>
-                <div className="relative ml-2 space-y-6 border-l border-secondary-300 pb-2">
-                  <div className="relative pl-6">
-                    <div className="absolute left-[-5px] top-1.5 h-2 w-2 rounded-full bg-secondary-400"></div>
-                    <div className="font-mono text-[13px] text-secondary-500">
-                      Diinisialisasi
-                    </div>
-                  </div>
-                  <div className="relative pl-6">
-                    <div className="absolute left-[-5px] top-1.5 h-2 w-2 rounded-full bg-secondary-400"></div>
-                    <div className="font-mono text-[13px] text-secondary-500">
-                      Terverifikasi
-                    </div>
-                  </div>
-                  <div className="relative pl-6">
-                    <div className="absolute left-[-5px] top-1.5 h-2 w-2 rounded-full bg-accent-500 ring-4 ring-white"></div>
-                    <div className="font-mono text-[13px] font-bold text-primary-900">
-                      Aktif & Aman
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {property.available ? (
-                <Link
-                  href={`/properties/${property.id}/book`}
-                  className="flex w-full items-center justify-center bg-accent-500 px-6 py-4 font-sans text-base font-bold text-white transition-colors hover:bg-accent-600"
-                >
-                  Ajukan Sewa
-                  <span className="ml-2">→</span>
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="flex w-full cursor-not-allowed items-center justify-center bg-secondary-200 px-6 py-4 font-sans text-base font-bold text-secondary-500"
-                >
-                  Tidak Tersedia
-                </button>
-              )}
-            </div>
+            <PropertySidebar property={property} inspections={inspections} />
           </div>
         </motion.div>
 
-        <section className="mt-24 border-t border-secondary-300 pt-16">
-          <h2 className="mb-8 font-display text-3xl font-semibold text-primary-900">
-            Log Inspeksi AI
-          </h2>
-          <div className="w-full overflow-x-auto bg-white border border-secondary-200 p-4">
-            {inspections.length > 0 ? (
-              <table className="w-full border-collapse text-left">
-                <thead>
-                  <tr className="border-b border-secondary-300">
-                    <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      TANGGAL
-                    </th>
-                    <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      ID INSPEKSI
-                    </th>
-                    <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      TIPE
-                    </th>
-                    <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                      STATUS
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="font-mono text-[13px] text-primary-900">
-                  {inspections.map((insp: InspectionResponse) => (
-                    <tr
-                      key={insp.id}
-                      className="border-b border-secondary-200 transition-colors hover:bg-secondary-50"
-                    >
-                      <td className="px-4 py-4 text-secondary-500">
-                        {new Date(insp.createdAt).toISOString().split('T')[0]}{' '}
-                        {new Date(insp.createdAt)
-                          .toTimeString()
-                          .split(' ')[0]
-                          .slice(0, 5)}
-                      </td>
-                      <td className="px-4 py-4">
-                        {insp.id.split('-')[0].toUpperCase()}
-                      </td>
-                      <td className="px-4 py-4 text-right font-bold text-primary-900">
-                        {insp.type.toUpperCase()}
-                      </td>
-                      <td className="px-4 py-4 text-right">
-                        <span
-                          className={`px-2 py-1 ${insp.status === 'completed' ? 'bg-success-50 text-success-700' : 'bg-secondary-100 text-secondary-600'}`}
-                        >
-                          {insp.status.toUpperCase()}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="py-12 text-center text-secondary-500">
-                <p>Belum ada riwayat inspeksi untuk properti ini.</p>
-              </div>
-            )}
-          </div>
-        </section>
+        <InspectionHistoryTable inspections={inspections} />
       </main>
 
       <Footer />

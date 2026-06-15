@@ -3,7 +3,11 @@
 import { use } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { usePropertyDetail } from '@/hooks/use-property-discovery';
+import {
+  usePropertyDetail,
+  usePropertyInspections,
+} from '@/hooks/use-property-discovery';
+import type { InspectionResponse } from '@/types/inspection';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 
@@ -17,6 +21,9 @@ export default function PropertyDetailPage({
   const { id } = use(params);
   const { data, isLoading, error } = usePropertyDetail(id);
   const property = data?.data;
+
+  const { data: inspectionsData } = usePropertyInspections(id);
+  const inspections = inspectionsData || [];
 
   if (isLoading) {
     return (
@@ -101,8 +108,8 @@ export default function PropertyDetailPage({
 
               {property.description ? (
                 <div className="space-y-6 font-sans text-lg text-secondary-700 leading-relaxed">
-                  {property.description.split('\\n').map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
+                  {property.description.split('\n').map((paragraph, index) => (
+                    <p key={`desc-${index}`}>{paragraph}</p>
                   ))}
                 </div>
               ) : (
@@ -152,24 +159,27 @@ export default function PropertyDetailPage({
                   <span className="mr-2 text-[20px]">👁️</span>
                   Riwayat Gemini Vision
                 </h3>
-                <div className="mb-8 space-y-4">
-                  <div className="flex items-center justify-between border-b border-secondary-200 pb-2">
-                    <span className="font-mono text-[13px] text-secondary-700">
-                      Skor Integritas: 0.98
-                    </span>
-                    <span className="font-mono text-[13px] text-secondary-400">
-                      {new Date().toLocaleDateString('id-ID')}
-                    </span>
+                {inspections.length > 0 ? (
+                  <div className="mb-8 space-y-4">
+                    {inspections.slice(0, 3).map((insp: InspectionResponse) => (
+                      <div
+                        key={insp.id}
+                        className="flex items-center justify-between border-b border-secondary-200 pb-2"
+                      >
+                        <span className="font-mono text-[13px] text-secondary-700">
+                          {insp.type === 'pre' ? 'Pre-Lease' : 'Post-Lease'}
+                        </span>
+                        <span className="font-mono text-[13px] text-secondary-400">
+                          {new Date(insp.createdAt).toLocaleDateString('id-ID')}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-center justify-between border-b border-secondary-200 pb-2">
-                    <span className="font-mono text-[13px] text-secondary-700">
-                      Skor Integritas: 0.95
-                    </span>
-                    <span className="font-mono text-[13px] text-secondary-400">
-                      Riwayat Sebelumnya
-                    </span>
+                ) : (
+                  <div className="mb-8 text-sm text-secondary-500">
+                    Belum ada riwayat inspeksi.
                   </div>
-                </div>
+                )}
 
                 <h4 className="mb-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
                   STATUS SMART ESCROW
@@ -221,68 +231,59 @@ export default function PropertyDetailPage({
             Log Inspeksi AI
           </h2>
           <div className="w-full overflow-x-auto bg-white border border-secondary-200 p-4">
-            <table className="w-full border-collapse text-left">
-              <thead>
-                <tr className="border-b border-secondary-300">
-                  <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                    TANGGAL
-                  </th>
-                  <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                    ID BOT INSPEKTUR
-                  </th>
-                  <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                    SKOR INTEGRITAS
-                  </th>
-                  <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
-                    STATUS
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="font-mono text-[13px] text-primary-900">
-                <tr className="border-b border-secondary-200 transition-colors hover:bg-secondary-50">
-                  <td className="px-4 py-4 text-secondary-500">
-                    {new Date().toISOString().split('T')[0]} 08:45
-                  </td>
-                  <td className="px-4 py-4">BOT-VX-991A</td>
-                  <td className="px-4 py-4 text-right font-bold text-primary-900">
-                    0.98
-                  </td>
-                  <td className="px-4 py-4 text-right">
-                    <span className="bg-success-50 px-2 py-1 text-success-700">
-                      TERVERIFIKASI
-                    </span>
-                  </td>
-                </tr>
-                <tr className="border-b border-secondary-200 transition-colors hover:bg-secondary-50">
-                  <td className="px-4 py-4 text-secondary-500">
-                    2024-04-10 14:22
-                  </td>
-                  <td className="px-4 py-4">BOT-VX-991A</td>
-                  <td className="px-4 py-4 text-right font-bold text-primary-900">
-                    0.95
-                  </td>
-                  <td className="px-4 py-4 text-right">
-                    <span className="bg-success-50 px-2 py-1 text-success-700">
-                      TERVERIFIKASI
-                    </span>
-                  </td>
-                </tr>
-                <tr className="transition-colors hover:bg-secondary-50">
-                  <td className="px-4 py-4 text-secondary-500">
-                    2024-03-01 09:15
-                  </td>
-                  <td className="px-4 py-4">BOT-VX-882C</td>
-                  <td className="px-4 py-4 text-right font-bold text-primary-900">
-                    0.92
-                  </td>
-                  <td className="px-4 py-4 text-right">
-                    <span className="bg-secondary-100 px-2 py-1 text-secondary-600">
-                      DIARSIPKAN
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            {inspections.length > 0 ? (
+              <table className="w-full border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-secondary-300">
+                    <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
+                      TANGGAL
+                    </th>
+                    <th className="px-4 py-4 font-mono text-[11px] font-semibold uppercase text-secondary-500">
+                      ID INSPEKSI
+                    </th>
+                    <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
+                      TIPE
+                    </th>
+                    <th className="px-4 py-4 text-right font-mono text-[11px] font-semibold uppercase text-secondary-500">
+                      STATUS
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="font-mono text-[13px] text-primary-900">
+                  {inspections.map((insp: InspectionResponse) => (
+                    <tr
+                      key={insp.id}
+                      className="border-b border-secondary-200 transition-colors hover:bg-secondary-50"
+                    >
+                      <td className="px-4 py-4 text-secondary-500">
+                        {new Date(insp.createdAt).toISOString().split('T')[0]}{' '}
+                        {new Date(insp.createdAt)
+                          .toTimeString()
+                          .split(' ')[0]
+                          .slice(0, 5)}
+                      </td>
+                      <td className="px-4 py-4">
+                        {insp.id.split('-')[0].toUpperCase()}
+                      </td>
+                      <td className="px-4 py-4 text-right font-bold text-primary-900">
+                        {insp.type.toUpperCase()}
+                      </td>
+                      <td className="px-4 py-4 text-right">
+                        <span
+                          className={`px-2 py-1 ${insp.status === 'completed' ? 'bg-success-50 text-success-700' : 'bg-secondary-100 text-secondary-600'}`}
+                        >
+                          {insp.status.toUpperCase()}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="py-12 text-center text-secondary-500">
+                <p>Belum ada riwayat inspeksi untuk properti ini.</p>
+              </div>
+            )}
           </div>
         </section>
       </main>

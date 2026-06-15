@@ -101,6 +101,22 @@ export default function ContractPage({ params }: ContractPageProps) {
     }
   };
 
+  const handleGenerate = async () => {
+    if (!contract) return;
+    setActionLoading(true);
+    setErrorMessage('');
+    try {
+      await api.contracts.generate(contract.bookingId);
+      await loadData(); // Reload updated contract
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error ? err.message : 'Gagal menghasilkan kontrak';
+      setErrorMessage(msg);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   if (isPending || loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -140,8 +156,9 @@ export default function ContractPage({ params }: ContractPageProps) {
       ? contract.signedByLandlord
       : false;
   const canUserSign =
-    (isUserTenant && !contract.signedByTenant) ||
-    (isUserLandlord && !contract.signedByLandlord);
+    !!contract.contractText &&
+    ((isUserTenant && !contract.signedByTenant) ||
+      (isUserLandlord && !contract.signedByLandlord));
 
   // Status mapping
   const statusLabels = {
@@ -314,6 +331,22 @@ export default function ContractPage({ params }: ContractPageProps) {
           </div>
 
           <div className="flex gap-3 w-full sm:w-auto">
+            {isUserLandlord && !contract.contractText && (
+              <button
+                onClick={handleGenerate}
+                disabled={actionLoading}
+                className="w-full sm:w-auto px-8 py-3.5 bg-primary-600 text-white rounded-xl font-bold text-sm shadow-md hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
+              >
+                {actionLoading ? (
+                  'Menghasilkan...'
+                ) : (
+                  <>
+                    <span>🤖</span> Buat Kontrak dengan AI
+                  </>
+                )}
+              </button>
+            )}
+
             {canUserSign ? (
               <button
                 onClick={handleSign}

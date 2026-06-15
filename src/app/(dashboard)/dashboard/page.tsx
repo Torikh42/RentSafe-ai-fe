@@ -3,6 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
   Loader2,
   Plus,
@@ -12,8 +13,33 @@ import {
   Wrench,
   DollarSign,
   Settings,
+  Calendar,
+  FileText,
+  User,
+  Home,
 } from 'lucide-react';
 import { useSession } from '@/lib/auth-client';
+import { api } from '@/lib/api';
+
+interface RentalBooking {
+  id: string;
+  propertyId: string;
+  userId: string;
+  startDate: string;
+  endDate: string;
+  status: 'pending' | 'approved' | 'rejected' | 'cancelled';
+  createdAt: string;
+  property?: {
+    id: string;
+    name: string;
+    address: string;
+    price: number;
+  };
+  landlord?: {
+    id: string;
+    name: string;
+  };
+}
 
 import {
   useGetMyProperties,
@@ -239,6 +265,185 @@ function TenantsView() {
           </table>
         </div>
       </div>
+    </div>
+  );
+}
+
+function RentalsView() {
+  const [rentals, setRentals] = useState<RentalBooking[]>([]);
+  const [contractsMap, setContractsMap] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const bookingsRes = await api.bookings.listMy();
+        setRentals((bookingsRes.data as unknown as RentalBooking[]) || []);
+
+        const contractsRes = await api.contracts.listMy();
+        const mapping: Record<string, string> = {};
+        if (contractsRes.data) {
+          (
+            contractsRes.data as Array<{ id: string; bookingId?: string }>
+          ).forEach((c) => {
+            if (c.bookingId) mapping[c.bookingId] = c.id;
+          });
+        }
+        setContractsMap(mapping);
+      } catch (err: unknown) {
+        const msg =
+          err instanceof Error
+            ? err.message
+            : 'Failed to fetch rentals history';
+        setError(msg);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary-500" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 text-red-600 p-6 rounded-xl border border-red-100">
+        {error}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {rentals.length === 0 ? (
+        <div className="rounded-2xl border border-secondary-100 bg-white p-12 text-center shadow-sm">
+          <Home className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-secondary-900">
+            No Rented Properties
+          </h3>
+          <p className="text-sm text-secondary-500 mt-2">
+            You haven&apos;t rented or booked any properties yet.
+          </p>
+          <Link
+            href="/"
+            className="mt-4 inline-flex items-center px-4 py-2 bg-primary-500 text-white rounded-lg text-sm font-semibold hover:bg-primary-600"
+          >
+            Discover Properties
+          </Link>
+        </div>
+      ) : (
+        <div className="grid gap-6">
+          {rentals.map((rental) => {
+            const prop = rental.property;
+            const contractId = contractsMap[rental.id];
+            return (
+              <div
+                key={rental.id}
+                className="rounded-2xl border border-secondary-100 bg-white p-6 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="flex flex-col md:flex-row justify-between gap-6">
+                  <div className="space-y-4 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                          rental.status === 'approved'
+                            ? 'bg-success-50 text-success-700'
+                            : rental.status === 'pending'
+                              ? 'bg-warning-50 text-warning-700'
+                              : 'bg-secondary-100 text-secondary-700'
+                        }`}
+                      >
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            rental.status === 'approved'
+                              ? 'bg-success-500'
+                              : rental.status === 'pending'
+                                ? 'bg-warning-500'
+                                : 'bg-secondary-400'
+                          }`}
+                        />
+                        <span className="capitalize">{rental.status}</span>
+                      </span>
+                      <span className="text-xs text-secondary-500">
+                        Booked on{' '}
+                        {new Date(rental.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-bold text-secondary-900 flex items-center gap-2">
+                        <Home className="w-5 h-5 text-secondary-400" />
+                        {prop?.name || 'Unknown Property'}
+                      </h3>
+                      <p className="text-sm text-secondary-500 mt-1 pl-7">
+                        {prop?.address}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-secondary-100">
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-secondary-500 mb-1">
+                          Monthly Rent
+                        </p>
+                        <div className="flex items-center gap-1 text-sm text-secondary-900 font-bold">
+                          <DollarSign className="w-4 h-4 text-secondary-400" />
+                          Rp {(prop?.price || 0).toLocaleString('id-ID')}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-secondary-500 mb-1">
+                          Rental Period
+                        </p>
+                        <div className="flex items-center gap-2 text-sm font-medium text-secondary-900">
+                          <Calendar className="w-4 h-4 text-secondary-400" />
+                          {new Date(rental.startDate).toLocaleDateString()} -{' '}
+                          {new Date(rental.endDate).toLocaleDateString()}
+                        </div>
+                      </div>
+                      {rental.landlord && (
+                        <div>
+                          <p className="text-xs font-semibold uppercase text-secondary-500 mb-1">
+                            Landlord
+                          </p>
+                          <div className="flex items-center gap-2 text-sm text-secondary-900">
+                            <User className="w-4 h-4 text-secondary-400" />
+                            <span className="font-medium">
+                              {rental.landlord.name}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center border-t md:border-t-0 md:border-l border-secondary-100 pt-4 md:pt-0 md:pl-6 min-w-[180px]">
+                    {contractId ? (
+                      <Link
+                        href={`/contracts/${contractId}`}
+                        className="w-full inline-flex justify-center items-center gap-2 rounded-xl bg-primary-50 px-4 py-2.5 text-sm font-bold text-primary-700 transition-all hover:bg-primary-100"
+                      >
+                        <FileText className="h-4 w-4" /> View AI Contract
+                      </Link>
+                    ) : (
+                      <div className="text-xs text-secondary-400 text-center py-2 font-mono uppercase tracking-widest">
+                        Wait for AI contract draft
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -694,6 +899,30 @@ function SettingsView() {
   );
 }
 
+interface StatsData {
+  properties: Array<{
+    available: boolean;
+    price: number;
+    name?: string;
+    address?: string;
+  }>;
+  bookings: Array<{
+    status: string;
+    startDate: string;
+    endDate: string;
+    createdAt: string;
+    property?: { name: string; price: number };
+    tenant?: { name: string };
+    landlord?: { name: string };
+  }>;
+  contracts: Array<{
+    status: string;
+    signedByTenant: boolean;
+    createdAt: string;
+    property?: { name: string };
+  }>;
+}
+
 function DashboardContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -704,6 +933,7 @@ function DashboardContent() {
     | 'overview'
     | 'properties'
     | 'tenants'
+    | 'rentals'
     | 'maintenance'
     | 'financials'
     | 'settings';
@@ -722,12 +952,23 @@ function DashboardContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterAvailable, setFilterAvailable] = useState<boolean | null>(null);
 
+  const [stats, setStats] = useState<StatsData | null>(null);
+
+  useEffect(() => {
+    if (session) {
+      api.statistics
+        .get()
+        .then((res) => setStats(res.data as unknown as StatsData));
+    }
+  }, [session]);
+
   // Sync tab state with query parameters
   useEffect(() => {
     const tabParam = searchParams.get('tab');
     const validTabs: DashboardTab[] = [
       'properties',
       'tenants',
+      'rentals',
       'maintenance',
       'financials',
       'settings',
@@ -740,8 +981,6 @@ function DashboardContent() {
   }, [searchParams]);
 
   const allProperties = propertiesResponse?.data ?? [];
-  const totalProperties = allProperties.length;
-  const activeLeases = allProperties.filter((p) => !p.available).length;
 
   const filteredProperties = allProperties.filter((p) => {
     const matchSearch =
@@ -807,6 +1046,12 @@ function DashboardContent() {
       label: 'Tenants',
       icon: <Users className="h-3.5 w-3.5" />,
       roles: ['landlord', 'admin'],
+    },
+    {
+      id: 'rentals',
+      label: 'My Rentals',
+      icon: <Building2 className="h-3.5 w-3.5" />,
+      roles: ['tenant'],
     },
     {
       id: 'maintenance',
@@ -892,8 +1137,10 @@ function DashboardContent() {
       {/* Content Panels */}
       {activeTab === 'overview' && (
         <OverviewContent
-          totalProperties={totalProperties}
-          activeLeases={activeLeases}
+          userRole={userRole}
+          properties={stats?.properties || []}
+          bookings={stats?.bookings || []}
+          contracts={stats?.contracts || []}
           onAddPropertyClick={handleOpenCreate}
         />
       )}
@@ -921,6 +1168,8 @@ function DashboardContent() {
       )}
 
       {activeTab === 'tenants' && <TenantsView />}
+
+      {activeTab === 'rentals' && <RentalsView />}
 
       {activeTab === 'maintenance' && <MaintenanceView />}
 

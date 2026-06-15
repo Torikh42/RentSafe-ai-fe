@@ -47,9 +47,9 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Contracts',
-    href: '/landlord/contracts',
+    href: '/contracts',
     icon: <FileText className="w-4 h-4" />,
-    roles: ['landlord'],
+    roles: ['landlord', 'tenant', 'admin'],
   },
   {
     label: 'Tenants',

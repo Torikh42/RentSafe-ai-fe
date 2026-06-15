@@ -36,3 +36,15 @@ export function usePropertySearch(
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
+
+export function usePropertyInspections(propertyId: string | null) {
+  return useQuery({
+    queryKey: ['properties', propertyId, 'inspections'],
+    queryFn: () =>
+      propertyId
+        ? api.inspections.getByProperty(propertyId)
+        : Promise.reject('No Property ID'),
+    enabled: !!propertyId,
+    staleTime: 5 * 60 * 1000,
+  });
+}

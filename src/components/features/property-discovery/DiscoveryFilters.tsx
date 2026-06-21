@@ -3,7 +3,6 @@ interface DiscoveryFiltersProps {
   setSearchQuery: (query: string) => void;
   available: boolean | undefined;
   setAvailable: (val: boolean | undefined) => void;
-  setPage: (page: number) => void;
 }
 
 export function DiscoveryFilters({
@@ -11,7 +10,6 @@ export function DiscoveryFilters({
   setSearchQuery,
   available,
   setAvailable,
-  setPage,
 }: DiscoveryFiltersProps) {
   return (
     <div className="mb-16 grid grid-cols-12 gap-8">
@@ -32,7 +30,6 @@ export function DiscoveryFilters({
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  setPage(1);
                 }}
                 className="w-full appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0"
               />
@@ -75,7 +72,6 @@ export function DiscoveryFilters({
                 onChange={(e) => {
                   const val = e.target.value;
                   setAvailable(val === '' ? undefined : val === 'true');
-                  setPage(1);
                 }}
                 className="w-full cursor-pointer appearance-none border-b border-secondary-300 bg-transparent px-0 py-2 font-sans text-base text-primary-900 focus:border-b-2 focus:border-primary-500 focus:ring-0"
               >

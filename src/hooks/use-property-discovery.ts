@@ -1,12 +1,15 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 
-export function usePropertiesList(page: number = 1, limit: number = 12) {
-  return useQuery({
-    queryKey: ['properties', 'list', page, limit],
-    queryFn: () => api.properties.list(page, limit),
+export function usePropertiesList(limit: number = 12) {
+  return useInfiniteQuery({
+    queryKey: ['properties', 'list', limit],
+    queryFn: ({ pageParam }) =>
+      api.properties.list(pageParam as string | undefined, limit),
+    getNextPageParam: (lastPage) => lastPage.pagination.nextCursor || undefined,
+    initialPageParam: undefined as string | undefined,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
@@ -24,12 +27,19 @@ export function usePropertyDetail(id: string | null) {
 export function usePropertySearch(
   query: string,
   filters?: { minPrice?: number; maxPrice?: number; available?: boolean },
-  page: number = 1,
   limit: number = 12
 ) {
-  return useQuery({
-    queryKey: ['properties', 'search', query, filters, page, limit],
-    queryFn: () => api.properties.search(query, filters, page, limit),
+  return useInfiniteQuery({
+    queryKey: ['properties', 'search', query, filters, limit],
+    queryFn: ({ pageParam }) =>
+      api.properties.search(
+        query,
+        filters,
+        pageParam as string | undefined,
+        limit
+      ),
+    getNextPageParam: (lastPage) => lastPage.pagination.nextCursor || undefined,
+    initialPageParam: undefined as string | undefined,
     enabled:
       !!query ||
       (filters && Object.values(filters).some((v) => v !== undefined)),

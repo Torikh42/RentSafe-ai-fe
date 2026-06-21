@@ -53,12 +53,8 @@ export interface PropertyListResponse {
   message: string;
   data: Property[];
   pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
+    nextCursor: string | null;
     hasNext: boolean;
-    hasPrev: boolean;
   };
 }
 
@@ -76,16 +72,20 @@ export interface PropertyDetailResponse {
 // API methods
 export const api = {
   properties: {
-    list: (page: number = 1, limit: number = 12) =>
-      fetchApi<PropertyListResponse>(
-        `/api/properties?page=${page}&limit=${limit}`
-      ),
+    list: (cursor?: string, limit: number = 12) => {
+      const params = new URLSearchParams();
+      if (cursor) params.append('cursor', cursor);
+      params.append('limit', String(limit));
+      return fetchApi<PropertyListResponse>(
+        `/api/properties?${params.toString()}`
+      );
+    },
     getDetail: (id: string) =>
       fetchApi<PropertyDetailResponse>(`/api/properties/${id}`),
     search: (
       query: string,
       filters?: { minPrice?: number; maxPrice?: number; available?: boolean },
-      page: number = 1,
+      cursor?: string,
       limit: number = 12
     ) => {
       const params = new URLSearchParams();
@@ -96,7 +96,7 @@ export const api = {
         params.append('maxPrice', String(filters.maxPrice));
       if (filters?.available !== undefined)
         params.append('available', String(filters.available));
-      params.append('page', String(page));
+      if (cursor) params.append('cursor', cursor);
       params.append('limit', String(limit));
       return fetchApi<PropertyListResponse>(
         `/api/properties/search?${params.toString()}`

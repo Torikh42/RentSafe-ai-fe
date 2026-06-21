@@ -51,10 +51,11 @@ export function PropertyDiscoveryClient({
   const listQuery = usePropertiesList(limit);
 
   const currentQuery = hasActiveFilters ? searchQuery_use : listQuery;
-  
+
   // Flatten pages for infinite scroll
-  const properties = currentQuery.data?.pages.flatMap((page) => page.data) || 
-                     (!currentQuery.isFetching && initialData ? initialData.data : []);
+  const properties =
+    currentQuery.data?.pages.flatMap((page) => page.data) ||
+    (!currentQuery.isFetching && initialData ? initialData.data : []);
 
   const isLoading = currentQuery.isLoading && properties.length === 0;
 

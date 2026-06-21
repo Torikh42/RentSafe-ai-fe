@@ -6,7 +6,8 @@ import { api } from '@/lib/api';
 export function usePropertiesList(limit: number = 12) {
   return useInfiniteQuery({
     queryKey: ['properties', 'list', limit],
-    queryFn: ({ pageParam }) => api.properties.list(pageParam as string | undefined, limit),
+    queryFn: ({ pageParam }) =>
+      api.properties.list(pageParam as string | undefined, limit),
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor || undefined,
     initialPageParam: undefined as string | undefined,
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -30,7 +31,13 @@ export function usePropertySearch(
 ) {
   return useInfiniteQuery({
     queryKey: ['properties', 'search', query, filters, limit],
-    queryFn: ({ pageParam }) => api.properties.search(query, filters, pageParam as string | undefined, limit),
+    queryFn: ({ pageParam }) =>
+      api.properties.search(
+        query,
+        filters,
+        pageParam as string | undefined,
+        limit
+      ),
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor || undefined,
     initialPageParam: undefined as string | undefined,
     enabled:

@@ -24,7 +24,7 @@ export default async function PropertiesListingPage({
       );
     } else {
       initialData = await fetchApi<PropertyListResponse>(
-        `/api/properties?page=1&limit=12`
+        `/api/properties?limit=12`
       );
     }
   } catch (error) {
@@ -34,12 +34,8 @@ export default async function PropertiesListingPage({
       message: 'Error',
       data: [],
       pagination: {
-        page: 1,
-        limit: 12,
-        total: 0,
-        totalPages: 0,
+        nextCursor: null,
         hasNext: false,
-        hasPrev: false,
       },
     };
   }

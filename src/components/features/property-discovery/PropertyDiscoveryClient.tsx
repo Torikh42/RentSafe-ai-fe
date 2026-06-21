@@ -7,6 +7,7 @@ import {
 } from '@/hooks/use-property-discovery';
 import { Navbar } from '@/components/navbar';
 import type { PropertyListResponse } from '@/lib/api';
+import { useDebounce } from '@/hooks/use-debounce';
 import { DiscoveryFilters } from './DiscoveryFilters';
 import { DiscoveryPropertyCard } from './DiscoveryPropertyCard';
 
@@ -26,42 +27,43 @@ export function PropertyDiscoveryClient({
   initialAvailable,
 }: PropertyDiscoveryClientProps) {
   const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
   const [minPrice] = useState<number | undefined>(initialMinPrice);
   const [maxPrice] = useState<number | undefined>(initialMaxPrice);
   const [available, setAvailable] = useState<boolean | undefined>(
     initialAvailable
   );
-  const [page, setPage] = useState(1);
   const limit = 12;
 
   const hasActiveFilters =
-    searchQuery ||
+    debouncedSearchQuery ||
     minPrice !== undefined ||
     maxPrice !== undefined ||
     available !== undefined;
 
   const searchQuery_use = usePropertySearch(
-    searchQuery,
+    debouncedSearchQuery,
     { minPrice, maxPrice, available },
-    page,
     limit
   );
 
-  const listQuery = usePropertiesList(page, limit);
+  const listQuery = usePropertiesList(limit);
 
   const currentQuery = hasActiveFilters ? searchQuery_use : listQuery;
-  const currentData =
-    currentQuery.data ||
-    (page === 1 && !currentQuery.isFetching ? initialData : null);
-  const isLoading = currentQuery.isLoading && !currentData;
+  
+  // Flatten pages for infinite scroll
+  const properties = currentQuery.data?.pages.flatMap((page) => page.data) || 
+                     (!currentQuery.isFetching && initialData ? initialData.data : []);
 
-  const properties = currentData?.data || [];
-  const pagination = currentData?.pagination;
-  const hasMore = pagination?.hasNext || false;
+  const isLoading = currentQuery.isLoading && properties.length === 0;
+
+  // The last page determines if there is more data
+  const hasMore = currentQuery.hasNextPage || false;
 
   const handleLoadMore = useCallback(() => {
-    setPage((prev) => prev + 1);
-  }, []);
+    currentQuery.fetchNextPage();
+  }, [currentQuery]);
 
   return (
     <main className="flex min-h-screen flex-col bg-secondary-50 font-sans text-primary-900 selection:bg-primary-500 selection:text-white antialiased">
@@ -81,7 +83,6 @@ export function PropertyDiscoveryClient({
           setSearchQuery={setSearchQuery}
           available={available}
           setAvailable={setAvailable}
-          setPage={setPage}
         />
 
         <div className="grid grid-cols-12 gap-8">

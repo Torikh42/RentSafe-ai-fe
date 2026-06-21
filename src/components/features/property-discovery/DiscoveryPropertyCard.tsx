@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface PropertyItem {
   id: string;
@@ -23,12 +24,13 @@ export function DiscoveryPropertyCard({
       animate={{ opacity: 1, y: 0 }}
       className="group flex flex-col items-start gap-6 border-t border-secondary-300 py-8 transition-colors duration-200 hover:bg-white md:flex-row md:items-center"
     >
-      <div className="h-32 w-full shrink-0 overflow-hidden rounded bg-secondary-200 md:w-48">
+      <div className="relative h-32 w-full shrink-0 overflow-hidden rounded bg-secondary-200 md:w-48">
         {property.image ? (
-          <img
+          <Image
             src={property.image}
             alt={property.name}
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center font-mono text-[10px] text-secondary-400">

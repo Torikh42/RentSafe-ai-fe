@@ -77,7 +77,8 @@ export function PaymentCheckout({
       });
     } catch (err: unknown) {
       console.error(err);
-      const msg = err instanceof Error ? err.message : 'Gagal memulai pembayaran.';
+      const msg =
+        err instanceof Error ? err.message : 'Gagal memulai pembayaran.';
       setError(msg);
       setLoading(false);
     }
@@ -97,7 +98,8 @@ export function PaymentCheckout({
           Selesaikan Pembayaran Anda
         </h1>
         <p className="text-secondary-600 max-w-2xl mx-auto">
-          Dana Anda akan disimpan dengan aman di escrow kami hingga Anda mengonfirmasi check-in di properti.
+          Dana Anda akan disimpan dengan aman di escrow kami hingga Anda
+          mengonfirmasi check-in di properti.
         </p>
       </div>
 
@@ -135,9 +137,7 @@ export function PaymentCheckout({
               <p className="text-secondary-900 font-medium mb-1">
                 {property.name}
               </p>
-              <p className="text-secondary-600 text-sm">
-                {property.address}
-              </p>
+              <p className="text-secondary-600 text-sm">{property.address}</p>
             </div>
           </div>
         </div>
@@ -169,7 +169,9 @@ export function PaymentCheckout({
 
           <div className="border-t border-secondary-200 pt-4 mb-8">
             <div className="flex justify-between items-center">
-              <span className="font-bold text-primary-900">Total Pembayaran</span>
+              <span className="font-bold text-primary-900">
+                Total Pembayaran
+              </span>
               <span className="font-mono font-bold text-lg text-primary-900">
                 Rp {totalAmount.toLocaleString('id-ID')}
               </span>
@@ -193,7 +195,7 @@ export function PaymentCheckout({
               <>💳 Bayar dengan Midtrans</>
             )}
           </button>
-          
+
           <p className="text-xs text-center text-secondary-500 mt-4">
             Pembayaran diproses dengan aman oleh Midtrans
           </p>

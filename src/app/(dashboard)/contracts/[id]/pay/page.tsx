@@ -77,7 +77,7 @@ export default function PayContractPage({ params }: PayContractPageProps) {
     );
   }
 
-  // Only the tenant should be able to pay. 
+  // Only the tenant should be able to pay.
   // Wait, if it's already active, no need to pay.
   if (contract.status === 'active') {
     return (
@@ -114,7 +114,7 @@ export default function PayContractPage({ params }: PayContractPageProps) {
             <span>Pembayaran</span>
           </div>
         </div>
-        <Link 
+        <Link
           href={`/contracts/${id}`}
           className="text-sm font-semibold text-primary-600 hover:text-primary-800"
         >

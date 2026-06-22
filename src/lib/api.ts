@@ -152,6 +152,15 @@ export const api = {
     getFairness: (id: string) =>
       fetchApi<FairnessResponse>(`/api/contracts/${id}/fairness`),
   },
+  escrows: {
+    pay: (contractId: string) =>
+      fetchApi<{
+        paymentUrl: string;
+        token: string;
+      }>(`/api/escrows/${contractId}/pay`, {
+        method: 'POST',
+      }),
+  },
   statistics: {
     get: () => fetchApi<{ message: string; data: unknown }>('/api/statistics'),
   },

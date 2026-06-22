@@ -203,6 +203,7 @@ export default function ContractPage({ params }: ContractPageProps) {
         canUserSign={canUserSign}
         hasUserSigned={hasUserSigned}
         actionLoading={actionLoading}
+        contractId={contract.id}
         onGenerate={handleGenerate}
         onSign={handleSign}
       />

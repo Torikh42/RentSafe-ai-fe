@@ -7,6 +7,7 @@ interface ContractStickyActionsProps {
   canUserSign: boolean;
   hasUserSigned: boolean;
   actionLoading: boolean;
+  contractId: string;
   onGenerate: () => Promise<void>;
   onSign: () => Promise<void>;
 }
@@ -20,6 +21,7 @@ export function ContractStickyActions({
   canUserSign,
   hasUserSigned,
   actionLoading,
+  contractId,
   onGenerate,
   onSign,
 }: ContractStickyActionsProps) {
@@ -34,6 +36,10 @@ export function ContractStickyActions({
             {status === 'active' ? (
               <span className="font-sans text-green-700 font-bold">
                 Kontrak Aktif & Telah Ditandatangani
+              </span>
+            ) : status === 'pending_payment' ? (
+              <span className="font-sans text-accent-600 font-bold">
+                Menunggu Pembayaran
               </span>
             ) : (
               <span className="font-sans text-secondary-600">
@@ -76,6 +82,13 @@ export function ContractStickyActions({
                 </>
               )}
             </button>
+          ) : status === 'pending_payment' && !isUserLandlord ? (
+            <a
+              href={`/contracts/${contractId}/pay`}
+              className="w-full sm:w-auto px-8 py-3.5 bg-primary-600 text-white rounded-xl font-bold text-sm shadow-md hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
+            >
+              <span>💳</span> Bayar Sekarang
+            </a>
           ) : hasUserSigned ? (
             <div className="px-6 py-3 bg-secondary-100 text-secondary-600 font-bold text-sm rounded-xl">
               Telah Anda Tandatangani ✓

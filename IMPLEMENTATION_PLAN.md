@@ -11,17 +11,17 @@
 | #   | Fitur                                            | Status   | Priority |
 | --- | ------------------------------------------------ | -------- | -------- |
 | 1   | **Landing Page & Marketing**                     | ✅ Ada   | P0       |
-| 2   | **Authentication UI** (Login, Register, OAuth)   | ❌ Belum | P0       |
-| 3   | **Property Discovery** (Search, Filter, Listing) | ❌ Belum | P0       |
-| 4   | **Property Detail View**                         | ❌ Belum | P0       |
-| 5   | **Booking System UI**                            | ❌ Belum | P0       |
-| 6   | **Smart Contract Interface**                     | ❌ Belum | P0       |
-| 7   | **AI Property Inspection Upload**                | ❌ Belum | P1       |
-| 8   | **Dashboard (Tenant & Landlord)**                | ❌ Belum | P1       |
+| 2   | **Authentication UI** (Login, Register, OAuth)   | ✅ Selesai | P0       |
+| 3   | **Property Discovery** (Search, Filter, Listing) | ✅ Selesai | P0       |
+| 4   | **Property Detail View**                         | ✅ Selesai | P0       |
+| 5   | **Booking System UI**                            | ✅ Selesai | P0       |
+| 6   | **Smart Contract Interface**                     | ✅ Selesai | P0       |
+| 7   | **AI Property Inspection Upload**                | ✅ Selesai | P1       |
+| 8   | **Dashboard (Tenant & Landlord)**                | ✅ Selesai | P1       |
 | 9   | **Escrow & Payment UI**                          | ❌ Belum | P1       |
 | 10  | **Dispute Resolution Interface**                 | ❌ Belum | P2       |
 | 11  | **AI Chat Interface**                            | ❌ Belum | P2       |
-| 12  | **Reputation & Reviews**                         | ❌ Belum | P2       |
+| 11  | **Reputation & Reviews**                         | ❌ Belum | P2       |
 
 ---
 
@@ -463,7 +463,7 @@ components/features/reviews/
 
 ### **PHASE 6: Payments & Polish (Week 11-12)**
 
-**Goal:** Escrow UI, Midtrans Integration, Notifications, Polish
+**Goal:** Escrow UI, Midtrans Integration, Polish
 
 #### **6.1 Escrow & Payment UI** 🔲 TODO
 
@@ -500,28 +500,7 @@ components/features/payments/
 
 ---
 
-#### **6.2 Notification System** 🔲 TODO
-
-**Components:**
-
-```
-components/features/notifications/
-├── NotificationBell.tsx
-├── NotificationList.tsx
-├── NotificationItem.tsx
-└── NotificationPreferences.tsx
-```
-
-**Tasks:**
-
-- [ ] Notification bell dengan unread count
-- [ ] Notification dropdown/panel
-- [ ] Mark as read functionality
-- [ ] Notification preferences settings
-
----
-
-#### **6.3 Polish & Performance** 🔲 TODO
+#### **6.2 Polish & Performance** 🔲 TODO
 
 **Tasks:**
 

@@ -28,7 +28,10 @@ export function EscrowTimeline({ escrow, formatDate }: EscrowTimelineProps) {
     },
     {
       label: 'Funds Distributed',
-      description: escrow.status === 'refunded' ? 'Funds refunded to tenant.' : 'Funds released to landlord.',
+      description:
+        escrow.status === 'refunded'
+          ? 'Funds refunded to tenant.'
+          : 'Funds released to landlord.',
       completed: ['released', 'refunded'].includes(escrow.status),
       date: escrow.releasedAt,
     },
@@ -36,7 +39,9 @@ export function EscrowTimeline({ escrow, formatDate }: EscrowTimelineProps) {
 
   return (
     <div className="rounded-2xl border border-secondary-100 bg-white p-6 shadow-sm mt-6">
-      <h3 className="text-lg font-bold text-secondary-900 mb-6">Escrow Timeline</h3>
+      <h3 className="text-lg font-bold text-secondary-900 mb-6">
+        Escrow Timeline
+      </h3>
       <div className="relative border-l-2 border-secondary-100 ml-3 space-y-8 pb-4">
         {steps.map((step) => {
           return (
@@ -53,10 +58,14 @@ export function EscrowTimeline({ escrow, formatDate }: EscrowTimelineProps) {
                 )}
               </div>
               <div className="flex flex-col">
-                <h4 className={`text-sm font-bold ${step.completed ? 'text-secondary-900' : 'text-secondary-400'}`}>
+                <h4
+                  className={`text-sm font-bold ${step.completed ? 'text-secondary-900' : 'text-secondary-400'}`}
+                >
                   {step.label}
                 </h4>
-                <p className="text-sm text-secondary-500 mt-1">{step.description}</p>
+                <p className="text-sm text-secondary-500 mt-1">
+                  {step.description}
+                </p>
                 {step.date && (
                   <p className="text-xs font-semibold text-secondary-400 mt-2">
                     {formatDate(step.date)}

@@ -31,7 +31,7 @@ export default function EscrowDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const { data: session, isPending: sessionPending } = useSession();
-  
+
   const [escrow, setEscrow] = useState<EscrowDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +43,9 @@ export default function EscrowDetailPage() {
       const res = await api.escrows.getDetail(id);
       setEscrow(res);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to load escrow details');
+      setError(
+        err instanceof Error ? err.message : 'Failed to load escrow details'
+      );
     } finally {
       setLoading(false);
     }
@@ -80,49 +82,60 @@ export default function EscrowDetailPage() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto py-8 px-4">
       <div>
-        <Link href="/payments" className="inline-flex items-center gap-2 text-sm font-medium text-secondary-500 hover:text-secondary-900 mb-4 transition-colors">
+        <Link
+          href="/payments"
+          className="inline-flex items-center gap-2 text-sm font-medium text-secondary-500 hover:text-secondary-900 mb-4 transition-colors"
+        >
           <ArrowLeft className="w-4 h-4" /> Back to Payments
         </Link>
-        <h1 className="text-2xl font-bold text-secondary-900">Escrow Details</h1>
-        <p className="text-secondary-500 text-sm mt-1">
-          ID: {escrow.id}
-        </p>
+        <h1 className="text-2xl font-bold text-secondary-900">
+          Escrow Details
+        </h1>
+        <p className="text-secondary-500 text-sm mt-1">ID: {escrow.id}</p>
       </div>
 
       <EscrowStatusCard escrow={escrow} formatCurrency={formatCurrency} />
-      
+
       <div className="grid md:grid-cols-2 gap-6 mt-6">
         <EscrowTimeline escrow={escrow} formatDate={formatDate} />
-        
+
         {/* Contract Info Summary */}
         <div className="rounded-2xl border border-secondary-100 bg-white p-6 shadow-sm mt-6">
-          <h3 className="text-lg font-bold text-secondary-900 mb-4">Related Contract</h3>
+          <h3 className="text-lg font-bold text-secondary-900 mb-4">
+            Related Contract
+          </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-secondary-100 pb-3">
               <div className="flex items-center gap-2 text-secondary-600">
                 <FileText className="w-4 h-4" />
                 <span className="text-sm font-semibold">Contract Status</span>
               </div>
-              <span className="text-sm font-bold text-secondary-900 capitalize">{escrow.contract.status.replace('_', ' ')}</span>
+              <span className="text-sm font-bold text-secondary-900 capitalize">
+                {escrow.contract.status.replace('_', ' ')}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between border-b border-secondary-100 pb-3">
               <div className="flex items-center gap-2 text-secondary-600">
                 <Home className="w-4 h-4" />
                 <span className="text-sm font-semibold">Monthly Rent</span>
               </div>
-              <span className="text-sm font-bold text-secondary-900">{formatCurrency(escrow.contract.monthlyRent)}</span>
+              <span className="text-sm font-bold text-secondary-900">
+                {formatCurrency(escrow.contract.monthlyRent)}
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between pb-1">
               <div className="flex items-center gap-2 text-secondary-600">
                 <User className="w-4 h-4" />
                 <span className="text-sm font-semibold">Deposit Amount</span>
               </div>
-              <span className="text-sm font-bold text-secondary-900">{formatCurrency(escrow.contract.depositAmount)}</span>
+              <span className="text-sm font-bold text-secondary-900">
+                {formatCurrency(escrow.contract.depositAmount)}
+              </span>
             </div>
           </div>
-          
+
           <Link
             href={`/contracts/${escrow.contractId}`}
             className="mt-6 w-full inline-flex justify-center items-center gap-2 rounded-xl bg-secondary-50 px-4 py-2.5 text-sm font-semibold text-secondary-700 transition-all hover:bg-secondary-100"

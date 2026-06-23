@@ -18,7 +18,7 @@
 | 6   | **Smart Contract Interface**                     | ✅ Selesai | P0       |
 | 7   | **AI Property Inspection Upload**                | ✅ Selesai | P1       |
 | 8   | **Dashboard (Tenant & Landlord)**                | ✅ Selesai | P1       |
-| 9   | **Escrow & Payment UI**                          | ❌ Belum   | P1       |
+| 9   | **Escrow & Payment UI**                          | 🔄 In Progress | P1       |
 | 10  | **Dispute Resolution Interface**                 | ❌ Belum   | P2       |
 | 11  | **AI Chat Interface**                            | ❌ Belum   | P2       |
 | 11  | **Reputation & Reviews**                         | ❌ Belum   | P2       |
@@ -465,7 +465,7 @@ components/features/reviews/
 
 **Goal:** Escrow UI, Midtrans Integration, Polish
 
-#### **6.1 Escrow & Payment UI** 🔲 TODO
+#### **6.1 Escrow & Payment UI** 🔄 In Progress
 
 **Files:**
 
@@ -493,7 +493,7 @@ components/features/payments/
 **Tasks:**
 
 - [ ] Create escrow status display
-- [ ] Integrate Midtrans Snap.js
+- [x] Integrate Midtrans Snap.js
 - [ ] Create payment history list
 - [ ] Create payment confirmation page
 - [ ] Escrow timeline visualization

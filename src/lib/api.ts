@@ -1,5 +1,7 @@
 import type { InspectionResponse } from '@/types/inspection';
 import type { Property } from '@/types/property';
+import type { PaymentWithEscrow } from '@/types/payment';
+import type { EscrowDetail } from '@/types/escrow';
 import type {
   BookingResponse,
   BookingsListResponse,
@@ -160,6 +162,11 @@ export const api = {
       }>(`/api/escrows/${contractId}/pay`, {
         method: 'POST',
       }),
+    getDetail: (escrowId: string) =>
+      fetchApi<EscrowDetail>(`/api/escrows/${escrowId}`),
+  },
+  payments: {
+    listMy: () => fetchApi<PaymentWithEscrow[]>('/api/payments/my'),
   },
   statistics: {
     get: () => fetchApi<{ message: string; data: unknown }>('/api/statistics'),

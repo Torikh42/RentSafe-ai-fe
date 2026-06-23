@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   Calendar,
   FileText,
+  CreditCard,
 } from 'lucide-react';
 import { signOut } from '@/lib/auth-client';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -45,6 +46,12 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Contracts',
     href: '/contracts',
     icon: <FileText className="w-4 h-4" />,
+    roles: ['landlord', 'tenant', 'admin'],
+  },
+  {
+    label: 'Payments',
+    href: '/payments',
+    icon: <CreditCard className="w-4 h-4" />,
     roles: ['landlord', 'tenant', 'admin'],
   },
 ];

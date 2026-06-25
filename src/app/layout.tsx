@@ -1,24 +1,24 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Fraunces, Geist } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { QueryProvider } from '@/lib/query-provider';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-sans',
 });
 
-const fraunces = Fraunces({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-fraunces',
+  variable: '--font-heading',
 });
 
-const geist = Geist({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-geist',
+  variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${fraunces.variable} ${geist.variable}`}
+      className={`${inter.variable} ${plusJakartaSans.variable} ${spaceGrotesk.variable}`}
     >
       <body className="font-sans antialiased selection:bg-accent-500 selection:text-white">
         <QueryProvider>{children}</QueryProvider>

@@ -9,13 +9,16 @@ export function Footer() {
             RentSafe
           </div>
           <div className="flex gap-8 text-sm text-foreground-muted">
-            <Link href="#" className="hover:text-primary-500">
-              Twitter
-            </Link>
-            <Link href="#" className="hover:text-primary-500">
+            <Link
+              href="https://www.instagram.com/torikh_abdullah/"
+              className="hover:text-primary-500"
+            >
               Instagram
             </Link>
-            <Link href="#" className="hover:text-primary-500">
+            <Link
+              href="https://www.linkedin.com/in/torikh-abdullah-naser-80a738320/"
+              className="hover:text-primary-500"
+            >
               LinkedIn
             </Link>
           </div>

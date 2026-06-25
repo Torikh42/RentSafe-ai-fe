@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 
@@ -46,8 +47,15 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative mt-8 lg:col-span-7 lg:mt-0 hidden lg:block">
-            {/* Placeholder for Hero Illustration/Graphic */}
+          <div className="relative mt-8 lg:col-span-7 lg:mt-0 hidden lg:block overflow-hidden rounded-xl border border-secondary-200 bg-secondary-100/50">
+            <Image
+              src="/images/hero_image.png"
+              alt="Meja kayu minimalis dengan smartphone"
+              width={1000}
+              height={800}
+              className="h-full w-full object-cover shadow-premium"
+              priority
+            />
           </div>
         </section>
 
@@ -95,8 +103,8 @@ export default function Home() {
         {/* Section 2: Features (Zig-Zag, Tightened) */}
         <section>
           {/* Feature 1: Smart Contracts */}
-          <div className="grid grid-cols-1 items-start gap-8 border-b border-secondary-200 px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
-            <div className="lg:col-span-8 lg:col-start-1 max-w-2xl">
+          <div className="grid grid-cols-1 items-center gap-12 border-b border-secondary-200 px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
+            <div className="lg:col-span-6 lg:col-start-1 max-w-2xl">
               <div className="mb-2 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
                 Infrastruktur Legal
               </div>
@@ -109,11 +117,27 @@ export default function Home() {
                 menghilangkan ambiguitas dan memastikan kepatuhan.
               </p>
             </div>
+            <div className="lg:col-span-6 overflow-hidden rounded-xl border border-secondary-200 shadow-sm relative aspect-[4/3]">
+              <Image
+                src="/images/smart_contract_image.png"
+                alt="Digital smart contract pada tablet"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
 
           {/* Feature 2: AI Inspection */}
-          <div className="grid grid-cols-1 items-start gap-8 border-b border-secondary-200 bg-white px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
-            <div className="lg:col-span-8 lg:col-start-1 max-w-2xl">
+          <div className="grid grid-cols-1 items-center gap-12 border-b border-secondary-200 bg-white px-4 py-16 md:px-12 lg:grid-cols-12 xl:px-16">
+            <div className="order-2 lg:order-1 lg:col-span-6 overflow-hidden rounded-xl border border-secondary-200 shadow-sm relative aspect-[4/3]">
+              <Image
+                src="/images/ai_inspection_image.png"
+                alt="Inspeksi properti menggunakan AI kamera"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="order-1 lg:order-2 lg:col-span-6 max-w-2xl lg:pl-8">
               <div className="mb-2 font-mono text-[10px] font-semibold text-secondary-500 uppercase tracking-widest">
                 Inspeksi_Otomatis
               </div>
